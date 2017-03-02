@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bulletproof-security\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-25 13:31-0800\n"
+"POT-Creation-Date: 2017-02-22 14:30-0800\n"
 "PO-Revision-Date: 2015-06-20 19:13-0800\n"
 "Last-Translator: Ed Alexander <edward@ait-pro.com>\n"
 "Language-Team: AITpro <info@ait-pro.com>\n"
@@ -2247,7 +2247,7 @@ msgstr ""
 msgid "Brute Force Login Page Protection code"
 msgstr ""
 
-#: admin/core/core.php:1460 admin/core/core.php:1824
+#: admin/core/core.php:1460 admin/core/core.php:1826
 #: admin/wizard/wizard.php:818
 msgid "Custom Code Video Tutorial"
 msgstr ""
@@ -2595,59 +2595,60 @@ msgid "BPS Pro Version Release Dates"
 msgstr ""
 
 #: admin/core/core.php:1702 admin/core/core.php:1703 admin/core/core.php:1704
-#: admin/core/core.php:1709 admin/core/core.php:1710 admin/core/core.php:1711
+#: admin/core/core.php:1705 admin/core/core.php:1706 admin/core/core.php:1711
 #: admin/core/core.php:1712 admin/core/core.php:1713 admin/core/core.php:1714
 #: admin/core/core.php:1715 admin/core/core.php:1716 admin/core/core.php:1717
 #: admin/core/core.php:1718 admin/core/core.php:1719 admin/core/core.php:1720
-#: admin/core/core.php:1721 admin/core/core.php:1727 admin/core/core.php:1728
+#: admin/core/core.php:1721 admin/core/core.php:1722 admin/core/core.php:1723
 #: admin/core/core.php:1729 admin/core/core.php:1730 admin/core/core.php:1731
 #: admin/core/core.php:1732 admin/core/core.php:1733 admin/core/core.php:1734
 #: admin/core/core.php:1735 admin/core/core.php:1736 admin/core/core.php:1737
 #: admin/core/core.php:1738 admin/core/core.php:1739 admin/core/core.php:1740
-#: admin/core/core.php:1746 admin/core/core.php:1747 admin/core/core.php:1748
+#: admin/core/core.php:1741 admin/core/core.php:1742 admin/core/core.php:1748
 #: admin/core/core.php:1749 admin/core/core.php:1750 admin/core/core.php:1751
 #: admin/core/core.php:1752 admin/core/core.php:1753 admin/core/core.php:1754
 #: admin/core/core.php:1755 admin/core/core.php:1756 admin/core/core.php:1757
-#: admin/core/core.php:1758 admin/core/core.php:1764 admin/core/core.php:1765
+#: admin/core/core.php:1758 admin/core/core.php:1759 admin/core/core.php:1760
 #: admin/core/core.php:1766 admin/core/core.php:1767 admin/core/core.php:1768
 #: admin/core/core.php:1769 admin/core/core.php:1770 admin/core/core.php:1771
-#: admin/core/core.php:1772 admin/core/core.php:1773 admin/core/core.php:1779
-#: admin/core/core.php:1780 admin/core/core.php:1781 admin/core/core.php:1782
+#: admin/core/core.php:1772 admin/core/core.php:1773 admin/core/core.php:1774
+#: admin/core/core.php:1775 admin/core/core.php:1781 admin/core/core.php:1782
 #: admin/core/core.php:1783 admin/core/core.php:1784 admin/core/core.php:1785
 #: admin/core/core.php:1786 admin/core/core.php:1787 admin/core/core.php:1788
+#: admin/core/core.php:1789 admin/core/core.php:1790
 #, php-format
 msgid ""
 "<a href=\"%2$s\" target=\"_blank\" title=\"Link Opens in New Browser Window"
 "\">Whats New in BPS Pro %1$s</a>"
 msgstr ""
 
-#: admin/core/core.php:1808 admin/maintenance/maintenance.php:2077
+#: admin/core/core.php:1810 admin/maintenance/maintenance.php:2077
 msgid "Help & FAQ"
 msgstr ""
 
-#: admin/core/core.php:1815 admin/login/login.php:1248
+#: admin/core/core.php:1817 admin/login/login.php:1248
 #: admin/maintenance/maintenance.php:2084
 #: admin/security-log/security-log.php:882
 #: admin/system-info/system-info.php:1080
 msgid "Contributors Page"
 msgstr ""
 
-#: admin/core/core.php:1816
+#: admin/core/core.php:1818
 msgid "WP Permalinks - Custom Permalink Structure Help Info"
 msgstr ""
 
-#: admin/core/core.php:1819 admin/login/login.php:1247
+#: admin/core/core.php:1821 admin/login/login.php:1247
 #: admin/maintenance/maintenance.php:2087
 #: admin/security-log/security-log.php:881
 #: admin/system-info/system-info.php:1079
 msgid "Security Log Event Codes"
 msgstr ""
 
-#: admin/core/core.php:1820
+#: admin/core/core.php:1822
 msgid "Adding a Custom 403 Forbidden Page For Your Website"
 msgstr ""
 
-#: admin/core/core.php:1823
+#: admin/core/core.php:1825
 #: admin/db-backup-security/db-backup-security.php:1759
 #: admin/login/login.php:1251 admin/maintenance/maintenance.php:2088
 #: admin/security-log/security-log.php:885
@@ -5058,8 +5059,8 @@ msgid ""
 msgstr ""
 
 #: admin/login/lsm-help-text.php:10 admin/maintenance/maintenance.php:527
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:390
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:391
 msgid "CAUTION: "
 msgstr ""
 
@@ -5860,13 +5861,13 @@ msgstr ""
 
 #: admin/maintenance/maintenance.php:375 admin/maintenance/maintenance.php:395
 #: admin/wizard/wizard.php:131 includes/general-functions.php:509
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:390
-#: includes/hud-dismiss-functions.php:491
-#: includes/hud-dismiss-functions.php:537
-#: includes/hud-dismiss-functions.php:589
-#: includes/hud-dismiss-functions.php:598
-#: includes/hud-dismiss-functions.php:652
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:391
+#: includes/hud-dismiss-functions.php:492
+#: includes/hud-dismiss-functions.php:538
+#: includes/hud-dismiss-functions.php:590
+#: includes/hud-dismiss-functions.php:599
+#: includes/hud-dismiss-functions.php:653
 msgid "Click Here"
 msgstr ""
 
@@ -8078,7 +8079,7 @@ msgid ""
 "file, but was NOT found in BPS Custom Code. "
 msgstr ""
 
-#: admin/wizard/wizard.php:131 includes/hud-dismiss-functions.php:347
+#: admin/wizard/wizard.php:131 includes/hud-dismiss-functions.php:348
 msgid ""
 " for the steps to fix this Wordfence problem before running the Setup Wizard."
 msgstr ""
@@ -8627,7 +8628,7 @@ msgid ""
 msgstr ""
 
 #: includes/functions.php:319 includes/functions.php:510
-#: includes/functions.php:562 includes/hud-dismiss-functions.php:867
+#: includes/functions.php:562 includes/hud-dismiss-functions.php:868
 msgid "Go to the "
 msgstr ""
 
@@ -9256,309 +9257,309 @@ msgstr ""
 msgid "Plugin Folder Path: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:46
+#: includes/hud-dismiss-functions.php:47
 msgid ""
 "WARNING! BPS requires at least PHP5 to function correctly. Your PHP version "
 "is: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:46
+#: includes/hud-dismiss-functions.php:47
 msgid "BPS Guide - PHP5 Solution"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:46
+#: includes/hud-dismiss-functions.php:47
 msgid ""
 "The BPS Guide will open in a new browser window. You will not be directed "
 "away from your WordPress Dashboard."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:68
+#: includes/hud-dismiss-functions.php:69
 msgid ""
 "WARNING! BPS has detected that Safe Mode is set to On in your php.ini file."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:68
+#: includes/hud-dismiss-functions.php:69
 msgid ""
 "If you see errors that BPS was unable to automatically create the backup "
 "folders this is probably the reason why."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:68 includes/hud-dismiss-functions.php:102
-#: includes/hud-dismiss-functions.php:135
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:352
-#: includes/hud-dismiss-functions.php:390
-#: includes/hud-dismiss-functions.php:395
-#: includes/hud-dismiss-functions.php:450
-#: includes/hud-dismiss-functions.php:491
-#: includes/hud-dismiss-functions.php:537
-#: includes/hud-dismiss-functions.php:704
-#: includes/hud-dismiss-functions.php:947
+#: includes/hud-dismiss-functions.php:69 includes/hud-dismiss-functions.php:103
+#: includes/hud-dismiss-functions.php:136
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:353
+#: includes/hud-dismiss-functions.php:391
+#: includes/hud-dismiss-functions.php:396
+#: includes/hud-dismiss-functions.php:451
+#: includes/hud-dismiss-functions.php:492
+#: includes/hud-dismiss-functions.php:538
+#: includes/hud-dismiss-functions.php:705
+#: includes/hud-dismiss-functions.php:948
 msgid ""
 "To Dismiss this Notice click the Dismiss Notice button below. To Reset "
 "Dismiss Notices click the Reset|Recheck Dismiss Notices button on the Custom "
 "Code page."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:68 includes/hud-dismiss-functions.php:102
-#: includes/hud-dismiss-functions.php:135
-#: includes/hud-dismiss-functions.php:201
-#: includes/hud-dismiss-functions.php:216
-#: includes/hud-dismiss-functions.php:222
-#: includes/hud-dismiss-functions.php:228
-#: includes/hud-dismiss-functions.php:234
-#: includes/hud-dismiss-functions.php:248
-#: includes/hud-dismiss-functions.php:254
-#: includes/hud-dismiss-functions.php:259
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:352
-#: includes/hud-dismiss-functions.php:390
-#: includes/hud-dismiss-functions.php:395
-#: includes/hud-dismiss-functions.php:450
-#: includes/hud-dismiss-functions.php:491
-#: includes/hud-dismiss-functions.php:537
-#: includes/hud-dismiss-functions.php:605
-#: includes/hud-dismiss-functions.php:652
-#: includes/hud-dismiss-functions.php:704
-#: includes/hud-dismiss-functions.php:897
-#: includes/hud-dismiss-functions.php:947
+#: includes/hud-dismiss-functions.php:69 includes/hud-dismiss-functions.php:103
+#: includes/hud-dismiss-functions.php:136
+#: includes/hud-dismiss-functions.php:202
+#: includes/hud-dismiss-functions.php:217
+#: includes/hud-dismiss-functions.php:223
+#: includes/hud-dismiss-functions.php:229
+#: includes/hud-dismiss-functions.php:235
+#: includes/hud-dismiss-functions.php:249
+#: includes/hud-dismiss-functions.php:255
+#: includes/hud-dismiss-functions.php:260
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:353
+#: includes/hud-dismiss-functions.php:391
+#: includes/hud-dismiss-functions.php:396
+#: includes/hud-dismiss-functions.php:451
+#: includes/hud-dismiss-functions.php:492
+#: includes/hud-dismiss-functions.php:538
+#: includes/hud-dismiss-functions.php:606
+#: includes/hud-dismiss-functions.php:653
+#: includes/hud-dismiss-functions.php:705
+#: includes/hud-dismiss-functions.php:898
+#: includes/hud-dismiss-functions.php:948
 msgid "Dismiss Notice"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:102
+#: includes/hud-dismiss-functions.php:103
 msgid "HUD Check: Custom Permalinks are NOT being used."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:102
+#: includes/hud-dismiss-functions.php:103
 msgid "It is recommended that you use Custom Permalinks: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:102
+#: includes/hud-dismiss-functions.php:103
 msgid "How to setup Custom Permalinks"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:135
+#: includes/hud-dismiss-functions.php:136
 msgid ""
 "WARNING! BPS has detected that your Server is a Windows IIS Server that does "
 "not support htaccess rewriting."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:135
+#: includes/hud-dismiss-functions.php:136
 msgid "Do NOT activate BulletProof Modes unless you know what you are doing."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:135
+#: includes/hud-dismiss-functions.php:136
 msgid "Your Server Type is: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:135
+#: includes/hud-dismiss-functions.php:136
 msgid "WordPress Codex - Using Permalinks - see IIS section"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:158
-#: includes/hud-dismiss-functions.php:163
+#: includes/hud-dismiss-functions.php:159
+#: includes/hud-dismiss-functions.php:164
 msgid "WARNING! BPS was unable to automatically create the /"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:158
+#: includes/hud-dismiss-functions.php:159
 msgid "/bps-backup folder."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:158
-#: includes/hud-dismiss-functions.php:163
+#: includes/hud-dismiss-functions.php:159
+#: includes/hud-dismiss-functions.php:164
 msgid "You will need to create the /"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:158
+#: includes/hud-dismiss-functions.php:159
 msgid ""
 "/bps-backup folder manually via FTP. The folder permissions for the bps-"
 "backup folder need to be set to 755 in order to successfully perform "
 "permanent online backups."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:158
-#: includes/hud-dismiss-functions.php:163
+#: includes/hud-dismiss-functions.php:159
+#: includes/hud-dismiss-functions.php:164
 msgid "To remove this message permanently click "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:158
-#: includes/hud-dismiss-functions.php:163
+#: includes/hud-dismiss-functions.php:159
+#: includes/hud-dismiss-functions.php:164
 msgid "here."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:163
+#: includes/hud-dismiss-functions.php:164
 msgid "/bps-backup/master-backups folder."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:163
+#: includes/hud-dismiss-functions.php:164
 msgid ""
 "/bps-backup/master-backups folder manually via FTP. The folder permissions "
 "for the master-backups folder need to be set to 755 in order to successfully "
 "perform permanent online backups."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:198
-#: includes/hud-dismiss-functions.php:210
+#: includes/hud-dismiss-functions.php:199
+#: includes/hud-dismiss-functions.php:211
 msgid "Bonus Custom Code:"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:198
-#: includes/hud-dismiss-functions.php:210
+#: includes/hud-dismiss-functions.php:199
+#: includes/hud-dismiss-functions.php:211
 msgid ""
 "Click the links below to get Bonus Custom Code or click the Dismiss Notice "
 "links or click this "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:198
-#: includes/hud-dismiss-functions.php:210
+#: includes/hud-dismiss-functions.php:199
+#: includes/hud-dismiss-functions.php:211
 msgid "Dismiss All Notices"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:198
-#: includes/hud-dismiss-functions.php:210
+#: includes/hud-dismiss-functions.php:199
+#: includes/hud-dismiss-functions.php:211
 msgid ""
 " link. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices "
 "button on the Custom Code page."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:201
-#: includes/hud-dismiss-functions.php:216
-#: includes/hud-dismiss-functions.php:222
-#: includes/hud-dismiss-functions.php:228
-#: includes/hud-dismiss-functions.php:234
-#: includes/hud-dismiss-functions.php:248
-#: includes/hud-dismiss-functions.php:254
-#: includes/hud-dismiss-functions.php:259
+#: includes/hud-dismiss-functions.php:202
+#: includes/hud-dismiss-functions.php:217
+#: includes/hud-dismiss-functions.php:223
+#: includes/hud-dismiss-functions.php:229
+#: includes/hud-dismiss-functions.php:235
+#: includes/hud-dismiss-functions.php:249
+#: includes/hud-dismiss-functions.php:255
+#: includes/hud-dismiss-functions.php:260
 msgid "Get "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:201
-#: includes/hud-dismiss-functions.php:248
+#: includes/hud-dismiss-functions.php:202
+#: includes/hud-dismiss-functions.php:249
 msgid "POST Request Attack Protection Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:201
-#: includes/hud-dismiss-functions.php:216
-#: includes/hud-dismiss-functions.php:222
-#: includes/hud-dismiss-functions.php:228
-#: includes/hud-dismiss-functions.php:234
-#: includes/hud-dismiss-functions.php:248
-#: includes/hud-dismiss-functions.php:254
-#: includes/hud-dismiss-functions.php:259
+#: includes/hud-dismiss-functions.php:202
+#: includes/hud-dismiss-functions.php:217
+#: includes/hud-dismiss-functions.php:223
+#: includes/hud-dismiss-functions.php:229
+#: includes/hud-dismiss-functions.php:235
+#: includes/hud-dismiss-functions.php:249
+#: includes/hud-dismiss-functions.php:255
+#: includes/hud-dismiss-functions.php:260
 msgid " or "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:216
+#: includes/hud-dismiss-functions.php:217
 msgid "Brute Force Login Protection Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:222
+#: includes/hud-dismiss-functions.php:223
 msgid "Speed Boost Cache Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:228
+#: includes/hud-dismiss-functions.php:229
 msgid "Author Enumeration BOT Probe Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:234
+#: includes/hud-dismiss-functions.php:235
 msgid "XML-RPC DDoS Protection Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:254
+#: includes/hud-dismiss-functions.php:255
 msgid "Mime Sniffing|Drive-by Download Attack Protection Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:259
+#: includes/hud-dismiss-functions.php:260
 msgid "External iFrame|Clickjacking Protection Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:390
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:391
 msgid "HUD Check: Wordfence PHP/php.ini handler htaccess code detected"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:390
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:391
 msgid ""
 "Wordfence PHP/php.ini handler htaccess code was found in your root .htaccess "
 "file, but was NOT found in BPS Custom Code."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:347
-#: includes/hud-dismiss-functions.php:390
+#: includes/hud-dismiss-functions.php:348
+#: includes/hud-dismiss-functions.php:391
 msgid ""
 "Using the Wordfence WAF Firewall may cause serious/critical problems for "
 "your website and BPS."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:352
-#: includes/hud-dismiss-functions.php:395
+#: includes/hud-dismiss-functions.php:353
+#: includes/hud-dismiss-functions.php:396
 msgid "HUD Check: PHP/php.ini handler htaccess code check"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:352
-#: includes/hud-dismiss-functions.php:395
+#: includes/hud-dismiss-functions.php:353
+#: includes/hud-dismiss-functions.php:396
 msgid ""
 "PHP/php.ini handler htaccess code was found in your root .htaccess file, but "
 "was NOT found in BPS Custom Code."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:352
-#: includes/hud-dismiss-functions.php:395
+#: includes/hud-dismiss-functions.php:353
+#: includes/hud-dismiss-functions.php:396
 msgid "To automatically fix this click here: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:352
-#: includes/hud-dismiss-functions.php:395
+#: includes/hud-dismiss-functions.php:353
+#: includes/hud-dismiss-functions.php:396
 msgid ""
 "The Setup Wizard Pre-Installation Checks feature will automatically fix this "
 "just by visiting the Setup Wizard page."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:390
+#: includes/hud-dismiss-functions.php:391
 msgid " for the steps to fix this Wordfence problem."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:450
+#: includes/hud-dismiss-functions.php:451
 msgid "Sucuri 1-click Hardening wp-content .htaccess file problem detected"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:450
+#: includes/hud-dismiss-functions.php:451
 msgid ""
 "Using the Sucuri 1-click Hardening wp-content .htaccess file will cause "
 "several BPS Pro features not to work correctly."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:450
+#: includes/hud-dismiss-functions.php:451
 msgid ""
 "To fix this issue delete the Sucuri .htaccess file in your wp-content folder."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:491
+#: includes/hud-dismiss-functions.php:492
 msgid "The WordPress Firewall 2 plugin is installed and activated"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:491
+#: includes/hud-dismiss-functions.php:492
 msgid "It is recommended that you delete the WordPress Firewall 2 plugin."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:491
+#: includes/hud-dismiss-functions.php:492
 msgid " for more information."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:537
+#: includes/hud-dismiss-functions.php:538
 msgid "Broken Link Checker plugin HEAD Request Method filter problem detected."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:537
+#: includes/hud-dismiss-functions.php:538
 msgid "To fix this problem "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:589
+#: includes/hud-dismiss-functions.php:590
 msgid "Jetpack XML-RPC Bonus Custom Code Notice"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:589
+#: includes/hud-dismiss-functions.php:590
 msgid ""
 "Older BPS XML-RPC Bonus Custom Code was found in your Root htaccess file. "
 "New XML-RPC Bonus Custom Code for specific usage with Jetpack has been "
@@ -9566,76 +9567,76 @@ msgid ""
 "Bonus Custom Code."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:589
+#: includes/hud-dismiss-functions.php:590
 msgid ""
 " To get and use the New Jetpack XML-RPC Bonus Custom Code, replace your "
 "existing XML-RPC Bonus Custom Code in BPS Custom Code with the newer Jetpack "
 "XML-RPC Bonus Custom Code."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:589
-#: includes/hud-dismiss-functions.php:598
+#: includes/hud-dismiss-functions.php:590
+#: includes/hud-dismiss-functions.php:599
 msgid ""
 "To Dismiss these Jetpack Notices click the Dismiss Notice button below. To "
 "Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the "
 "Custom Code page."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:598
+#: includes/hud-dismiss-functions.php:599
 msgid "Jetpack Site Uptime Monitor Notice"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:598
+#: includes/hud-dismiss-functions.php:599
 msgid ""
 "New Jetpack Site Uptime Monitor code has been created for specific usage "
 "with Jetpack to allow HEAD Requests made by Jetpack. Click the Click Here "
 "link below to get the new Jetpack Site Uptime Monitor code."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:598
+#: includes/hud-dismiss-functions.php:599
 msgid ""
 " To get and use the new Jetpack Site Uptime Monitor code, replace any "
 "existing REQUEST METHODS FILTERED code that you have added to BPS Custom "
 "Code with the newer Jetpack Site Uptime Monitor code."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:652
+#: includes/hud-dismiss-functions.php:653
 msgid "WooCommerce Notice"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:652
+#: includes/hud-dismiss-functions.php:653
 msgid ""
 "New WooCommerce whitelisting code has been created to resolve problems where "
 "BPS is blocking something in WooCommerce."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:652
+#: includes/hud-dismiss-functions.php:653
 msgid ""
 "If WooCommerce is working fine on your website then disregard this Notice "
 "and click the Dismiss Notice button below."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:652
+#: includes/hud-dismiss-functions.php:653
 msgid ""
 " To get the WooCommerce whitelisting code. To Reset Dismiss Notices click "
 "the Reset|Recheck Dismiss Notices button on the Custom Code page."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:704
+#: includes/hud-dismiss-functions.php:705
 msgid "BPS WooCommerce Options Notice: Enable Login Security for WooCommerce"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:704
+#: includes/hud-dismiss-functions.php:705
 msgid ""
 "BPS Login Security & Monitoring (LSM) can be enabled/disabled for the "
 "WooCommerce custom login page by checking or unchecking the "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:704
+#: includes/hud-dismiss-functions.php:705
 msgid "Enable Login Security for WooCommerce"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:704
+#: includes/hud-dismiss-functions.php:705
 msgid ""
 " checkbox option setting. The LSM WooCommerce option is automatically "
 "enabled during the BPS upgrade if you already had WooCommerce installed "
@@ -9645,51 +9646,51 @@ msgid ""
 "LSM for WooCommerce."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:736
+#: includes/hud-dismiss-functions.php:737
 msgid "Notice: BPS Query String Exploits Code Changes"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:736
+#: includes/hud-dismiss-functions.php:737
 msgid ""
 "Older BPS Query String Exploits code was found in BPS Custom Code. Several "
 "Query String Exploits rules were changed/added/modified in the root ."
 "htaccess file in BPS .49.6, .50.2 & .50.3."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:736
+#: includes/hud-dismiss-functions.php:737
 msgid ""
 "Copy the new Query String Exploits section of code from your root .htaccess "
 "file and paste it into this BPS Custom Code text box: CUSTOM CODE BPSQSE BPS "
 "QUERY STRING EXPLOITS and click the Save Root Custom Code button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:736
+#: includes/hud-dismiss-functions.php:737
 msgid ""
 "This Notice will go away once you have copied the new Query String Exploits "
 "code to BPS Custom Code and clicked the Save Root Custom Code button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:765
+#: includes/hud-dismiss-functions.php:766
 msgid ""
 "W3 Total Cache is activated, but W3TC htaccess code was NOT found in your "
 "root htaccess file."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:765
+#: includes/hud-dismiss-functions.php:766
 msgid ""
 "W3TC needs to be redeployed by clicking either the W3TC auto-install or "
 "deploy buttons. Your Root htaccess file must be temporarily unlocked so that "
 "W3TC can write to your Root htaccess file. Click to "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:765
+#: includes/hud-dismiss-functions.php:766
 msgid ""
 "You can copy W3TC .htaccess code from your Root .htaccess file to BPS Custom "
 "Code to save it permanently so that you will not have to do these steps in "
 "the future."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:765
+#: includes/hud-dismiss-functions.php:766
 msgid ""
 "Copy W3TC .htaccess code to this BPS Custom Code text box: CUSTOM CODE TOP "
 "PHP/PHP.INI HANDLER/CACHE CODE, click the Save Root Custom Code button, go "
@@ -9697,13 +9698,13 @@ msgid ""
 "button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:789
+#: includes/hud-dismiss-functions.php:790
 msgid ""
 "W3 Total Cache is deactivated and W3TC .htaccess code was found in your root "
 "htaccess file."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:789
+#: includes/hud-dismiss-functions.php:790
 msgid ""
 "If this is just temporary then this warning message will go away when you "
 "reactivate W3TC. If you are planning on uninstalling W3TC the W3TC htaccess "
@@ -9713,14 +9714,14 @@ msgid ""
 "htaccess file then refresh your browser to perform a new htaccess file check."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 "WP Super Cache is activated, but either you are not using WPSC mod_rewrite "
 "to serve cache files or the WPSC htaccess code was NOT found in your root "
 "htaccess file."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 "If you are not using WPSC mod_rewrite then copy this: # WPSuperCache to this "
 "BPS Custom Code text box: CUSTOM CODE TOP PHP/PHP.INI HANDLER/CACHE CODE, "
@@ -9728,38 +9729,38 @@ msgid ""
 "click the Root folder BulletProof Mode button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 "If you are using WPSC mod_rewrite and the WPSC htaccess code is not in your "
 "root htaccess file then unlock your Root htaccess file temporarily then "
 "click this "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid "Update WPSC link"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 " to go to the WPSC Settings page and click the Update Mod_Rewrite Rules "
 "button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 "If you have deactivated Root Folder BulletProof Mode then disregard this "
 "Alert and DO NOT update your Mod_Rewrite Rules. Refresh your browser to "
 "perform a new htaccess file check."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 "You can copy WPSC .htaccess code from your Root .htaccess file to BPS Custom "
 "Code to save it permanently so that you will not have to do these steps in "
 "the future."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:821
+#: includes/hud-dismiss-functions.php:822
 msgid ""
 "Copy WPSC .htaccess code to this BPS Custom Code text box: CUSTOM CODE TOP "
 "PHP/PHP.INI HANDLER/CACHE CODE, click the Save Root Custom Code button, go "
@@ -9767,13 +9768,13 @@ msgid ""
 "button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:845
+#: includes/hud-dismiss-functions.php:846
 msgid ""
 "WP Super Cache is deactivated and WPSC htaccess code - # BEGIN WPSuperCache "
 "# END WPSuperCache - was found in your root htaccess file."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:845
+#: includes/hud-dismiss-functions.php:846
 msgid ""
 "If this is just temporary then this warning message will go away when you "
 "reactivate WPSC. You will need to set up and reconfigure WPSC again when you "
@@ -9786,55 +9787,55 @@ msgid ""
 "permanently."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:867
+#: includes/hud-dismiss-functions.php:868
 msgid "BPS Alert! A BPS htaccess file was NOT found in the BPS Backup folder: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:867
+#: includes/hud-dismiss-functions.php:868
 msgid " and click the BPS Backup Folder BulletProof Mode Activate button."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:897
+#: includes/hud-dismiss-functions.php:898
 msgid "New Improved BPS Speed Boost Cache Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:897
+#: includes/hud-dismiss-functions.php:898
 msgid ""
 "Older BPS Speed Boost Cache Code was found saved in this BPS Custom Code "
 "text box: CUSTOM CODE TOP PHP/PHP.INI HANDLER/CACHE CODE"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:897
+#: includes/hud-dismiss-functions.php:898
 msgid ""
 "Newer improved BPS Speed Boost Cache Code has been created, which should "
 "improve website load speed performance even more."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:897
+#: includes/hud-dismiss-functions.php:898
 msgid "Get The New Improved BPS Speed Boost Cache Code"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:897
+#: includes/hud-dismiss-functions.php:898
 msgid ". To dismiss this Notice click the Dismiss Notice button below."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:897
+#: includes/hud-dismiss-functions.php:898
 msgid ""
 "To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on "
 "the Custom Code page."
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:947
+#: includes/hud-dismiss-functions.php:948
 msgid "BPS Plugin Automatic Update Notice"
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:947
+#: includes/hud-dismiss-functions.php:948
 msgid ""
 "Would you like to have BPS plugin updates installed automatically? Click "
 "this link: "
 msgstr ""
 
-#: includes/hud-dismiss-functions.php:947
+#: includes/hud-dismiss-functions.php:948
 msgid " and choose the AutoUpdate On option setting."
 msgstr ""
 

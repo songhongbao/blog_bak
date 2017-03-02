@@ -1,4 +1,4 @@
-#   BULLETPROOF .54.4 >>>>>>> SECURE .HTACCESS     
+#   BULLETPROOF .54.5 >>>>>>> SECURE .HTACCESS     
 
 # PHP/PHP.INI HANDLER/CACHE CODE
 # Use BPS Custom Code to add php/php.ini Handler and Cache htaccess code and to save it permanently.
@@ -29,7 +29,7 @@ DirectoryIndex index.php index.html /index.php
 # BRUTE FORCE LOGIN PAGE PROTECTION
 # PLACEHOLDER ONLY
 # Use BPS Custom Code to add Brute Force Login protection code and to save it permanently.
-# See this link: https://forum.ait-pro.com/forums/topic/protect-login-page-from-brute-force-login-attacks/
+# See this link: http://forum.ait-pro.com/forums/topic/protect-login-page-from-brute-force-login-attacks/
 # for more information.
 
 # BPS ERROR LOGGING AND TRACKING
@@ -135,7 +135,7 @@ RewriteRule .* index.php [F]
 # Example: Whitelist additional misc files: (example\.php|another-file\.php|phpthumb\.php|thumb\.php|thumbs\.php)
 RewriteCond %{REQUEST_URI} (timthumb\.php|phpthumb\.php|thumb\.php|thumbs\.php) [NC]
 # Example: Whitelist additional website domains: RewriteCond %{HTTP_REFERER} ^.*(YourWebsite.com|AnotherWebsite.com).*
-RewriteCond %{HTTP_REFERER} ^.*love.ranshy.com.*
+RewriteCond %{HTTP_REFERER} ^.*demo2.local.*
 RewriteRule . - [S=1]
 
 # BEGIN BPSQSE BPS QUERY STRING EXPLOITS
@@ -200,13 +200,23 @@ RewriteRule . /index.php [L]
 # Use BPS Custom Code to modify/edit/change this code and to save it permanently.
 # wp-config.php, bb-config.php, php.ini, php5.ini, readme.html
 # To be able to view these files from a Browser, replace 127.0.0.1 with your actual 
-# current IP address. Comment out: #Deny from all and Uncomment: Allow from 127.0.0.1 
+# current IP address. Comment out: #Require all denied and Uncomment: Require ip 127.0.0.1
+# Comment out: #Deny from all and Uncomment: Allow from 127.0.0.1 
 # Note: The BPS System Info page displays which modules are loaded on your server. 
 
 <FilesMatch "^(wp-config\.php|php\.ini|php5\.ini|readme\.html|bb-config\.php)">
+<IfModule mod_authz_core.c>
+Require all denied
+#Require ip 127.0.0.1
+</IfModule>
+
+<IfModule !mod_authz_core.c>
+<IfModule mod_access_compat.c>
 Order Allow,Deny
 Deny from all
 #Allow from 127.0.0.1
+</IfModule>
+</IfModule>
 </FilesMatch>
 
 # HOTLINKING/FORBID COMMENT SPAMMERS/BLOCK BOTS/BLOCK IP/REDIRECT CODE
