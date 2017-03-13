@@ -8,10 +8,10 @@ Author URI: http://www.642weather.com/weather/scripts.php
 Text Domain: si-captcha
 Domain Path: /languages
 License: GPLv2 or later
-Version: 3.0.0.6
+Version: 3.0.0.7
 */
 
-$si_captcha_version = '3.0.0.6';
+$si_captcha_version = '3.0.0.7';
 
 /*  Copyright (C) 2008-2017 Mike Challis  (http://www.642weather.com/weather/contact_us.php)
 
@@ -159,7 +159,7 @@ function si_captcha_init() {
 
      // bp register - create an account
      if ($si_captcha_opt['bp_register'] == 'true') {
-        add_action('bp_signup_profile_fields', array($this, 'si_captcha_bp_register_form'), 99);
+        add_action('bp_account_details_fields', array($this, 'si_captcha_bp_register_form'), 99);
         add_action('bp_signup_validate', array($this, 'si_captcha_bp_signup_validate'), 10);
      }
 
@@ -191,6 +191,9 @@ function si_captcha_init() {
       if ($si_captcha_opt['jetpack'] == 'true') {
         add_filter('jetpack_contact_form_is_spam', array($this, 'si_captcha_jetpack_validate'));
         add_filter('the_content', array($this, 'si_captcha_jetpack_form'));
+        add_filter('widget_text', array($this, 'si_captcha_jetpack_form'), 0);
+        add_filter('widget_text', 'shortcode_unautop');
+        add_filter('widget_text', 'do_shortcode');
         add_shortcode('si-captcha', array($this, 'si_captcha_jetpack_shortcode'));
         add_action('wp_footer', array($this, 'si_captcha_add_script'));
      }
