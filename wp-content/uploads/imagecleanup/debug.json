@@ -1,19 +1,19 @@
-[0.0052] Info: WP_Query results written to log
-[0.0005] Registered sizes: ["thumbnail","medium","medium_large","large","post-thumbnail","post-image","post-image-thumb","full"]
-[0.0006] Meta indexed so far: 1 / 272
-[0.0020] Sample meta:
+[0.0048] Info: WP_Query results written to log
+[0.0006] Registered sizes: ["thumbnail","medium","medium_large","large","post-thumbnail","post-image","post-image-thumb","full"]
+[0.0007] Meta indexed so far: 1 / 272
+[0.0021] Sample meta:
 {"width":400,"height":200,"file":"2017\/03\/crontab.png","sizes":{"thumbnail":{"file":"crontab-150x150.png","width":150,"height":150,"mime-type":"image\/png"},"medium":{"file":"crontab-300x150.png","width":300,"height":150,"mime-type":"image\/png"},"post-thumbnail":{"file":"crontab-88x88.png","width":88,"height":88,"mime-type":"image\/png"}},"image_meta":{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0","keywords":[]}}
 [0.0005] Meta indexed so far: 101 / 272
-[0.0006] Meta indexed so far: 201 / 272
-[1.3514] Meta indexed so far: 272 / 272
-[1.3611] Info: Valid and Invalid meta results written to log
-[0.0124] Info: Loaded attachments to memory [33.75 mb]
-[0.0868] Info: 1835 Images found [35.25 mb]
-[0.1361] Info: 378 Invalid images found [35.5 mb]
-[0.1577] Info: Retrieved attachment images from DB [34 mb]
-[0.3579] Info: Backup meta results written to log [34 mb]
-[0.0022] Posts checked for used images 1/59
-[0.2100] Info: Invalid post image meta results written to log
+[0.0005] Meta indexed so far: 201 / 272
+[0.1161] Meta indexed so far: 272 / 272
+[0.1243] Info: Valid and Invalid meta results written to log
+[0.0104] Info: Loaded attachments to memory [33.5 mb]
+[0.0388] Info: 1496 Images found [34.75 mb]
+[0.0831] Info: 39 Invalid images found [35 mb]
+[0.0966] Info: Retrieved attachment images from DB [33.75 mb]
+[0.2512] Info: Backup meta results written to log [33.75 mb]
+[0.0003] Posts checked for used images 1/59
+[0.0210] Info: Invalid post image meta results written to log
 Warning: skipping script index because of too many image files
-[1.9332] Info: Invalid referenced image meta results written to log
-[1.9355] Info: Unreferenced image file results written to log
+[0.0003] Warning: skipping attachment index because of too many image files
+[0.0004] Info: Unreferenced image file results written to log
