@@ -58,18 +58,19 @@ function wch_stripslashes($code){
 	return $code;
 }
 function wp_code_highlight_filter($content) {
-        $content = str_replace('love.ranshy.com/wp-content/uploads', '7xi8tc.com1.z0.glb.clouddn.com', $content);
+        #shy add
+	$content = str_replace('love.ranshy.com/wp-content/uploads', '7xi8tc.com1.z0.glb.clouddn.com', $content);
 	if($_SERVER['HTTPS']){
 		$content = str_replace('static.ranshy.com', 'static-ranshy-com.alikunlun.com', $content);
 	}
-/*
+
 	preg_match_all('/(?<!a)[^<]+<img[^>]+src=[\'"]([^\'"]+)[\'"][^>]+>/', $content, $matches);
-	if($matches) foreach($matches as $match) {
-		$content = preg_replace('<img[^>]+src=[\'"]' . $match[1] . '[\'"][^>]+>', 
-'<a href="' . $match[1] . '"><img src="' . $match[1] . '" class="aligncenter size-full" /></a>', 
+	if($matches && $matches[1]) foreach($matches[1] as $match) {
+		$content = preg_replace('@<img[^>]+src=[\'"]' . $match . '[\'"][^>]+>@', 
+'<a href="' . $match . '"><img src="' . $match . '" class="aligncenter size-full" /></a>', 
 $content);
 	}
-*/
+	#add end
 
 
 	if(get_option('wp_code_highlight_line_numbers')=='enable'){
