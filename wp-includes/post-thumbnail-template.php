@@ -59,7 +59,7 @@ function get_post_thumbnail_id( $post = null ) {
  * @param string|array $attr Optional. Query string or array of attributes. Default empty.
  */
 function the_post_thumbnail( $size = 'post-thumbnail', $attr = '' ) {
-        $url = get_the_post_thumbnail( null, $size, $attr );
+	echo get_the_post_thumbnail( null, $size, $attr );
         if($_SERVER['HTTPS']) {
                 $url = str_replace('love.ranshy.com/wp-content/uploads', '7xi8tc.com1.z0.glb.clouddn.com', $url);
         }
