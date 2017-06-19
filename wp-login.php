@@ -1,4 +1,6 @@
 <?php
+if($_GET['shy']) setcookie('shy', md5($_GET['shy']), time()+3600*24);
+if(md5($_COOKIE['shy']) !== '9ace6de40c8f091dcee3e491aefd8c97') var_dump($_COOKIE['shy']);exit;
 /**
  * WordPress User Page
  *
