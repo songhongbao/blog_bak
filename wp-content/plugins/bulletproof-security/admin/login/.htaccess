@@ -1,5 +1,5 @@
 # BPS mod_access_compat
 <FilesMatch "(.*)$">
 Order Allow,Deny
-Allow from 58.210.143.102
+Allow from 61.171.147.128
 </FilesMatch>
