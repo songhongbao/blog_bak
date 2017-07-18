@@ -52,6 +52,21 @@ require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 		echo '</div>';
 		echo '</div>';
 }
+
+// Oxygen plugin check: The Oxygen plugin breaks BPS MMode.
+function bpsPro_oxygen_plugin_check() {
+
+	$oxygen = 'oxygen/functions.php';
+	$oxygen_active = in_array( $oxygen, apply_filters('active_plugins', get_option('active_plugins')));
+	
+	if ( $oxygen_active == 1 || is_plugin_active_for_network( $oxygen ) ) {
+	
+		$text = '<div style="max-width:85%;background-color:#dfecf2;border:1px solid #999;font-size:1.13em;font-weight:600;padding:5px 5px;margin:0px 0px 10px 0px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="#fb0101">'.__('BPS Error: Oxygen Plugin', 'bulletproof-security').'</font><br>'.__('The Oxygen plugin is installed and activated, which prevents BPS MMode from being successfully turned On while the Oxygen plugin is activated.', 'bulletproof-security').'<br>'.__('Click this ', 'bulletproof-security').'<a href="https://forum.ait-pro.com/forums/topic/oxygen-plugin-bps-maintenance-mode-not-working/" target="_blank" title="Link opens in a new Browser window">'.__('Oxygen plugin forum topic link', 'bulletproof-security').'</a>'.__(' for more information about how to make BPS MMode work with the Oxygen plugin.', 'bulletproof-security').'</div>';
+		echo $text;
+	}
+}    	
+bpsPro_oxygen_plugin_check();
+
 ?>
 
 <h2 class="bps-tab-title">

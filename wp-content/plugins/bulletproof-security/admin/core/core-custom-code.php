@@ -237,7 +237,7 @@ global $bps_topDiv, $bps_bottomDiv;
 
 <?php } else { ?>   
 
-    <span style="color:#2ea2cc;font-weight:bold;">Example Code: Click the Read Me help button for Custom Code Setup Steps. This example code is a visual reference to show you which root htaccess file code goes in the CUSTOM CODE REQUEST METHODS FILTERED text box. Go to the htaccess File Editor tab page and copy your actual REQUEST METHODS FILTERED root htaccess file code and paste it into the CUSTOM CODE REQUEST METHODS FILTERED text box to the left.</span><pre># REQUEST METHODS FILTERED<br /># If you want to allow HEAD Requests use BPS Custom Code and copy<br /># this entire REQUEST METHODS FILTERED section of code to this BPS Custom Code<br /># text box: CUSTOM CODE REQUEST METHODS FILTERED.<br /># See the CUSTOM CODE REQUEST METHODS FILTERED help text for additional steps.<br />RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK|DEBUG) [NC]<br />RewriteRule ^(.*)$ - [F]<br />RewriteCond %{REQUEST_METHOD} ^(HEAD) [NC]<br />RewriteRule ^(.*)$ <?php echo '/'.$bps_plugin_dir; ?>/bulletproof-security/405.php [L]</pre>
+    <span style="color:#2ea2cc;font-weight:bold;">Example Code: Click the Read Me help button for Custom Code Setup Steps. This example code is a visual reference to show you which root htaccess file code goes in the CUSTOM CODE REQUEST METHODS FILTERED text box. Go to the htaccess File Editor tab page and copy your actual REQUEST METHODS FILTERED root htaccess file code and paste it into the CUSTOM CODE REQUEST METHODS FILTERED text box to the left.</span><pre># REQUEST METHODS FILTERED<br /># If you want to allow HEAD Requests use BPS Custom Code and copy<br /># this entire REQUEST METHODS FILTERED section of code to this BPS Custom Code<br /># text box: CUSTOM CODE REQUEST METHODS FILTERED.<br /># See the CUSTOM CODE REQUEST METHODS FILTERED help text for additional steps.<br />RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK|DEBUG) [NC]<br />RewriteRule ^(.*)$ - [F]<br />RewriteCond %{REQUEST_METHOD} ^(HEAD) [NC]<br />RewriteRule ^(.*)$ <?php echo '/'.$bps_plugin_dir; ?>/bulletproof-security/405.php [R,L]</pre>
 
 <?php } ?>
    
@@ -272,7 +272,7 @@ global $bps_topDiv, $bps_bottomDiv;
 
   <tr>
     <td class="bps-table_cell_help_custom_code">
-    <strong><label for="bps-CCode"><?php echo number_format_i18n( 12 ).'. '; _e('CUSTOM CODE WP REWRITE LOOP END: Add WP Rewrite Loop End code here', 'bulletproof-security'); ?> </label></strong><br />
+    <strong><label for="bps-CCode"><?php echo number_format_i18n( 12 ).'b. '; _e('CUSTOM CODE WP REWRITE LOOP END: Add WP Rewrite Loop End code here', 'bulletproof-security'); ?> </label></strong><br />
  <strong><?php $text = '<font color="#2ea2cc">'.__('This is a Special Custom Code text box that should only be used if the correct WP REWRITE LOOP END code is not being created in your root .htaccess file. See the Read Me help button for more information.', 'bulletproof-security').'</font>'; echo $text; ?></strong><br />
     <textarea class="bps-text-area-custom-code" name="bps_customcode_wp_rewrite_end" tabindex="13"><?php echo $CC_Options_root['bps_customcode_wp_rewrite_end']; ?></textarea>
 

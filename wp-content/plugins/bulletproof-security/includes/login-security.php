@@ -7,11 +7,16 @@
 	// This also prevents someone who does not have WooCommerce installed from not being able to login if they check the Enable WooCommerce options.
 	// This also allows someone with WooCommerce installed just to turn LSM on or off without messing with the Enable WooCommerce options.
 	// Note: There is no need for an LSM Off condition like BPS Pro has because JTC is not involved in the equation - If LSM is Off then the filter is not processed.
+	// 2.2: BugFix: Renamed the $woocommerce variable to something unique to avoid collisions/conflicts with this variable being a Global.  
 	$BPSoptions = get_option('bulletproof_security_options_login_security');
-	$plugin_var = 'woocommerce/woocommerce.php';
-	$return_var = in_array( $plugin_var, apply_filters('active_plugins', get_option('active_plugins')));
+	$bpsPro_woocommerce = 'woocommerce/woocommerce.php';
+	$bpsPro_woocommerce_active = in_array( $bpsPro_woocommerce, apply_filters('active_plugins', get_option('active_plugins')));
+	
+	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+    	require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
+	}
 
-	if ( $return_var == 1 ) {
+	if ( $bpsPro_woocommerce_active == 1 || is_plugin_active_for_network( $bpsPro_woocommerce ) ) {
 		
 		if ( $BPSoptions['bps_enable_lsm_woocommerce'] == 1 ) {
 		
