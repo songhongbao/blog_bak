@@ -1,18 +1,18 @@
 === BulletProof Security ===
 Contributors: AITpro
 Donate link: https://wordpress.org/support/view/plugin-reviews/bulletproof-security?rate=5#postform
-Tags: 400, 401, 403, 404, 405, 410, 503, apache, antivirus, attack, auth cookie, authenticate, authentication, authentication cookie, author, author id, auto-logout, automatic, backdoor, backup, ban, base64, block, blocked, Bot, brute force, bruteforce, bulletproof, chmod, code, coming soon, cookie, cookie expiration, crack, cracking, crlf, csrf, database backup, database table prefix, db backup, db table backup, db table prefix, developer, development, directory traversal, dos, ddos, dump, empty plugin, encode, enumeration, error log, event listener, expire, exploit, exploitation, file inclusion, firewall, hack, hackers, hidden file, hidden plugin, htaccess, http log, idle, idle logout, idle time, idle user, idle session, inactive logout, inactive time, inactive user, inactive session, infect, infected, infection, injection, lfi, linux, litespeed, lock, log, log off, logging, login alerts, login security, login, maintenance mode, maintenance, malicious, malware, multisite, mysql, mysql backup, network, offline, optimize, optimization, path traversal, performance, permissions, pingback, prevent, prevention, privacy, private, protection, remember me, rfi, safe, safety, schedule backup, script, secure, security log, security, session, signout, spam, spammers, speed increase, speed boost, sql injection, system information, system info, timeout, trackback, unavailable, under construction, user id, user account, user role, username, users, virus, viruses, vulnerable, vulnerability, website backup, wordpress backup, website security, windows, wordpress security, xmlrpc, xml-rpc, xss
-Requires at least: 3.7 
+Tags: security, secure, security plugin, wordpress security, login, firewall, malware, bruteforce, backup, exploit, infection, login security, protection, virus, antivirus, logout, spam
+Requires at least: 3.8 
 Tested up to: 4.8
-Stable tag: 2.2
+Stable tag: 2.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Secure WordPress Website Security Protection: Firewall Security, Login Security, Database Security & Backup...
+Automated user friendly Security Plugin: Firewall Security, Login Security, Database Security & Backup & much more...
 
 == Description ==
 
-Secure WordPress Website Security Protection: Firewall Security, Login Security, Database Security & Backup... View Security feature highlights below. View BulletProof Security feature details for specific details about security features. Secure your WordPress website even further by adding additional BulletProof Security Bonus Custom Code (See the BulletProof Security Bonus Custom Code help section). Effective, Reliable & Easy to use WordPress Security Plugin.
+Automated user friendly Security Plugin: Firewall Security, Login Security, Database Security & Backup & much more... View Security feature highlights below. View BulletProof Security feature details for specific details about security features. Secure your WordPress website even further by adding additional BulletProof Security Bonus Custom Code (See the BulletProof Security Bonus Custom Code help section). Effective, Reliable & Easy to use WordPress Security Plugin.
 
 = BulletProof Security Feature Highlights =
 

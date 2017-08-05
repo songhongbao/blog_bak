@@ -1,4 +1,4 @@
-#   BULLETPROOF 2.2 SECURE .HTACCESS     
+#   BULLETPROOF 2.3 SECURE .HTACCESS     
 
 # PHP/PHP.INI HANDLER/CACHE CODE
 # Use BPS Custom Code to add php/php.ini Handler and Cache htaccess code and to save it permanently.
@@ -83,7 +83,7 @@ RewriteRule ^index\.php$ - [L]
 RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK|DEBUG) [NC]
 RewriteRule ^(.*)$ - [F]
 RewriteCond %{REQUEST_METHOD} ^(HEAD) [NC]
-RewriteRule ^(.*)$ /wp-content/plugins/bulletproof-security/405.php [R,L]
+RewriteRule ^(.*)$ /wp-content/plugins/bulletproof-security/405.php [L]
 
 # PLUGINS/THEMES AND VARIOUS EXPLOIT FILTER SKIP RULES
 # To add plugin/theme skip/bypass rules use BPS Custom Code.

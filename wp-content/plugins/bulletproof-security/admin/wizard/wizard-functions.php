@@ -266,7 +266,7 @@ $bps_secure_request_methods = "\n# REQUEST METHODS FILTERED
 RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK|DEBUG) [NC]
 RewriteRule ^(.*)$ - [F]
 RewriteCond %{REQUEST_METHOD} ^(HEAD) [NC]
-RewriteRule ^(.*)$ " . $bps_get_wp_root_secure . $bps_plugin_dir . "/bulletproof-security/405.php [R,L]\n\n";
+RewriteRule ^(.*)$ " . $bps_get_wp_root_secure . $bps_plugin_dir . "/bulletproof-security/405.php [L]\n\n";
 }
 }
 

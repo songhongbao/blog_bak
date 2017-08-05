@@ -166,16 +166,6 @@ $bps_bottomDiv = '</p></div>';
             
 <div id="bps-tabs-1" class="bps-tab-page">
 
-<h2>
-<?php
-if ( is_multisite() && $blog_id != 1 ) {
-_e('Display FrontEnd Maintenance Mode Page', 'bulletproof-security');
-} else {
-_e('FrontEnd ~ Display Maintenance Mode Page|BackEnd ~ Lock BackEnd with Deny All htaccess Protection', 'bulletproof-security'); 
-}
-?>
-</h2>
-
 <?php
 	$BPS_wpadmin_Options = get_option('bulletproof_security_options_htaccess_res');
 	
@@ -187,7 +177,17 @@ _e('FrontEnd ~ Display Maintenance Mode Page|BackEnd ~ Lock BackEnd with Deny Al
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
   <tr>
-    <td class="bps-table_title">&nbsp;</td>
+    <td class="bps-table_title">
+
+<?php 
+	if ( is_multisite() && $blog_id != 1 ) {
+		$text = '<h2>'.__('FrontEnd Maintenance Mode Page ~ ', 'bulletproof-security').'<span style="font-size:.75em;">'.__('Display a website under maintenance page to website visitors', 'bulletproof-security').'</span></h2><div class="promo-text">'.__('Want even more security protection?', 'bulletproof-security').'<br>'.__('Protect all of your website files with AutoRestore|Quarantine Intrusion Detection & Prevention System: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro ARQ IDPS">'.__('Get BPS Pro ARQ IDPS', 'bulletproof-security').'</a><br>'.__('Protect against SpamBot & HackerBot (auto-registering, auto-logins, auto-posting, auto-commenting): ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro JTC Anti-Spam|Anti-Hacker">'.__('Get BPS Pro JTC Anti-Spam|Anti-Hacker', 'bulletproof-security').'</a><br>'.__('Protect all of your Plugins (plugin folders and files) with an IP Firewall: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Plugin Firewall">'.__('Get BPS Pro Plugin Firewall', 'bulletproof-security').'</a><br>'.__('Protect your WordPress uploads folder against remote access or execution of files: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Uploads Anti-Exploit Guard">'.__('Get BPS Pro Uploads Anti-Exploit Guard', 'bulletproof-security').'</a></div>'; echo $text; 
+	} else {
+		$text = '<h2>'.__('FrontEnd & BackEnd Maintenance Mode ~ ', 'bulletproof-security').'<span style="font-size:.75em;">'.__('Display a website under maintenance page to website visitors ~ Lock wp-admin BackEnd by IP Address', 'bulletproof-security').'</span></h2><div class="promo-text">'.__('Want even more security protection?', 'bulletproof-security').'<br>'.__('Protect all of your website files with AutoRestore|Quarantine Intrusion Detection & Prevention System: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro ARQ IDPS">'.__('Get BPS Pro ARQ IDPS', 'bulletproof-security').'</a><br>'.__('Protect against SpamBot & HackerBot (auto-registering, auto-logins, auto-posting, auto-commenting): ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro JTC Anti-Spam|Anti-Hacker">'.__('Get BPS Pro JTC Anti-Spam|Anti-Hacker', 'bulletproof-security').'</a><br>'.__('Protect all of your Plugins (plugin folders and files) with an IP Firewall: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Plugin Firewall">'.__('Get BPS Pro Plugin Firewall', 'bulletproof-security').'</a><br>'.__('Protect your WordPress uploads folder against remote access or execution of files: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Uploads Anti-Exploit Guard">'.__('Get BPS Pro Uploads Anti-Exploit Guard', 'bulletproof-security').'</a></div>'; echo $text; 
+	}
+	?>
+
+    </td>
   </tr>
   <tr>
     <td class="bps-table_cell_help">
@@ -2081,33 +2081,23 @@ if ( isset( $_POST['Submit-maintenance-mode-off'] ) && current_user_can('manage_
 
 </td>
   </tr>
-  <tr>
-    <td class="bps-table_cell_bottom">&nbsp;</td>
-  </tr>
 </table>
 
 </div>
 
 <div id="bps-tabs-2" class="bps-tab-page">
-<h2><?php _e('Help & FAQ', 'bulletproof-security'); ?></h2>
+
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
   <tr>
-    <td colspan="2" class="bps-table_title">&nbsp;</td>
+    <td class="bps-table_title"><h2><?php _e('Help & FAQ', 'bulletproof-security'); ?></h2></td>
   </tr>
   <tr>
-    <td class="bps-table_cell_help_links"><a href="https://forum.ait-pro.com/forums/topic/maintenance-mode-guide-read-me-first/" target="_blank"><?php _e('Maintenance Mode Guide', 'bulletproof-security'); ?></a></td>
-    <td class="bps-table_cell_help_links"><a href="https://www.ait-pro.com/aitpro-blog/category/bulletproof-security-contributors/" target="_blank"><?php _e('Contributors Page', 'bulletproof-security'); ?></a></td>
-  </tr>
-  <tr>
-    <td class="bps-table_cell_help_links"><a href="https://forum.ait-pro.com/forums/topic/security-log-event-codes/" target="_blank"><?php _e('Security Log Event Codes', 'bulletproof-security'); ?></a></td>
-    <td class="bps-table_cell_help_links"><a href="https://forum.ait-pro.com/forums/topic/plugin-conflicts-actively-blocked-plugins-plugin-compatibility/" target="_blank"><?php _e('Forum: Search, Troubleshooting Steps & Post Questions For Assistance', 'bulletproof-security'); ?></a></td>
-  </tr>
-  <tr>
-    <td class="bps-table_cell_help_links">&nbsp;</td>
-    <td class="bps-table_cell_help_links">&nbsp;</td>
-  </tr>
-   <tr>
-    <td colspan="2" class="bps-table_cell_bottom">&nbsp;</td>
+    <td class="bps-table_cell_help_links">
+    <a href="https://forum.ait-pro.com/forums/topic/maintenance-mode-guide-read-me-first/" target="_blank"><?php _e('Maintenance Mode Guide', 'bulletproof-security'); ?></a><br /><br />
+    <a href="https://www.ait-pro.com/aitpro-blog/category/bulletproof-security-contributors/" target="_blank"><?php _e('Contributors Page', 'bulletproof-security'); ?></a><br /><br />
+    <a href="https://forum.ait-pro.com/forums/topic/security-log-event-codes/" target="_blank"><?php _e('Security Log Event Codes', 'bulletproof-security'); ?></a><br /><br />
+    <a href="https://forum.ait-pro.com/forums/topic/plugin-conflicts-actively-blocked-plugins-plugin-compatibility/" target="_blank"><?php _e('Forum: Search, Troubleshooting Steps & Post Questions For Assistance', 'bulletproof-security'); ?></a>
+    </td>
   </tr>
 </table>
 </div>

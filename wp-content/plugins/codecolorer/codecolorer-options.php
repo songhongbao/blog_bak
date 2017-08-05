@@ -1,10 +1,10 @@
 <?php
 /*
 CodeColorer plugin options part
-http://kpumuk.info/projects/wordpress-plugins/codecolorer
+https://kpumuk.info/projects/wordpress-plugins/codecolorer
 */
 /*
-    Copyright 2006 - 2011  Dmytro Shteflyuk <kpumuk@kpumuk.info>
+    Copyright 2006 - 2017  Dmytro Shteflyuk <kpumuk@kpumuk.info>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,27 +24,29 @@ http://kpumuk.info/projects/wordpress-plugins/codecolorer
 class CodeColorerOptions {
   function GetThemes() {
     return array(
-      ''            => 'Slush & Poppies',
-      'blackboard'  => 'Blackboard',
-      'dawn'        => 'Dawn',
-      'mac-classic' => 'Mac Classic',
-      'twitlight'   => 'Twitlight',
-      'vibrant'     => 'Vibrant Ink',
-      'geshi'       => 'GeSHi',
-      'railscasts'  => 'Railscasts'
+      ''                => 'Slush & Poppies',
+      'blackboard'      => 'Blackboard',
+      'dawn'            => 'Dawn',
+      'mac-classic'     => 'Mac Classic',
+      'twitlight'       => 'Twitlight',
+      'vibrant'         => 'Vibrant Ink',
+      'geshi'           => 'GeSHi',
+      'railscasts'      => 'Railscasts',
+      'solarized-light' => 'Solarized Light',
+      'solarized-dark'  => 'Solarized Dark',
     );
   }
 
   function GetLanguages() {
     return array(
-      '', 'en', 'en_US', 'ar', 'be_BY', 'cs_CZ', 'da_DK', 'de_DE', 'es_AR',
-      'es_CO', 'es_ES', 'fa_IR', 'fr_FR', 'he_IL', 'hu_HU', 'it_IT', 'ja',
-      'ka_GE', 'ms_MY', 'nl_NL', 'pl_PL', 'pt_BR', 'ro_RO', 'ru_RU', 'sk_SK',
-      'sv_SE', 'tr_TR', 'ua_UA', 'zh_CN', 'zh_TW'
+      '', 'en', 'en_US', 'en_GB', 'ar', 'be_BY', 'cs_CZ', 'da_DK', 'de_DE', 'es_AR',
+      'es_CO', 'es_ES', 'fa_IR', 'fr_FR', 'he_IL', 'hu_HU', 'id_ID', 'it_IT',
+      'ja', 'ka_GE', 'ms_MY', 'nl_NL', 'pl_PL', 'pt_BR', 'pt_PT', 'ro_RO',
+      'ru_RU', 'sk_SK', 'sv_SE', 'tr_TR', 'ua_UA', 'zh_CN', 'zh_TW'
     );
   }
 
-  function GetLanguageMappings() {
+  static function GetLanguageMappings() {
     return array(
       'c#'  => 'csharp',
       'cs'  => 'csharp',
@@ -55,7 +57,7 @@ class CodeColorerOptions {
     );
   }
 
-  function ParseOptions($opts, $suffix = '') {
+  static function ParseOptions($opts, $suffix = '') {
     $opts = str_replace(array("\\\"", "\\\'"), array ("\"", "\'"), $opts);
     preg_match_all('#([a-z_-]*?)\s*=\s*(["\'])(.*?)\2#i', $opts, $matches, PREG_SET_ORDER);
     $options = array();
@@ -95,7 +97,7 @@ class CodeColorerOptions {
     return $options;
   }
 
-  function PopulateDefaultValues($options) {
+  static function PopulateDefaultValues($options) {
     if (!$options) $options = array();
 
     if (!isset($options['lang'])) $options['lang'] = 'text';
@@ -217,11 +219,11 @@ class CodeColorerOptions {
     return $options;
   }
 
-  function ParseBoolean($val) {
+  static function ParseBoolean($val) {
     return $val === true || $val === 'true' || $val === 'on' || $val === '1' || (is_int($val) && $val !== 0);
   }
 
-  function ParseMode($modes, $mode) {
+  static function ParseMode($modes, $mode) {
     if (strpos($modes, $mode) !== false) {
       return true;
     }
@@ -238,7 +240,7 @@ class CodeColorerOptions {
   /**
    * Process the language identifier attribute string
    */
-  function FilterLanguage($lang) {
+  static function FilterLanguage($lang) {
     $lang = strtolower($lang);
     if (strstr($lang, 'html')) {
       $lang = 'html4strict';

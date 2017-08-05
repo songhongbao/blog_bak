@@ -75,7 +75,7 @@ function bpsPro_Wizard_deny_all() {
 // Zip Root htaccess file: If ZipArchive Class is not available use PclZip
 function bps_zip_root_htaccess_file() {
 	// Use ZipArchive
-	if ( ! class_exists('ZipArchive') ) {
+	if ( class_exists('ZipArchive') ) {
 
 		$zip = new ZipArchive();
 		$filename = WP_PLUGIN_DIR . '/bulletproof-security/admin/wizard/htaccess-files.zip';

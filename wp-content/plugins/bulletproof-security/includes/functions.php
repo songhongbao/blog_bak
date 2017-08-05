@@ -297,7 +297,8 @@ function bps_root_htaccess_status_dashboard() {
 	$pattern17 = '/#\sNEVER\sCOMMENT\sOUT\sTHIS\sLINE\sOF\sCODE\sBELOW\sFOR\sANY\sREASON(\s*){1}#{1,}(\s|){1,}RewriteCond\s%\{REQUEST_URI\}\s\!\^\.\*\/wp-admin\/\s\[NC\]/';
 	$pattern18 = '/#\sREQUEST\sMETHODS\sFILTERED(.*)RewriteCond\s\%\{REQUEST_METHOD\}\s\^\(HEAD\|TRACE\|DELETE\|TRACK\|DEBUG\)\s\[NC\](\s*){1}RewriteRule\s\^\(\.\*\)\$\s\-\s\[F\]/s';	
 	$pattern19 = '/RewriteRule\s\^\(\.\*\)\$\s\-\s\[R=405,L\]/';
-	$pattern20 = '/RewriteRule\s\^\(\.\*\)\$(.*)\/bulletproof-security\/405\.php\s\[L\]/';
+	// 2.3: Reverting: Match R,L for replacement to L
+	$pattern20 = '/RewriteRule\s\^\(\.\*\)\$(.*)\/bulletproof-security\/405\.php\s\[R,L\]/';
 	$pattern21 = '/RewriteCond\s%\{THE_REQUEST\}\s\(\\\?.*%2a\)\+\(%20.*HTTP\(:\/.*\[NC,OR\]/';
 	$pattern22 = '/RewriteCond\s%\{QUERY_STRING\}\s\[a-zA-Z0-9_\]=http:\/\/\s\[NC,OR\]/';
 	$pattern23 = '/RewriteCond\s%\{QUERY_STRING\}\s\^\(\.\*\)cPath=http:\/\/\(\.\*\)\$\s\[NC,OR\]/';
@@ -404,8 +405,9 @@ switch ( $bps_version ) {
 		}
 
 		// 2.0: Add R to the dumb downed Request Methods Filtered 405 htaccess code in the Root htaccess file.
+		// 2.3: Reverted: Remove R due to duplicate security log entries
 		if ( preg_match( $pattern20, $stringReplace, $matches ) ) {			
-			$stringReplace = preg_replace( $pattern20, "RewriteRule ^(.*)$ " . $bps_get_wp_root_secure . $bps_plugin_dir . "/bulletproof-security/405.php [R,L]", $stringReplace);
+			$stringReplace = preg_replace( $pattern20, "RewriteRule ^(.*)$ " . $bps_get_wp_root_secure . $bps_plugin_dir . "/bulletproof-security/405.php [L]", $stringReplace);
 		}
 
 		// 2.0: Add additional https scheme conditions to 3 htaccess security rules and combine 2 rules into 1 rule.

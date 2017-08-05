@@ -1,10 +1,10 @@
 <?php
 /*
 CodeColorer plugin core part
-http://kpumuk.info/projects/wordpress-plugins/codecolorer
+https://kpumuk.info/projects/wordpress-plugins/codecolorer
 */
 /*
-    Copyright 2006 - 2011  Dmytro Shteflyuk <kpumuk@kpumuk.info>
+    Copyright 2006 - 2017  Dmytro Shteflyuk <kpumuk@kpumuk.info>
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -46,8 +46,23 @@ class CodeColorer {
 
   /** Search content for code tags and replace it */
   function BeforeHighlightCodeBlock($content) {
-    $content = preg_replace('#(\s*)\[cc([^\s\]_]*(?:_[^\s\]]*)?)([^\]]*)\](.*?)\[/cc\2\](\s*)#sie', '$this->PerformHighlightCodeBlock(\'\\4\', \'\\3\', $content, \'\\2\', \'\\1\', \'\\5\');', $content);
-    $content = preg_replace('#(\s*)\<code(.*?)\>(.*?)\</code\>(\s*)#sie', '$this->PerformHighlightCodeBlock(\'\\3\', \'\\2\', $content, \'\', \'\\1\', \'\\4\');', $content);
+    $helper = $this;
+
+    $content = preg_replace_callback(
+      '#(\s*)\[cc([^\s\]_]*(?:_[^\s\]]*)?)([^\]]*)\](.*?)\[/cc\2\](\s*)#si',
+      function ($m) use ($helper, $content) {
+        return $helper->PerformHighlightCodeBlock($m[4], $m[3], $content, $m[2], $m[1], $m[5]);
+      },
+      $content
+    );
+
+    $content = preg_replace_callback(
+      '#(\s*)\<code(.*?)\>(.*?)\</code\>(\s*)#si',
+      function ($m) use ($helper, $content) {
+        return $helper->PerformHighlightCodeBlock($m[3], $m[2], $content, '', $m[1], $m[4]);
+      },
+      $content
+    );
 
     return $content;
   }
@@ -59,8 +74,21 @@ class CodeColorer {
   }
 
   function BeforeProtectComment($content) {
-    $content = preg_replace('#(\s*)(\[cc[^\s\]_]*(?:_[^\s\]]*)?[^\]]*\].*?\[/cc\1\])(\s*)#sie', '$this->PerformProtectComment(\'\\2\', $content, \'\\1\', \'\\3\');', $content);
-    $content = preg_replace('#(\s*)(\<code.*?\>.*?\</code\>)(\s*)#sie', '$this->PerformProtectComment(\'\\2\', $content, \'\\1\', \'\\3\');', $content);
+    $helper = $this;
+    $content = preg_replace_callback(
+      '#(\s*)(\[cc[^\s\]_]*(?:_[^\s\]]*)?[^\]]*\].*?\[/cc\1\])(\s*)#si',
+      function ($m) use ($helper, $content) {
+        return $helper->PerformProtectComment($m[2], $content, $m[1], $m[3]);
+      },
+      $content
+    );
+    $content = preg_replace_callback(
+      '#(\s*)(\<code.*?\>.*?\</code\>)(\s*)#si',
+      function ($m) use ($helper, $content) {
+        return $helper->PerformProtectComment($m[2], $content, $m[1], $m[3]);
+      },
+      $content
+    );
 
     return $content;
   }
@@ -101,8 +129,8 @@ class CodeColorer {
 
     if ($options['escaped']) {
       $text = html_entity_decode($text, ENT_QUOTES);
-      $text = preg_replace('~&#x0*([0-9a-f]+);~ei', 'chr(hexdec("\\1"))', $text);
-      $text = preg_replace('~&#0*([0-9]+);~e', 'chr(\\1)', $text);
+      $text = preg_replace_callback('~&#x0*([0-9a-f]+);~i', function ($m) {return chr(hexdec($m[1]));}, $text);
+      $text = preg_replace_callback('~&#0*([0-9]+);~', function ($m) {return chr($m[1]);}, $text);
     }
 
     $result = '';
@@ -180,7 +208,7 @@ class CodeColorer {
       $hlines = explode(',', $options['highlight']);
       $highlight = array(); /* Empty array to store processed line numbers*/
       foreach($hlines as $v) {
-        list($from, $to) = explode('-', $v);
+        list($from, $to) = array_pad(explode('-', $v, 2), 2, null);
         if (is_null($to)) $to = $from;
         for ($i = $from; $i <= $to; $i++) {
           array_push($highlight, $i);
@@ -310,7 +338,7 @@ class CodeColorer {
     return $this->GetCodeHighlighted($this->samplePhpCode);
   }
 
-  function &GetInstance() {
+  static function &GetInstance() {
     static $instance = null;
 
     if (null === $instance) {

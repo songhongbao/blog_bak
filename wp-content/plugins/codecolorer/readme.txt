@@ -1,9 +1,9 @@
 === CodeColorer ===
 Contributors: kpumuk
 Tags: code, snippet, syntax, highlight, highlighting, color, geshi
-Requires at least: 2.7.0
-Tested up to: 3.1.2
-Stable tag: 0.9.9
+Requires at least: 4.0
+Tested up to: 4.8
+Stable tag: 0.9.10
 
 CodeColorer is a syntax highlighting plugin which allows to insert code
 snippets into blog posts. Supports color themes, code in RSS, comments.
@@ -42,16 +42,19 @@ is currently available in following languages:
 * Czech – Čeština (thanks to <a href="http://lelkoun.cz/">Lelkoun</a>)
 * Danish – Dansk (thanks to <a href="http://www.klysner.com/">Hans Klysner</a>)
 * Dutch – Nederlands (thanks to <a href="http://www.helixsoft.nl/blog/">Martijn van Iersel</a>)
+* English - Great Britain (thanks to <a href="https://github.com/DeltaNova">Matthew Tunstall</a>)
 * French – Français (thanks to <a href="http://www.flyingcode.com/">Valentin PRUGNAUD</a>, <a href="http://fanta78.free.fr/">fanta78</a>, <a href="http://blog.zabe.fr/">Sylvain Zabé</a>, and <a href="http://blogs.wittwer.fr/whiler/">Whiler</a>)
 * Georgian – ქართული ენა (thanks to <a href="http://sysadmin.softgen.ge/">Nika Chkhikvishvili</a>)
 * German – German (Deutsch) (thanks to <a href="http://www.fabianschulz.net/">Fabian Schulz</a> and <a href="http://michael-gutbier.de/">Michael Gutbier</a>)
 * Hebrew – עִבְרִית (thanks to <a href="http://www.gadgetguru.co.il/">Yaron Ofer</a>)
 * Hungarian — magyar nyelv (thanks to <a href="http://dassad.com/">daSSad</a>)
+* Indonesian — Bahasa Indonesia (thanks to <a href="http://www.openscriptsolution.com/">Masino Sinaga</a>)
 * Italian – Italiano (thanks to <a href="http://codesnippet.altervista.org/">CodeSnippet</a>)
 * Japanese – 日本語 (thanks to <a href="http://www.kuroneko-square.net/">Kuroneko Square</a>)
 * Malay – Bahasa Melayu (thanks to <a href="http://www.losebellyfat365.com/">Shareef Sam</a>)
 * Persian – فارسی, پارسی, دری (thanks to <a href="http://www.7sal.com/">Hamed Momeni</a>)
 * Polish – Polski (thanks to <a href="http://www.andrzej.net.pl/">Andrzej Pindor</a>)
+* Portuguese – Português (thanks to <a href="http://lfscoutinho.net/">Luis Coutinho</a>)
 * Brazilian Portuguese – Português Brasileiro (thanks to <a href="http://www.jeveaux.com/">Paulo César M. Jeveaux</a>, <a href="">Fabricio Bortoluzzi</a>, and <a href="http://www.rodolfoleao.com/">Rodolfo Leão</a>)
 * Romanian - Română (thanks to <a href="http://www.sphynxsoft.com/">Bogdan M. Botezatu</a>)
 * Simplified Chinese – 汉语 (thanks to <a href="http://ixiezi.com">liuxiangqian</a> and <a href="http://tihope.com/">KenSai</a>)
@@ -66,10 +69,10 @@ is currently available in following languages:
 Want to help me with translation? It's easy!
 
 1. Install <a href="http://www.poedit.net/download.php">Poedit</a>.
-2. Download <a href="http://svn.wp-plugins.org/codecolorer/trunk/languages/codecolorer.pot">codecolorer.pot</a> file.
+2. Download <a href="https://plugins.svn.wordpress.org/codecolorer/trunk/languages/codecolorer.pot">codecolorer.pot</a> file.
 3. Click *File/New catalog from .pot file* and select *codecolorer.pop*
    you've just downloaded.
-4. Enter project name (something like **CodeColorer 0.9.9**), your name
+4. Enter project name (something like **CodeColorer 0.9.10**), your name
    and email address, select a language you want to translate to and
    click *OK*.
 5. Enter a filename like **codecolorer-en_EN** and click *Save*.
@@ -153,7 +156,7 @@ Small letter means **enabled**, capital – **disabled**. Examples:
     attr_accessor :title
     [/ccW_ruby]
 
-More examples could be found on the <a href="http://kpumuk.info/projects/wordpress-plugins/codecolorer/examples">CodeColorer Examples</a>
+More examples could be found on the <a href="https://kpumuk.info/projects/wordpress-plugins/codecolorer/examples">CodeColorer Examples</a>
 page. You can find modes explained below.
 
 = Possible parameters =
@@ -264,6 +267,14 @@ This snippet will insert code from the UPLOADS_DIR/test_project/main.rb file.
 
 == Changelog ==
 
+= 0.9.10 (July 28, 2017) =
+* Fixed a bug with large code blocks margins.
+* Added Portuguese translation (thanks to <a href="http://lfscoutinho.net/">Luis Coutinho</a>).
+* Added Indonesian translation (thanks to <a href="http://www.openscriptsolution.com/">Masino Sinaga</a>).
+* Fixed PHP 7 compatibility issues (thanks to <a href="https://github.com/kamermans">Steve Kamerman</a> and <a href="https://github.com/robfelty">Robert Felty</a>).
+* Fixed WordPress 4+ compatibility (editor button, settings page layout).
+* Added "Solarized Light" and "Solarized Dark" themes (thanks to <a href="https://github.com/mattkirman">Matt Kirman</a>).
+
 = 0.9.9 (April 28, 2011) =
 * Added ability to highlight ranges of lines (thanks to <a href="http://www.deltanova.co.uk/670/">DELTA NOVA</a>).
 * GeSHi updated to 1.0.8.10 (now with Google Go support!).
@@ -291,7 +302,7 @@ This snippet will insert code from the UPLOADS_DIR/test_project/main.rb file.
 
 = 0.9.7 (December 19, 2009) =
 * Fixed `theme="geshi"` attribute bug.
-* Added ability to highlight arbitary piece of code from PHP.
+* Added ability to highlight arbitrary piece of code from PHP.
 * Use `wp_enqueue_style` instead of echoing plain HTML.
 * Fixed problem with escaped code blocks, when some entities were not unescaped.
 * Fixed compatibility with WordPress 2.9.
@@ -312,19 +323,19 @@ This snippet will insert code from the UPLOADS_DIR/test_project/main.rb file.
 * Added Arabic translation (thanks to <a href="http://amine27.zici.fr/">Amine Roukh</a>).
 * Fixed bug in Safari 4 caused by text-align=justify in parent container.
 
-You can find complete changelog on the <a href="http://kpumuk.info/projects/wordpress-plugins/codecolorer/history/">CodeColorer history</a>
+You can find complete changelog on the <a href="https://kpumuk.info/projects/wordpress-plugins/codecolorer/history/">CodeColorer history</a>
 page.
 
 == Supported languages ==
 
-Here is list of supported by CodeColorer languages: 4cs, abap, actionscript, actionscript3, ada, apache, applescript, apt\_sources, asm, asp, autoconf, autohotkey, autoit, avisynth, awk, bash, basic4gl, bf, bibtex, blitzbasic, bnf, boo, c, c\_mac, caddcl, cadlisp, cfdg, cfm, cil, clojure, cmake, cobol, cpp-qt, cpp, csharp, css, cuesheet, d, dcs, delphi, diff, div, dos, dot, ecmascript, eiffel, email, erlang, fo, fortran, freebasic, fsharp, gambas, gdb, genero, gettext, glsl, gml, gnuplot, groovy, haskell, hq9plus, html4strict, idl, ini, inno, intercal, io, j, java, java5, javascript, jquery, kixtart, klonec, klonecpp, latex, lisp, locobasic, logtalk, lolcode, lotusformulas, lotusscript, lscript, lsl2, lua, m68k, make, mapbasic, matlab, mirc, mmix, modula3, mpasm, mxml, mysql, newlisp, nsis, oberon2, objc, ocaml-brief, ocaml, oobas, oracle11, oracle8, oxygene, pascal, per, perl, perl6, pf, php-brief, php, pic16, pike, pixelbender, plsql, povray, powerbuilder, powershell, progress, prolog, properties, providex, purebasic, python, qbasic, rails, rebol, reg, robots, rsplus, ruby, sas, scala, scheme, scilab, sdlbasic, smalltalk, smarty, sql, systemverilog, tcl, teraterm, text, thinbasic, tsql, typoscript, vb, vbnet, verilog, vhdl, vim, visualfoxpro, visualprolog, whitespace, whois, winbatch, xml, xorg\_conf, xpp, yaml, z80.
+Here is list of supported by CodeColorer languages: 4cs, 6502acme, 6502kickass, 6502tasm, 68000devpac, abap, actionscript, actionscript3, ada, aimms, algol68, apache, applescript, apt_sources, arm, asm, asp, asymptote, autoconf, autohotkey, autoit, avisynth, awk, bascomavr, bash, basic4gl, batch, bf, biblatex, bibtex, blitzbasic, bnf, boo, c, c_loadrunner, c_mac, c_winapi, caddcl, cadlisp, ceylon, cfdg, cfm, chaiscript, chapel, cil, clojure, cmake, cobol, coffeescript, cpp-qt, cpp-winapi, cpp, csharp, css, cuesheet, d, dart, dcl, dcpu16, dcs, delphi, diff, div, dos, dot, e, ecmascript, eiffel, email, epc, erlang, euphoria, ezt, f1, falcon, fo, fortran, freebasic, freeswitch, fsharp, gambas, gdb, genero, genie, gettext, glsl, gml, gnuplot, go, groovy, gwbasic, haskell, haxe, hicest, hq9plus, html4strict, html5, icon, idl, ini, inno, intercal, io, ispfpanel, j, java, java5, javascript, jcl, jquery, julia, julia, kixtart, klonec, klonecpp, kotlin, latex, lb, ldif, lisp, llvm, locobasic, logtalk, lolcode, lotusformulas, lotusscript, lscript, lsl2, lua, m68k, magiksf, make, mapbasic, mathematica, matlab, mercury, metapost, mirc, mk-61, mmix, modula2, modula3, mpasm, mxml, mysql, nagios, netrexx, newlisp, nginx, nimrod, nsis, oberon2, objc, objeck, ocaml-brief, ocaml, octave, oobas, oorexx, oracle11, oracle8, oxygene, oz, parasail, parigp, pascal, pcre, per, perl, perl6, pf, phix, php-brief, php, pic16, pike, pixelbender, pli, plsql, postgresql, postscript, povray, powerbuilder, powershell, proftpd, progress, prolog, properties, providex, purebasic, pycon, pys60, python, q, qbasic, qml, racket, rails, rbs, rebol, reg, rexx, robots, rpmspec, rsplus, ruby, rust, sas, sass, scala, scheme, scilab, scl, sdlbasic, smalltalk, smarty, spark, sparql, sql, standardml, stonescript, swift, systemverilog, tcl, tclegg, teraterm, texgraph, text, thinbasic, tsql, twig, typoscript, unicon, upc, urbi, uscript, vala, vb, vbnet, vbscript, vedit, verilog, vhdl, vim, visualfoxpro, visualprolog, whitespace, whois, winbatch, xbasic, xml, xojo, xorg_conf, xpp, xyscript, yaml, z80, zxbasic.
 
 == Development ==
 
 Sources of this plugin are available both in SVN and Git:
 
-* <a href="http://svn.wp-plugins.org/codecolorer/">WordPress SVN repository</a>
-* <a href="http://github.com/kpumuk/codecolorer/">GitHub</a>
+* <a href="https://plugins.svn.wordpress.org/codecolorer/">WordPress SVN repository</a>
+* <a href="https://github.com/kpumuk/codecolorer/">GitHub</a>
 
 Feel free to check them out, make your changes and send me patches.
 Promise, I will apply every patch (of course, if they add a value to the

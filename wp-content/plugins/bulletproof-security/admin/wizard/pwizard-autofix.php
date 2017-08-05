@@ -26,7 +26,7 @@ wp-admin Custom Code Text Boxes:
 ## Note: If someone has other custom code and wants to use that custom code instead then they would need to 
 ## add these 2 lines of code below so that the AutoFix check does not display.
 ## #RewriteCond %{REQUEST_METHOD} ^(HEAD) [NC]
-## #RewriteRule ^(.*)$ /wp-content/plugins/bulletproof-security/405.php [R,L]
+## #RewriteRule ^(.*)$ /wp-content/plugins/bulletproof-security/405.php [L]
 function bpsPro_Pwizard_Autofix_Request_methods() {
 	
 	$AutoFix_Options = get_option('bulletproof_security_options_wizard_autofix');
@@ -53,7 +53,7 @@ function bpsPro_Pwizard_Autofix_Request_methods() {
 RewriteCond %{REQUEST_METHOD} ^(TRACE|DELETE|TRACK|DEBUG) [NC]
 RewriteRule ^(.*)$ - [F]
 #RewriteCond %{REQUEST_METHOD} ^(HEAD) [NC]
-#RewriteRule ^(.*)$ " . $bps_get_wp_root_secure . $bps_plugin_dir . "/bulletproof-security/405.php [R,L]";
+#RewriteRule ^(.*)$ " . $bps_get_wp_root_secure . $bps_plugin_dir . "/bulletproof-security/405.php [L]";
 	
 	## Jetpack Plugin: whitelist rules
 	$jetpack = 'jetpack/jetpack.php';
@@ -176,7 +176,7 @@ RewriteRule ^(.*)$ - [F]
 		'bps_customcode_deny_dot_folders' 	=> $CC_Options_root['bps_customcode_deny_dot_folders'], 
 		'bps_customcode_admin_includes' 	=> $CC_Options_root['bps_customcode_admin_includes'], 
 		'bps_customcode_wp_rewrite_start' 	=> $CC_Options_root['bps_customcode_wp_rewrite_start'], 
-		'bps_customcode_request_methods' 	=> $bps_customcode_request_methods_implode, 
+		'bps_customcode_request_methods' 	=> trim($bps_customcode_request_methods_implode), 
 		'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
 		'bps_customcode_timthumb_misc' 		=> $CC_Options_root['bps_customcode_timthumb_misc'], 
 		'bps_customcode_bpsqse' 			=> $CC_Options_root['bps_customcode_bpsqse'], 
@@ -195,7 +195,7 @@ RewriteRule ^(.*)$ - [F]
 		'bps_customcode_deny_dot_folders' 	=> $CC_Options_root['bps_customcode_deny_dot_folders'], 
 		'bps_customcode_admin_includes' 	=> $CC_Options_root['bps_customcode_admin_includes'], 
 		'bps_customcode_wp_rewrite_start' 	=> $CC_Options_root['bps_customcode_wp_rewrite_start'], 
-		'bps_customcode_request_methods' 	=> $bps_customcode_request_methods_implode, 
+		'bps_customcode_request_methods' 	=> trim($bps_customcode_request_methods_implode), 
 		'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
 		'bps_customcode_timthumb_misc' 		=> $CC_Options_root['bps_customcode_timthumb_misc'], 
 		'bps_customcode_bpsqse' 			=> $CC_Options_root['bps_customcode_bpsqse'], 
@@ -868,7 +868,7 @@ RewriteRule . - [S=1]\n";
 		'bps_customcode_wp_rewrite_start' 	=> $CC_Options_root['bps_customcode_wp_rewrite_start'], 
 		'bps_customcode_request_methods' 	=> $CC_Options_root['bps_customcode_request_methods'], 
 		'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
-		'bps_customcode_timthumb_misc' 		=> $bps_customcode_timthumb_misc_implode, 
+		'bps_customcode_timthumb_misc' 		=> trim($bps_customcode_timthumb_misc_implode), 
 		'bps_customcode_bpsqse' 			=> $CC_Options_root['bps_customcode_bpsqse'], 
 		'bps_customcode_deny_files' 		=> $CC_Options_root['bps_customcode_deny_files'], 
 		'bps_customcode_three' 				=> $CC_Options_root['bps_customcode_three'] 
@@ -887,7 +887,7 @@ RewriteRule . - [S=1]\n";
 		'bps_customcode_wp_rewrite_start' 	=> $CC_Options_root['bps_customcode_wp_rewrite_start'], 
 		'bps_customcode_request_methods' 	=> $CC_Options_root['bps_customcode_request_methods'], 
 		'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
-		'bps_customcode_timthumb_misc' 		=> $bps_customcode_timthumb_misc_implode, 
+		'bps_customcode_timthumb_misc' 		=> trim($bps_customcode_timthumb_misc_implode), 
 		'bps_customcode_bpsqse' 			=> $CC_Options_root['bps_customcode_bpsqse'], 
 		'bps_customcode_wp_rewrite_end' 	=> $CC_Options_root['bps_customcode_wp_rewrite_end'], 
 		'bps_customcode_deny_files' 		=> $CC_Options_root['bps_customcode_deny_files'], 
@@ -1327,7 +1327,7 @@ RewriteRule ^(.*)$ - [F]
 		'bps_customcode_request_methods' 	=> $CC_Options_root['bps_customcode_request_methods'], 
 		'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
 		'bps_customcode_timthumb_misc' 		=> $CC_Options_root['bps_customcode_timthumb_misc'], 
-		'bps_customcode_bpsqse' 			=> $bps_customcode_bpsqse_implode, 
+		'bps_customcode_bpsqse' 			=> trim($bps_customcode_bpsqse_implode), 
 		'bps_customcode_deny_files' 		=> $CC_Options_root['bps_customcode_deny_files'], 
 		'bps_customcode_three' 				=> $CC_Options_root['bps_customcode_three'] 
 		);
@@ -1346,7 +1346,7 @@ RewriteRule ^(.*)$ - [F]
 		'bps_customcode_request_methods' 	=> $CC_Options_root['bps_customcode_request_methods'], 
 		'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
 		'bps_customcode_timthumb_misc' 		=> $CC_Options_root['bps_customcode_timthumb_misc'], 
-		'bps_customcode_bpsqse' 			=> $bps_customcode_bpsqse_implode, 
+		'bps_customcode_bpsqse' 			=> trim($bps_customcode_bpsqse_implode), 
 		'bps_customcode_wp_rewrite_end' 	=> $CC_Options_root['bps_customcode_wp_rewrite_end'], 
 		'bps_customcode_deny_files' 		=> $CC_Options_root['bps_customcode_deny_files'], 
 		'bps_customcode_three' 				=> $CC_Options_root['bps_customcode_three'] 

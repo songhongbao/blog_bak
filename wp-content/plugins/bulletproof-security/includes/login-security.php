@@ -81,7 +81,7 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 			$user = get_user_by( 'email', $username );
 		}
 		
-		$LoginSecurityRows = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $bpspro_login_table WHERE user_id = %d", $user->ID) );
+		@$LoginSecurityRows = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $bpspro_login_table WHERE user_id = %d", $user->ID) );
 
 		foreach ( $LoginSecurityRows as $row ) {
 	
@@ -98,7 +98,7 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 		}
 
 		// Good Login - DB Row does NOT Exist - Create it - Email option - Any user logs in
-		if ( $wpdb->num_rows == 0 && $user->ID != 0 && wp_check_password($password, $user->user_pass, $user->ID) ) {
+		if ( $user && $wpdb->num_rows == 0 && $user->ID != 0 && wp_check_password($password, $user->user_pass, $user->ID) ) {
 			$status = 'Not Locked';
 			$lockout_time = '0';		
 			$failed_logins ='0';
@@ -192,7 +192,7 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 		} // end if ( $wpdb->num_rows != 0...
 
 		// Bad Login - DB Row does NOT Exist - First bad login attempt = $failed_logins = '1'; - Insert a new Row with Locked status
-		if ( $wpdb->num_rows == 0 && $user->ID != 0 && ! wp_check_password($password, $user->user_pass, $user->ID) ) {
+		if ( $user && $wpdb->num_rows == 0 && $user->ID != 0 && ! wp_check_password($password, $user->user_pass, $user->ID) ) {
 			$failed_logins = '1';
 
 			// Insane, but someone will do this... if max bad retries is set to 1
@@ -414,8 +414,8 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 			$user = get_user_by( 'email', $username );
 		}	
 	
-		$LoginSecurityRows = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $bpspro_login_table WHERE user_id = %d", $user->ID) );
-
+		@$LoginSecurityRows = $wpdb->get_results( $wpdb->prepare("SELECT * FROM $bpspro_login_table WHERE user_id = %d", $user->ID) );
+		
 		foreach ( $LoginSecurityRows as $row ) {
 	
 			if ( $row->status == 'Locked' && $timeNow < $row->lockout_time && $row->failed_logins >= $BPSoptions['bps_max_logins'] && $BPSoptions['bps_login_security_errors'] != 'genericAll') { 
@@ -431,7 +431,7 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 		}
 
 		// Bad Login - DB Row does NOT Exist - First bad login attempt = $failed_logins = '1';
-		if ( $wpdb->num_rows == 0 && $user->ID != 0 && ! wp_check_password($password, $user->user_pass, $user->ID) ) {
+		if ( $user && $wpdb->num_rows == 0 && $user->ID != 0 && ! wp_check_password($password, $user->user_pass, $user->ID) ) {
 			$failed_logins = '1';
 
 			// Insane, but someone will do this... if max bad retries is set to 1

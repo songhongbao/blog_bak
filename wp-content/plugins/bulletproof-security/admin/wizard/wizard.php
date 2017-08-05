@@ -646,11 +646,10 @@ $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 	echo '<div id="SLuserAgentFilter" style="border-top:3px solid #999999;border-bottom:3px solid #999999;margin-top:-10px;"><p>';
 	bpsSetupWizard_autoupdate_useragent_filters();
 	
+	// 2.0|2.3 BugFix: Changed the default option setting to: Do Not Log POST Request Body Data on new BPS installations & upgrades.
 	// .52.7: Set Security Log Limit POST Request Body Data option to checked/limited by default
-	$SecLog_post_limit_Options = get_option('bulletproof_security_options_sec_log_post_limit');
+	if ( ! get_option('bulletproof_security_options_sec_log_post_limit') ) {
 		
-	if ( ! $SecLog_post_limit_Options['bps_security_log_post_none'] ) {
-
 		$SecLog_post_limit_settings = array( 
 		'bps_security_log_post_limit' 	=> '', 
 		'bps_security_log_post_none' 	=> '1', 
@@ -706,21 +705,23 @@ $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 	
 	$successMessage8 = __(' DB Option created or updated Successfully!', 'bulletproof-security');
 
+	$BPS_LSM_Options = get_option('bulletproof_security_options_login_security');
 	$woo_plugin = 'woocommerce/woocommerce.php';
 	$woo_plugin_active = in_array( $woo_plugin, apply_filters('active_plugins', get_option('active_plugins')));
 	
+	// 2.3: BugFix: Enable Login Security for WooCommerce option being reset on rerun. Only enable once if the option does not exist.
 	if ( $woo_plugin_active == 1 || is_plugin_active_for_network( $woo_plugin ) ) {
 		// .54.36: New installations of BPS should not display the WooCommerce Enable LSM option Dismiss Notice if WooCommerce is already installed.
 		$bps_woo_lsm_jtc_options = array( 'bps_wizard_woo' => '1' );
 
-		if ( ! $BPS_LSM_Options['bps_enable_lsm_woocommerce'] ) {
-			$bps_enable_lsm_woocommerce = '1';
-		} else {
+		if ( $BPS_LSM_Options['bps_enable_lsm_woocommerce'] == '' || $BPS_LSM_Options['bps_enable_lsm_woocommerce'] == '1' ) {
 			$bps_enable_lsm_woocommerce = $BPS_LSM_Options['bps_enable_lsm_woocommerce'];
+		} elseif ( ! $BPS_LSM_Options['bps_enable_lsm_woocommerce'] ) {
+			$bps_enable_lsm_woocommerce = '1';
 		}
 
 	} else {
-		$bps_enable_lsm_woocommerce = $BPS_LSM_Options['bps_enable_lsm_woocommerce'];
+		$bps_enable_lsm_woocommerce = '';
 		$bps_woo_lsm_jtc_options = array( 'bps_wizard_woo' => '' );
 	}
 
@@ -728,18 +729,16 @@ $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 			update_option('bulletproof_security_options_setup_wizard_woo', $bps_woo_lsm_jtc_options);
 		}
 
-	$$bps_login_security = get_option('bulletproof_security_options_login_security');
-	
-	$bps_login_security1 = ! $bps_login_security['bps_max_logins'] ? '3' : $bps_login_security['bps_max_logins'];
-	$bps_login_security2 = ! $bps_login_security['bps_lockout_duration'] ? '60' : $bps_login_security['bps_lockout_duration'];
-	$bps_login_security3 = ! $bps_login_security['bps_manual_lockout_duration'] ? '60' : $bps_login_security['bps_manual_lockout_duration'];
-	$bps_login_security4 = ! $bps_login_security['bps_max_db_rows_display'] ? '' : $bps_login_security['bps_max_db_rows_display'];
-	$bps_login_security5 = ! $bps_login_security['bps_login_security_OnOff'] ? 'On' : $bps_login_security['bps_login_security_OnOff'];
-	$bps_login_security6 = ! $bps_login_security['bps_login_security_logging'] ? 'logLockouts' : $bps_login_security['bps_login_security_logging'];
-	$bps_login_security7 = ! $bps_login_security['bps_login_security_errors'] ? 'wpErrors' : $bps_login_security['bps_login_security_errors'];
-	$bps_login_security8 = ! $bps_login_security['bps_login_security_remaining'] ? 'On' : $bps_login_security['bps_login_security_remaining'];
-	$bps_login_security9 = ! $bps_login_security['bps_login_security_pw_reset'] ? 'enable' : $bps_login_security['bps_login_security_pw_reset'];
-	$bps_login_security10 = ! $bps_login_security['bps_login_security_sort'] ? 'ascending' : $bps_login_security['bps_login_security_sort'];
+	$bps_login_security1 = ! $BPS_LSM_Options['bps_max_logins'] ? '3' : $BPS_LSM_Options['bps_max_logins'];
+	$bps_login_security2 = ! $BPS_LSM_Options['bps_lockout_duration'] ? '60' : $BPS_LSM_Options['bps_lockout_duration'];
+	$bps_login_security3 = ! $BPS_LSM_Options['bps_manual_lockout_duration'] ? '60' : $BPS_LSM_Options['bps_manual_lockout_duration'];
+	$bps_login_security4 = ! $BPS_LSM_Options['bps_max_db_rows_display'] ? '' : $BPS_LSM_Options['bps_max_db_rows_display'];
+	$bps_login_security5 = ! $BPS_LSM_Options['bps_login_security_OnOff'] ? 'On' : $BPS_LSM_Options['bps_login_security_OnOff'];
+	$bps_login_security6 = ! $BPS_LSM_Options['bps_login_security_logging'] ? 'logLockouts' : $BPS_LSM_Options['bps_login_security_logging'];
+	$bps_login_security7 = ! $BPS_LSM_Options['bps_login_security_errors'] ? 'wpErrors' : $BPS_LSM_Options['bps_login_security_errors'];
+	$bps_login_security8 = ! $BPS_LSM_Options['bps_login_security_remaining'] ? 'On' : $BPS_LSM_Options['bps_login_security_remaining'];
+	$bps_login_security9 = ! $BPS_LSM_Options['bps_login_security_pw_reset'] ? 'enable' : $BPS_LSM_Options['bps_login_security_pw_reset'];
+	$bps_login_security10 = ! $BPS_LSM_Options['bps_login_security_sort'] ? 'ascending' : $BPS_LSM_Options['bps_login_security_sort'];
 
 	$BPS_Options_LSM = array(
 	'bps_max_logins' 				=> $bps_login_security1, 
@@ -852,8 +851,6 @@ function bpsSpinnerSWizard() {
             
 <div id="bps-tabs-1" class="bps-tab-page">
 
-<h2><?php _e('Setup Wizard ~ ', 'bulletproof-security'); ?><span style="font-size:.75em;"><?php _e('One-Click Complete Setup', 'bulletproof-security'); ?></span></h2>
-
 <?php
 function bpsPro_hfiles_inpage_message() {       
 
@@ -871,7 +868,9 @@ bpsPro_hfiles_inpage_message();
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
   <tr>
-    <td class="bps-table_title">&nbsp;</td>
+    <td class="bps-table_title">
+<?php $text = '<h2>'.__('Setup Wizard ~ ', 'bulletproof-security').'<span style="font-size:.75em;">'.__('One-Click Complete Setup', 'bulletproof-security').'</span></h2><div class="promo-text">'.__('Want even more security protection?', 'bulletproof-security').'<br>'.__('Protect all of your website files with AutoRestore|Quarantine Intrusion Detection & Prevention System: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro ARQ IDPS">'.__('Get BPS Pro ARQ IDPS', 'bulletproof-security').'</a><br>'.__('Protect against SpamBot & HackerBot (auto-registering, auto-logins, auto-posting, auto-commenting): ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro JTC Anti-Spam|Anti-Hacker">'.__('Get BPS Pro JTC Anti-Spam|Anti-Hacker', 'bulletproof-security').'</a><br>'.__('Protect all of your Plugins (plugin folders and files) with an IP Firewall: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Plugin Firewall">'.__('Get BPS Pro Plugin Firewall', 'bulletproof-security').'</a><br>'.__('Protect your WordPress uploads folder against remote access or execution of files: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Uploads Anti-Exploit Guard">'.__('Get BPS Pro Uploads Anti-Exploit Guard', 'bulletproof-security').'</a></div>'; echo $text; ?>
+    </td>
   </tr>
   <tr>
     <td class="bps-table_cell_help">
@@ -928,22 +927,19 @@ bpsSetupWizardPrechecks();
 
 </td>
   </tr>
-  <tr>
-    <td class="bps-table_cell_bottom">&nbsp;</td>
-  </tr>
 </table>
 
 </div>
         
 <div id="bps-tabs-2" class="bps-tab-page">
 
-<h2><?php _e('Setup Wizard Options ~ ', 'bulletproof-security'); ?><span style="font-size:.75em;"><?php _e('Click the Setup Wizard Options Read Me help button for help info about each option setting', 'bulletproof-security'); ?></span></h2>
-
 <?php bpsPro_hfiles_inpage_message(); ?>
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
   <tr>
-    <td class="bps-table_title">&nbsp;</td>
+    <td class="bps-table_title">
+<?php $text = '<h2>'.__('Setup Wizard Options ~ ', 'bulletproof-security').'<span style="font-size:.75em;">'.__('Click the Setup Wizard Options Read Me help button for help info about each option setting', 'bulletproof-security').'</span></h2><div class="promo-text">'.__('Want even more security protection?', 'bulletproof-security').'<br>'.__('Protect all of your website files with AutoRestore|Quarantine Intrusion Detection & Prevention System: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro ARQ IDPS">'.__('Get BPS Pro ARQ IDPS', 'bulletproof-security').'</a><br>'.__('Protect against SpamBot & HackerBot (auto-registering, auto-logins, auto-posting, auto-commenting): ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro JTC Anti-Spam|Anti-Hacker">'.__('Get BPS Pro JTC Anti-Spam|Anti-Hacker', 'bulletproof-security').'</a><br>'.__('Protect all of your Plugins (plugin folders and files) with an IP Firewall: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Plugin Firewall">'.__('Get BPS Pro Plugin Firewall', 'bulletproof-security').'</a><br>'.__('Protect your WordPress uploads folder against remote access or execution of files: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro Uploads Anti-Exploit Guard">'.__('Get BPS Pro Uploads Anti-Exploit Guard', 'bulletproof-security').'</a></div>'; echo $text; ?>    
+    </td>
   </tr>
   <tr>
     <td class="bps-table_cell_help">
@@ -1166,9 +1162,6 @@ if ( isset( $_POST['Submit-Net-LSM'] ) && current_user_can('manage_options') ) {
 ?>
 
 	</td>
-  </tr>
-  <tr>
-    <td class="bps-table_cell_bottom">&nbsp;</td>
   </tr>
 </table>
 

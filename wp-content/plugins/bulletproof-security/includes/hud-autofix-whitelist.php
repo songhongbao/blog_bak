@@ -32,6 +32,12 @@ function bpsPro_HUD_autofix_whitelist_check() {
 		return;
 	}
 
+	global $blog_id;
+	
+	if ( is_multisite() && $blog_id != 1 ) {
+		return;
+	}
+
 	if ( @$_POST['Submit-Setup-Wizard'] == true ) {
 		return;
 	}
@@ -707,7 +713,7 @@ function bpsPro_HUD_autofix_whitelist_check() {
 	$marker_wpadmin4 = '/BPS\sAutoWhitelist\sQS4/'; // RewriteCond %{QUERY_STRING} ^.*(\(|\)|<|>).* [NC,OR]
 
 	if ( $content_egg_active == 1 || is_plugin_active_for_network( $content_egg ) ) {
-		if ( ! preg_match( $$marker_wpadmin1, $bps_customcode_bpsqse_wpa ) ) {
+		if ( ! preg_match( $marker_wpadmin1, $bps_customcode_bpsqse_wpa ) ) {
 			$autofix_message = 1;
 			$debug_wpadmin_BPSQSE .= __('CC wp-admin Text Box 4: Content Egg (Free and Pro) Plugin', 'bulletproof-security').'<br>';
 		}		
