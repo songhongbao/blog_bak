@@ -1,19 +1,18 @@
-[0.0047] Info: WP_Query results written to log
+[0.0032] Info: WP_Query results written to log
 [0.0005] Registered sizes: ["thumbnail","medium","medium_large","large","post-thumbnail","post-image","post-image-thumb","full"]
-[0.0006] Meta indexed so far: 1 / 271
-[0.0018] Sample meta:
+[0.0006] Meta indexed so far: 1 / 195
+[0.0019] Sample meta:
 {"width":400,"height":200,"file":"2017\/08\/wechat.jpg","sizes":{"thumbnail":{"file":"wechat-150x150.jpg","width":150,"height":150,"mime-type":"image\/jpeg"},"medium":{"file":"wechat-300x150.jpg","width":300,"height":150,"mime-type":"image\/jpeg"},"post-thumbnail":{"file":"wechat-88x88.jpg","width":88,"height":88,"mime-type":"image\/jpeg"}},"image_meta":{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0","keywords":[]}}
-[0.0004] Meta indexed so far: 101 / 271
-[0.0005] Meta indexed so far: 201 / 271
-[0.1035] Meta indexed so far: 271 / 271
-[0.1200] Info: Valid and Invalid meta results written to log
-[0.0141] Info: Loaded attachments to memory [36.25 mb]
-[0.0467] Info: 1580 Images found [37.75 mb]
-[0.0893] Info: 145 Invalid images found [37.75 mb]
-[0.1070] Info: Retrieved attachment images from DB [36.5 mb]
-[0.2620] Info: Backup meta results written to log [36.5 mb]
-[0.0015] Posts checked for used images 1/71
-[0.1716] Info: Invalid post image meta results written to log
+[0.0005] Meta indexed so far: 101 / 195
+[0.1393] Meta indexed so far: 195 / 195
+[0.1485] Info: Valid and Invalid meta results written to log
+[0.0068] Info: Loaded attachments to memory [35.5 mb]
+[0.0315] Info: 1138 Images found [36.25 mb]
+[0.0687] Info: 221 Invalid images found [36.5 mb]
+[0.0998] Info: Retrieved attachment images from DB [35.75 mb]
+[0.2178] Info: Backup meta results written to log [35.75 mb]
+[0.0016] Posts checked for used images 1/71
+[0.2166] Info: Invalid post image meta results written to log
 Warning: skipping script index because of too many image files
 [0.0003] Warning: skipping attachment index because of too many image files
 [0.0005] Info: Unreferenced image file results written to log
