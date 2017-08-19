@@ -1,19 +1,19 @@
-[0.0042] Info: WP_Query results written to log
+[0.0047] Info: WP_Query results written to log
 [0.0005] Registered sizes: ["thumbnail","medium","medium_large","large","post-thumbnail","post-image","post-image-thumb","full"]
-[0.0006] Meta indexed so far: 1 / 278
-[0.0019] Sample meta:
-{"width":400,"height":200,"file":"2017\/04\/hack_php.jpg","sizes":{"thumbnail":{"file":"hack_php-150x150.jpg","width":150,"height":150,"mime-type":"image\/jpeg"},"medium":{"file":"hack_php-300x150.jpg","width":300,"height":150,"mime-type":"image\/jpeg"},"post-thumbnail":{"file":"hack_php-88x88.jpg","width":88,"height":88,"mime-type":"image\/jpeg"}},"image_meta":{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0","keywords":[]}}
-[0.0005] Meta indexed so far: 101 / 278
-[0.0005] Meta indexed so far: 201 / 278
-[0.1043] Meta indexed so far: 278 / 278
-[0.1122] Info: Valid and Invalid meta results written to log
-[0.0136] Info: Loaded attachments to memory [33.75 mb]
-[0.0536] Info: 1555 Images found [35 mb]
-[0.0961] Info: 74 Invalid images found [35 mb]
-[0.1106] Info: Retrieved attachment images from DB [33.25 mb]
-[0.2612] Info: Backup meta results written to log [33.25 mb]
-[0.0004] Posts checked for used images 1/59
-[0.0457] Info: Invalid post image meta results written to log
+[0.0006] Meta indexed so far: 1 / 271
+[0.0018] Sample meta:
+{"width":400,"height":200,"file":"2017\/08\/wechat.jpg","sizes":{"thumbnail":{"file":"wechat-150x150.jpg","width":150,"height":150,"mime-type":"image\/jpeg"},"medium":{"file":"wechat-300x150.jpg","width":300,"height":150,"mime-type":"image\/jpeg"},"post-thumbnail":{"file":"wechat-88x88.jpg","width":88,"height":88,"mime-type":"image\/jpeg"}},"image_meta":{"aperture":"0","credit":"","camera":"","caption":"","created_timestamp":"0","copyright":"","focal_length":"0","iso":"0","shutter_speed":"0","title":"","orientation":"0","keywords":[]}}
+[0.0004] Meta indexed so far: 101 / 271
+[0.0005] Meta indexed so far: 201 / 271
+[0.1035] Meta indexed so far: 271 / 271
+[0.1200] Info: Valid and Invalid meta results written to log
+[0.0141] Info: Loaded attachments to memory [36.25 mb]
+[0.0467] Info: 1580 Images found [37.75 mb]
+[0.0893] Info: 145 Invalid images found [37.75 mb]
+[0.1070] Info: Retrieved attachment images from DB [36.5 mb]
+[0.2620] Info: Backup meta results written to log [36.5 mb]
+[0.0015] Posts checked for used images 1/71
+[0.1716] Info: Invalid post image meta results written to log
 Warning: skipping script index because of too many image files
 [0.0003] Warning: skipping attachment index because of too many image files
 [0.0005] Info: Unreferenced image file results written to log
