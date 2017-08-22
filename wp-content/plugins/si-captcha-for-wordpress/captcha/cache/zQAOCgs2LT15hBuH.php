@@ -1,1 +1,1 @@
-<?php $captcha_word = '92Tb'; ?>
+<?php $captcha_word = 'pYv8'; ?>
