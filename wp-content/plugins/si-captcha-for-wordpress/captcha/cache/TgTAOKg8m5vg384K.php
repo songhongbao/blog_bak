@@ -1,1 +1,0 @@
-<?php $captcha_word = 'EC2P'; ?>
