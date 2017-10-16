@@ -65,8 +65,10 @@ function bpsPro_HUD_autofix_whitelist_check() {
 	$broken_link_checker_active = in_array( $broken_link_checker, apply_filters('active_plugins', get_option('active_plugins')));
 	$mailchimp = 'mailchimp-for-wp/mailchimp-for-wp.php';
 	$mailchimp_active = in_array( $mailchimp, apply_filters('active_plugins', get_option('active_plugins')));
-	
-	if ( $jetpack_active == 1 || is_plugin_active_for_network( $jetpack ) || $marmoset_viewer_active == 1 || is_plugin_active_for_network( $marmoset_viewer ) || $backwpup_active == 1 || is_plugin_active_for_network( $backwpup ) || $mailpoet_active == 1 || is_plugin_active_for_network( $mailpoet ) || $backupwordpress_active == 1 || is_plugin_active_for_network( $backupwordpress ) || $broken_link_checker_active == 1 || is_plugin_active_for_network( $broken_link_checker ) || $mailchimp_active == 1 || is_plugin_active_for_network( $mailchimp ) ) {
+	$powerpress = 'powerpress/powerpress.php';
+	$powerpress_active = in_array( $powerpress, apply_filters('active_plugins', get_option('active_plugins')));		
+
+	if ( $jetpack_active == 1 || is_plugin_active_for_network( $jetpack ) || $marmoset_viewer_active == 1 || is_plugin_active_for_network( $marmoset_viewer ) || $backwpup_active == 1 || is_plugin_active_for_network( $backwpup ) || $mailpoet_active == 1 || is_plugin_active_for_network( $mailpoet ) || $backupwordpress_active == 1 || is_plugin_active_for_network( $backupwordpress ) || $broken_link_checker_active == 1 || is_plugin_active_for_network( $broken_link_checker ) || $mailchimp_active == 1 || is_plugin_active_for_network( $mailchimp ) || $powerpress_active == 1 || is_plugin_active_for_network( $powerpress ) ) {
 		
 		if ( ! preg_match( $pattern_RMF, $bps_customcode_request_methods ) ) {
 			$autofix_message = 1;
@@ -554,7 +556,8 @@ function bpsPro_HUD_autofix_whitelist_check() {
 	$event_espresso4 = WP_PLUGIN_DIR . '/event-espresso-core-master/espresso.php';
 	$content_egg = 'content-egg/content-egg.php';
 	$content_egg_active = in_array( $content_egg, apply_filters('active_plugins', get_option('active_plugins')));
-
+	$flatsome_theme = wp_get_theme( 'flatsome' );
+	
 	## wp-admin plugin skip/bypass RegEx patterns
 	$post_psb = '/RewriteCond\s%{REQUEST_URI}\s\(post\\\.php\)\s\[NC\]/';
 	$admin_ajax_psb = '/RewriteCond\s%{REQUEST_URI}\s\(admin-ajax\\\.php\)\s\[NC\]/';
@@ -688,6 +691,12 @@ function bpsPro_HUD_autofix_whitelist_check() {
 		if ( ! preg_match( $admin_ajax_psb, $bps_customcode_two_wpa ) ) {
 			$autofix_message = 1;
 			$debug_wpadmin_PSB .= __('CC wp-admin Text Box 3: Content Egg (Free and Pro) Plugin', 'bulletproof-security').'<br>';
+		}		
+	}
+	if ( $flatsome_theme->exists() ) {
+		if ( ! preg_match( '/RewriteCond\s%{REQUEST_URI}\s\(customize\\\.php\)\s\[NC\]/', $bps_customcode_two_wpa ) ) {
+			$autofix_message = 1;
+			$debug_wpadmin_PSB .= __('CC wp-admin Text Box 3: Flatsome Theme', 'bulletproof-security').'<br>';
 		}		
 	}
 

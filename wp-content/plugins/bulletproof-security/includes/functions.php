@@ -184,6 +184,23 @@ function bpsPro_new_feature_autoupdate() {
 	bpsPro_new_version_db_options_files_autoupdate();
 }
 
+// BPS Status Display Admin notices
+function bps_status_display_admin_notices() {
+	
+	if ( current_user_can('manage_options') ) { 
+		bps_root_htaccess_status_dashboard();
+		bps_wpadmin_htaccess_status_dashboard();
+		bpsProMScanStatus();
+		bpsProDBBStatus();
+		bps_Login_Security_admin_notice_status_bps();
+		bps_jtc_antispam_admin_notice_status_bps();
+		bpsPro_isl_notice_status_bps();
+		bpsPro_ace_notice_status_bps();
+	}
+}
+
+add_action('admin_notices', 'bps_status_display_admin_notices');
+
 // BPS Update/Upgrade Status Alert in WP Dashboard|Status Display BPS pages only
 function bps_root_htaccess_status_dashboard() {
 
@@ -556,8 +573,6 @@ switch ( $bps_version ) {
 	}
 }
 
-add_action('admin_notices', 'bps_root_htaccess_status_dashboard');
-
 // BPS Update/Upgrade Status Alert in WP Dashboard|Status Display in BPS pages only
 function bps_wpadmin_htaccess_status_dashboard() {
 
@@ -731,46 +746,64 @@ switch ( $bps_version ) {
 	}
 }
 
-add_action('admin_notices', 'bps_wpadmin_htaccess_status_dashboard');
+// MScan Status display BPS pages only
+// Displays the question mark hover icon if a scan has not been run or the Delete Scan Status Tool has been used.
+// Displays last scan timestamp when scheduled scans are Off > MSCAN: August 3, 2017 8:45 am
+// BPS Pro only (code removed): Displays next scheduled cron job when scheduled scan frequency is used > MSCAN: On : 60 Min : 9:30 am
+function bpsProMScanStatus() {
 
-// Login Security Status display - BPS pages ONLY
-function bps_Login_Security_admin_notice_status_bps() {
-global $aitpro_bullet;
-	
 	if ( current_user_can('manage_options') ) {
+		global $aitpro_bullet;
+
+		if ( esc_html($_SERVER['REQUEST_METHOD']) != 'POST' && esc_html($_SERVER['QUERY_STRING']) != 'page=bulletproof-security/admin/system-info/system-info.php' ) {
 	
-	if ( esc_html($_SERVER['REQUEST_METHOD']) != 'POST' && esc_html($_SERVER['QUERY_STRING']) != 'page=bulletproof-security/admin/system-info/system-info.php' ) {
+		$bps_status_display = get_option('bulletproof_security_options_status_display');
+	
+		if ( $bps_status_display['bps_status_display'] == 'Off' ) {
+			return;
+		}
+	
+			if ( $bps_status_display['bps_status_display'] != 'Off' && preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {	
+		
+				// New BPS installation - do not display status
+				if ( ! get_option('bulletproof_security_options_wizard_free') ) { 
+					return;
+				}
 
-	$bps_status_display = get_option('bulletproof_security_options_status_display');
+				$MScan_status = get_option('bulletproof_security_options_MScan_status');
 
-	if ( $bps_status_display['bps_status_display'] == 'Off' ) {
-		return;
-	}
+				?>
+				
+				<style>
+				<!--
+				div.mscan-tooltip {display:inline-block;position:relative;}
+				div.mscan-tooltip:hover {z-index:10;}
+				div.mscan-tooltip img:hover {z-index:10;}
+				div.mscan-tooltip span {display:none;position:absolute;bottom:0;left:0;right:0;}
+				div.mscan-tooltip:hover span {width:500px;height:60px;display:block;position:absolute;top:30px;left:5px;right:0;color:#000;background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);}
+				-->
+				</style>
+				
+				<?php	
+				$bps_question_mark_mscan = '<div class="mscan-tooltip"><img src="'.plugins_url('/bulletproof-security/admin/images/question-mark.png').'" style="position:relative;top:3px;right:1px;" /><span>An MScan scan has not been run yet or the MScan Delete Scan Status Tool has been used to delete MScan Status values, which deletes the the last MScan scan Timestamp for the last scan that was run.</span></div>';
 
-		if ( $bps_status_display['bps_status_display'] != 'Off' && preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {
-
-			// New BPS installation - do not display status
-			if ( ! get_option('bulletproof_security_options_wizard_free') ) { 
-				return;
-			}
-
-			$BPSoptions = get_option('bulletproof_security_options_login_security');	
-
-			if ( $BPSoptions['bps_login_security_OnOff'] == 'On' ) {
-				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php' ).'" title="Login Security & Monitoring" style="text-decoration:none;">'.esc_attr__('LSM', 'bulletproof-security').'</a>: <font color="green">'.__('On', 'bulletproof-security').'</font></div>';
-				echo $text;
-			}
-
-			if ( ! $BPSoptions['bps_login_security_OnOff'] || $BPSoptions['bps_login_security_OnOff'] == 'Off' || $BPSoptions['bps_login_security_OnOff'] == '' || $BPSoptions['bps_login_security_OnOff'] == 'pwreset' ) {
-				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php' ).'" title="Login Security & Monitoring" style="text-decoration:none;">'.__('LSM', 'bulletproof-security').'</a>: <font color="#fb0101">'.__('Off', 'bulletproof-security').'</font></div>';
-				echo $text;
+				if ( $MScan_status['bps_mscan_status'] == '' || $MScan_status['bps_mscan_last_scan_timestamp'] == '' ) {	
+					$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:-2px 0px 0px 0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/mscan/mscan.php' ).'" title="MScan Malware Scanner" style="text-decoration:none;">'.esc_attr__('MSCAN', 'bulletproof-security').'</a>: '.$bps_question_mark_mscan.'</div>';					
+					echo $text;
+					return;
+				}
+			
+				$MScan_options = get_option('bulletproof_security_options_MScan');
+			
+				if ( $MScan_options['mscan_scan_frequency'] == 'Off' ) {
+					$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/mscan/mscan.php' ).'" title="MScan Malware Scanner" style="text-decoration:none;">'.esc_attr__('MSCAN', 'bulletproof-security').'</a>: <font color="green"><strong>'.$MScan_status['bps_mscan_last_scan_timestamp'].'</strong></font></div>';
+					echo $text;
+			
+				}
 			}
 		}
 	}
-	}
 }
-
-add_action('admin_notices', 'bps_Login_Security_admin_notice_status_bps');
 
 // DB Backup Status display BPS pages only
 // First time installations and upgrades the DB option bps_db_backup_status_display has value "No DB Backups"
@@ -780,55 +813,141 @@ function bpsProDBBStatus() {
 
 	if ( current_user_can('manage_options') ) {
 	
-	global $aitpro_bullet;
+		global $aitpro_bullet;
 	
-	if ( esc_html($_SERVER['REQUEST_METHOD']) != 'POST' && esc_html($_SERVER['QUERY_STRING']) != 'page=bulletproof-security/admin/system-info/system-info.php' ) {
+		if ( esc_html($_SERVER['REQUEST_METHOD']) != 'POST' && esc_html($_SERVER['QUERY_STRING']) != 'page=bulletproof-security/admin/system-info/system-info.php' ) {
 
-	$bps_status_display = get_option('bulletproof_security_options_status_display');
+			$bps_status_display = get_option('bulletproof_security_options_status_display');
 
-	if ( $bps_status_display['bps_status_display'] == 'Off' ) {
-		return;
-	}
-
-		if ( $bps_status_display['bps_status_display'] != 'Off' && preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {	
-	
-			// New BPS installation - do not display status
-			if ( ! get_option('bulletproof_security_options_wizard_free') ) { 
+			if ( $bps_status_display['bps_status_display'] == 'Off' ) {
 				return;
 			}
 
-			$DBBoptions = get_option('bulletproof_security_options_db_backup');
-
-			if ( ! get_option('bulletproof_security_options_idle_session') && ! get_option('bulletproof_security_options_auth_cookie') ) {				
-			
-				$status_DDiv = '</div><div style="clear:both;"></div>';
-			
-			} else {
-				
-				$status_DDiv = '</div>';
+			if ( $bps_status_display['bps_status_display'] != 'Off' && preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {	
 	
-			}
+				// New BPS installation - do not display status
+				if ( ! get_option('bulletproof_security_options_wizard_free') ) { 
+					return;
+				}
 
-			if ( $DBBoptions['bps_db_backup_status_display'] == 'No DB Backups' ) {
+				$DBBoptions = get_option('bulletproof_security_options_db_backup');
+
+			?>
+
+			<style>
+            <!--
+            div.dbb-status-tooltip {display:inline-block;position:relative;}
+            div.dbb-status-tooltip:hover {z-index:10;}
+            div.dbb-status-tooltip img:hover {z-index:10;}
+            div.dbb-status-tooltip span {display:none;position:absolute;bottom:0;left:0;right:0;}
+            div.dbb-status-tooltip:hover span {width:500px;height:60px;display:block;position:absolute;top:30px;left:5px;right:0;color:#000;background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);}
+            -->
+            </style>
+
+			<?php
+			$bps_qm_dbb1 = '<div class="dbb-status-tooltip"><img src="'.plugins_url('/bulletproof-security/admin/images/question-mark.png').'" style="position:relative;top:3px;right:1px;" /><span>A BPS DB Backup has not been performed yet. To run a DB Backup go to the BPS DB Backup page, create a Backup Job and run the Backup Job or you can just ignore this hover tooltip and not perform a DB Backup.</span></div>';
+			
+			$bps_qm_dbb2 = '<div class="dbb-status-tooltip"><img src="'.plugins_url('/bulletproof-security/admin/images/question-mark.png').'" style="position:relative;top:3px;right:1px;" /><span>A BPS DB Backup Job has been created. To run a DB Backup go to the BPS DB Backup page and run the Backup Job or you can just ignore this hover tooltip and not perform a DB Backup.</span></div>';
+
+			if ( $DBBoptions['bps_db_backup_status_display'] == 'No DB Backups' || $DBBoptions['bps_db_backup_status_display'] == '' ) {
 		
-				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" title="Database Backup" style="text-decoration:none;">'.esc_attr__('DBB', 'bulletproof-security').'</a>: <font color="blue"><strong>'.__('No DB Backups', 'bulletproof-security').'</strong></font>'.$status_DDiv;
+				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:-2px 0px 0px 0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" title="Database Backup" style="text-decoration:none;">'.esc_attr__('DBB', 'bulletproof-security').'</a>: '.$bps_qm_dbb1.'</div>';
 				echo $text;
 	
 			} elseif ( $DBBoptions['bps_db_backup_status_display'] == 'Backup Job Created' ) {
 		
-				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" title="Database Backup" style="text-decoration:none;">'.esc_attr__('DBB', 'bulletproof-security').'</a>: <font color="blue"><strong>'.__('Backup Job Created', 'bulletproof-security').'</strong></font>'.$status_DDiv;
+				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:-2px 0px 0px 0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" title="Database Backup" style="text-decoration:none;">'.esc_attr__('DBB', 'bulletproof-security').'</a>: '.$bps_qm_dbb2.'</div>';
 				echo $text;		
 	
 			} else {
 		
-				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" title="Database Backup" style="text-decoration:none;">'.esc_attr__('DBB', 'bulletproof-security').'</a>: <font color="green"><strong>'.$DBBoptions['bps_db_backup_status_display'].'</strong></font>'.$status_DDiv;
+				$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" title="Database Backup" style="text-decoration:none;">'.esc_attr__('DBB', 'bulletproof-security').'</a>: <font color="green"><strong>'.$DBBoptions['bps_db_backup_status_display'].'</strong></font></div>';
 				echo $text;
 			}
 		}
 	}
 	}
 }
-add_action('admin_notices', 'bpsProDBBStatus');
+
+// Login Security Status display - BPS pages ONLY
+function bps_Login_Security_admin_notice_status_bps() {
+global $aitpro_bullet;
+	
+	if ( current_user_can('manage_options') ) {
+	
+		if ( esc_html($_SERVER['REQUEST_METHOD']) != 'POST' && esc_html($_SERVER['QUERY_STRING']) != 'page=bulletproof-security/admin/system-info/system-info.php' ) {
+	
+			$bps_status_display = get_option('bulletproof_security_options_status_display');
+		
+			if ( $bps_status_display['bps_status_display'] == 'Off' ) {
+				return;
+			}
+	
+			if ( $bps_status_display['bps_status_display'] != 'Off' && preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {
+	
+				// New BPS installation - do not display status
+				if ( ! get_option('bulletproof_security_options_wizard_free') ) { 
+					return;
+				}
+	
+				$BPSoptions = get_option('bulletproof_security_options_login_security');	
+	
+				if ( $BPSoptions['bps_login_security_OnOff'] == 'On' ) {
+					$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php' ).'" title="Login Security & Monitoring" style="text-decoration:none;">'.esc_attr__('LSM', 'bulletproof-security').'</a>: <font color="green">'.__('On', 'bulletproof-security').'</font></div>';
+					echo $text;
+				}
+	
+				if ( ! $BPSoptions['bps_login_security_OnOff'] || $BPSoptions['bps_login_security_OnOff'] == 'Off' || $BPSoptions['bps_login_security_OnOff'] == '' || $BPSoptions['bps_login_security_OnOff'] == 'pwreset' ) {
+					$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php' ).'" title="Login Security & Monitoring" style="text-decoration:none;">'.__('LSM', 'bulletproof-security').'</a>: <font color="#fb0101">'.__('Off', 'bulletproof-security').'</font></div>';
+					echo $text;
+				}
+			}
+		}
+	}
+}
+
+// JTC-Lite Status display - BPS pages ONLY
+function bps_jtc_antispam_admin_notice_status_bps() {
+global $aitpro_bullet;
+	
+	if ( current_user_can('manage_options') ) {
+	
+		if ( esc_html($_SERVER['REQUEST_METHOD']) != 'POST' && esc_html($_SERVER['QUERY_STRING']) != 'page=bulletproof-security/admin/system-info/system-info.php' ) {
+	
+			$bps_status_display = get_option('bulletproof_security_options_status_display');
+		
+			if ( $bps_status_display['bps_status_display'] == 'Off' ) {
+				return;
+			}
+	
+			if ( $bps_status_display['bps_status_display'] != 'Off' && preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {
+	
+				// New BPS installation - do not display status
+				if ( ! get_option('bulletproof_security_options_wizard_free') ) { 
+					return;
+				}
+
+				$BPSoptionsJTC = get_option('bulletproof_security_options_login_security_jtc');
+
+				if ( ! get_option('bulletproof_security_options_idle_session') && ! get_option('bulletproof_security_options_auth_cookie') ) {				
+					$status_DDiv = '</div><div style="clear:both;"></div>';
+				} else {
+					$status_DDiv = '</div>';
+				}
+
+				if ( $BPSoptionsJTC['bps_jtc_login_form'] == '1' ) {
+					$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' ).'" title="JTC-Lite" style="text-decoration:none;">'.esc_attr__('JTC', 'bulletproof-security').'</a>: <font color="green">'.__('On', 'bulletproof-security').'</font>'.$status_DDiv;
+					echo $text;
+				} 
+			
+				if ( $BPSoptionsJTC['bps_jtc_login_form'] != '1' ) {
+					$text = '<div id="bps-status-display" style="float:left;font-weight:600;margin:0px;">' . $aitpro_bullet . '<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' ).'" title="'.esc_attr( 'JTC-Lite' ).'" style="text-decoration:none;">'.__('JTC', 'bulletproof-security').'</a>: <font color="#fb0101">'.__('Off', 'bulletproof-security').'</font>'.$status_DDiv;
+					echo $text;
+				}
+			}
+		}
+	}
+}
 
 // Idle Session Logout ISL Status display - BPS pages ONLY
 function bpsPro_isl_notice_status_bps() {
@@ -858,13 +977,9 @@ global $aitpro_bullet;
 			$BPSoptionsISL = get_option('bulletproof_security_options_idle_session');	
 	
 			if ( ! get_option('bulletproof_security_options_auth_cookie') ) {				
-				
 				$status_DDiv = '</div><div style="clear:both;"></div>';
-
 			} else {
-				
 				$status_DDiv = '</div>';	
-	
 			}
 
 			if ( $BPSoptionsISL['bps_isl'] == 'On' ) {
@@ -882,8 +997,6 @@ global $aitpro_bullet;
 	}
 	}
 }
-
-add_action('admin_notices', 'bpsPro_isl_notice_status_bps');
 
 // Auth Cookie Expiration ACE Status display - BPS pages ONLY
 function bpsPro_ace_notice_status_bps() {
@@ -928,8 +1041,6 @@ global $aitpro_bullet;
 	}
 	}
 }
-
-add_action('admin_notices', 'bpsPro_ace_notice_status_bps');
 
 // GET HTTP Status Response from /mod-test/ images to determine which Apache Modules are Loaded, 
 // Directive Backward Compatibility & if Host is allowing/processing IfModule conditions (Known Hosts: HostGator).
@@ -1367,13 +1478,15 @@ function bpsPro_apache_mod_create_htaccess_files() {
 		$core7 = $bpsPro_pf . 'admin/system-info/.htaccess';
 		$core8 = $bpsPro_pf . 'admin/theme-skin/.htaccess';	
 		$core9 = $bpsPro_pf . 'admin/wizard/.htaccess';	
-	
+		$core10 = $bpsPro_pf . 'admin/email-log-settings/.htaccess';	
+		$core11 = $bpsPro_pf . 'admin/mscan/.htaccess';
+
 		$Zip_download_Options = get_option('bulletproof_security_options_zip_fix');
 
 		if ( $Zip_download_Options['bps_zip_download_fix'] == 'On' ) {
-			$files = array( $bps_backup, $bps_master_backups, $core2, $core3, $core5, $core6, $core7, $core8 );		
+			$files = array( $bps_backup, $bps_master_backups, $core2, $core3, $core5, $core6, $core7, $core8, $core10, $core11 );		
 		} else {
-			$files = array( $bps_backup, $bps_master_backups, $core1, $core2, $core3, $core4, $core5, $core6, $core7, $core8, $core9 );
+			$files = array( $bps_backup, $bps_master_backups, $core1, $core2, $core3, $core4, $core5, $core6, $core7, $core8, $core9, $core10, $core11 );
 		}
 	
 		$Apache_Mod_options = get_option('bulletproof_security_options_apache_modules');

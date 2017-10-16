@@ -153,6 +153,20 @@ RewriteRule ^(.*)$ - [F]
 		}
 	}
 
+	## PowerPress Podcasting Plugin: whitelist rules
+	$powerpress = 'powerpress/powerpress.php';
+	$powerpress_active = in_array( $powerpress, apply_filters('active_plugins', get_option('active_plugins')));
+	$powerpress_array = array();
+	$powerpress_fix = '';
+
+	if ( $powerpress_active == 1 || is_plugin_active_for_network( $broken_link_checker ) ) {
+		$powerpress_fix = __('PowerPress Podcasting Plugin Request Methods AutoWhitelist successful', 'bulletproof-security');
+
+		if ( ! preg_match( $pattern_rmf, $bps_customcode_request_methods ) ) {
+			$powerpress_array[] = $request_methods_code;
+		}
+	}
+
 	// cleans up whitespace, newlines, etc in the $bps_customcode_request_methods_array values.
 	$cc_request_methods_array = array();
 
@@ -160,7 +174,7 @@ RewriteRule ^(.*)$ - [F]
 		$cc_request_methods_array[] = trim( $value, " \t\n\r");
 	}
 
-	$bps_customcode_request_methods_merge = array_merge($cc_request_methods_array, $jetpack_array, $marmoset_viewer_array, $backwpup_array, $mailpoet_array, $backupwordpress_array, $broken_link_checker_array, $mailchimp_array);
+	$bps_customcode_request_methods_merge = array_merge($cc_request_methods_array, $jetpack_array, $marmoset_viewer_array, $backwpup_array, $mailpoet_array, $backupwordpress_array, $broken_link_checker_array, $mailchimp_array, $powerpress_array);
 	$cc_request_methods_unique = array_unique($bps_customcode_request_methods_merge);
 
  	$bps_customcode_request_methods_implode = implode( "\n\n", $cc_request_methods_unique );
@@ -209,7 +223,7 @@ RewriteRule ^(.*)$ - [F]
 		update_option('bulletproof_security_options_customcode', $Root_CC_Options);
 	}
 
-	$success_array = array($jetpack_fix, $marmoset_viewer_fix, $backwpup_fix, $mailpoet_fix, $backupwordpress_fix, $broken_link_checker_fix, $mailchimp_fix);
+	$success_array = array($jetpack_fix, $marmoset_viewer_fix, $backwpup_fix, $mailpoet_fix, $backupwordpress_fix, $broken_link_checker_fix, $mailchimp_fix, $powerpress_fix);
 	
 	foreach ( $success_array as $successMessage ) {
 		
@@ -1771,6 +1785,23 @@ RewriteRule . - [S=99]";
 		}
 	}
 
+	## Flatsome Theme: whitelist rules
+	$flatsome_theme = wp_get_theme( 'flatsome' );
+	$pattern22 = '/RewriteCond\s%{REQUEST_URI}\s\(customize\\\.php\)\s\[NC\]/';
+	$flatsome_theme_array = array();
+	$flatsome_theme_fix = '';
+
+	if ( $flatsome_theme->exists() ) {
+		$flatsome_theme_fix = __('Flatsome Theme wp-admin skip/bypass rule AutoWhitelist successful', 'bulletproof-security');
+
+		if ( ! preg_match( $pattern22, $bps_customcode_two_wpa ) ) {
+
+			$flatsome_theme_array[] = "# Flatsome Theme customize.php skip/bypass rule
+RewriteCond %{REQUEST_URI} (customize\.php) [NC]
+RewriteRule . - [S=99]";
+		}
+	}
+
 	$bps_customcode_two_wpa_array_impload = implode( "]", $bps_customcode_two_wpa_array );
 	$bps_customcode_two_wpa_array_preg_split = preg_split("/\[S=\d{1,2}\]/", $bps_customcode_two_wpa_array_impload);
 	$bps_customcode_two_wpa_array_preg_replace = preg_replace("/RewriteRule\s\.\s-\s/", "RewriteRule . - [S=99]", $bps_customcode_two_wpa_array_preg_split);
@@ -1783,7 +1814,7 @@ RewriteRule . - [S=99]";
 		$cc2_array[] = trim( $value, " \t\n\r");
 	}
 	
-	$bps_customcode_two_wpa_array_merge = array_merge($cc2_array, $woo_pfeed_pro_array, $visual_composer_array, $bookly_booking_array, $emg_pro_array, $nextgen_gallery_array, $OptimizePress_theme_array, $wp_checkout_array, $video_showcase_array, $wp_invoice_array, $yoast_seo_array, $formidable_pro_array, $google_typography_array, $flare_array, $bbPress_array, $spider_calendar_array, $buddypress_array, $wpml_transman_array, $events_manager_array, $mailpoet_array, $event_espresso_array, $content_egg_array);
+	$bps_customcode_two_wpa_array_merge = array_merge($cc2_array, $woo_pfeed_pro_array, $visual_composer_array, $bookly_booking_array, $emg_pro_array, $nextgen_gallery_array, $OptimizePress_theme_array, $wp_checkout_array, $video_showcase_array, $wp_invoice_array, $yoast_seo_array, $formidable_pro_array, $google_typography_array, $flare_array, $bbPress_array, $spider_calendar_array, $buddypress_array, $wpml_transman_array, $events_manager_array, $mailpoet_array, $event_espresso_array, $content_egg_array, $flatsome_theme_array);
 
 	$cc2_unique = array_unique($bps_customcode_two_wpa_array_merge);
 	$S_replace = preg_replace_callback( '/(S=\d{1,2})/', 'bpsPro_S_number_count_replace', $cc2_unique );
@@ -1801,7 +1832,7 @@ RewriteRule . - [S=99]";
 		update_option('bulletproof_security_options_customcode_WPA', $wpadmin_CC_Options);
 	}
 
-	$success_array = array($woo_pfeed_pro_fix, $visual_composer_fix, $bookly_booking_fix, $emg_pro_fix, $nextgen_gallery_fix, $OptimizePress_theme_fix, $wp_checkout_fix, $video_showcase_fix, $wp_invoice_fix, $yoast_seo_fix, $formidable_pro_fix, $google_typography_fix, $flare_fix, $bbPress_fix, $spider_calendar_fix, $buddypress_fix, $wpml_transman_fix, $events_manager_fix, $mailpoet_fix, $event_espresso_fix, $content_egg_fix);
+	$success_array = array($woo_pfeed_pro_fix, $visual_composer_fix, $bookly_booking_fix, $emg_pro_fix, $nextgen_gallery_fix, $OptimizePress_theme_fix, $wp_checkout_fix, $video_showcase_fix, $wp_invoice_fix, $yoast_seo_fix, $formidable_pro_fix, $google_typography_fix, $flare_fix, $bbPress_fix, $spider_calendar_fix, $buddypress_fix, $wpml_transman_fix, $events_manager_fix, $mailpoet_fix, $event_espresso_fix, $content_egg_fix, $flatsome_theme_fix);
 	
 	foreach ( $success_array as $successMessage ) {
 		

@@ -230,18 +230,24 @@ function bpsPro_hidden_plugins_check_alert() {
 		$hello_dolly = WP_PLUGIN_DIR . '/hello.php';
 		$plugins_index = WP_PLUGIN_DIR . '/index.php';
 		$plugins_htaccess = WP_PLUGIN_DIR . '/.htaccess';
-		
+		// Replace ABSPATH = wp-content/plugins
+		$bps_plugin_dir = str_replace( ABSPATH, '', WP_PLUGIN_DIR );
+		// Replace ABSPATH = wp-content
+		$bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
+		// Replace wp-content/ = plugins
+		$plugins_dir_name = str_replace( $bps_wpcontent_dir . '/', "", $bps_plugin_dir );		
+
 		foreach ( $iterator as $files ) {
 			
 			if ( $files->isFile() ) {
 				
 				// only search files in the root /plugins/ folder
-				if ( ! preg_match( '/\/plugins(\\\|\/).*(\\\|\/)/', $files ) ) {
+				if ( ! preg_match( '/\/'.$plugins_dir_name.'(\\\|\/).*(\\\|\/)/', $files ) ) {
 					
 					if ( file_exists($hello_dolly) ) {
 						$check_string_hd = @file_get_contents($hello_dolly);
 						
-						if ( preg_match( '/\/plugins(\\\|\/)hello\.php/', $files ) && ! strpos( $check_string_hd, "Plugin Name: Hello Dolly" ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
+						if ( preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)hello\.php/', $files ) && ! strpos( $check_string_hd, "Plugin Name: Hello Dolly" ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
 							
 							if ( @$_POST['Hidden-Plugins-Ignore-Submit'] != true ) {
 								$alert1 = 'alert';
@@ -256,7 +262,7 @@ function bpsPro_hidden_plugins_check_alert() {
 					if ( file_exists($plugins_index) ) {
 						$check_string_index = @file_get_contents($plugins_index);
 						
-						if ( preg_match( '/\/plugins(\\\|\/)index\.php/', $files ) && preg_match( '/[\=\%\{\}\(\)\,\;@\'\"\&\+\!]/', $check_string_index ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
+						if ( preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)index\.php/', $files ) && preg_match( '/[\=\%\{\}\(\)\,\;@\'\"\&\+\!]/', $check_string_index ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
 							
 							if ( @$_POST['Hidden-Plugins-Ignore-Submit'] != true ) {
 								$alert2 = 'alert';
@@ -271,7 +277,7 @@ function bpsPro_hidden_plugins_check_alert() {
 					if ( file_exists($plugins_htaccess) ) {
 						$check_string_ht = @file_get_contents($plugins_htaccess);
 						
-						if ( preg_match( '/\/plugins(\\\|\/)\.htaccess/', $files ) && ! strpos( $check_string_ht, "BULLETPROOF" ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
+						if ( preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)\.htaccess/', $files ) && ! strpos( $check_string_ht, "BULLETPROOF" ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
 							
 							if ( @$_POST['Hidden-Plugins-Ignore-Submit'] != true ) {
 								$alert3 = 'alert';
@@ -284,7 +290,7 @@ function bpsPro_hidden_plugins_check_alert() {
 					}
 					
 					// list any other files found in the /plugins/ folder except for ignored file names.
-					if ( ! preg_match( '/\/plugins(\\\|\/)hello\.php/', $files ) && ! preg_match( '/\/plugins(\\\|\/)index\.php/', $files ) && ! preg_match( '/\/plugins(\\\|\/)\.htaccess/', $files ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
+					if ( ! preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)hello\.php/', $files ) && ! preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)index\.php/', $files ) && ! preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)\.htaccess/', $files ) && ! in_array( $files->getFilename(), $hidden_plugins_array ) ) {
 					
 						$file_contents = @file_get_contents($files->getPathname());
 						
@@ -302,7 +308,7 @@ function bpsPro_hidden_plugins_check_alert() {
 			if ( $files->isDir() ) {
 			
 				// only return root folders in the root /plugins/ folder and not child subfolders & dir dots
-				if ( ! preg_match( '/\/plugins(\\\|\/).*(\\\|\/)/', $files ) && ! preg_match( '/\/plugins(\\\|\/)(\.|\.\.)/', $files ) ) {
+				if ( ! preg_match( '/\/'.$plugins_dir_name.'(\\\|\/).*(\\\|\/)/', $files ) && ! preg_match( '/\/'.$plugins_dir_name.'(\\\|\/)(\.|\.\.)/', $files ) ) {
 				
 					$dir_plugins_array[] = str_replace( array( '\\', '//' ), "/", $files );
 				}

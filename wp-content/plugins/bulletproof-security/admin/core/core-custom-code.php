@@ -140,7 +140,7 @@ global $bps_topDiv, $bps_bottomDiv;
 	$Apache_Mod_options = get_option('bulletproof_security_options_apache_modules');
 ?>
         
-<div id="bps-accordion-2" class="bps-accordion-main-2">
+<div id="bps-accordion-2" class="bps-accordion-main-2" style="">
     <h3><?php _e('Root htaccess File Custom Code', 'bulletproof-security'); ?></h3>
 <div id="cc-accordion-inner">
 

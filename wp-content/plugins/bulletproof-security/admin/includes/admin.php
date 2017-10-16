@@ -42,6 +42,29 @@ global $wpdb, $wp_version, $blog_id;
 	$Stable_name = $wpdb->prefix . "bpspro_seclog_ignore";
 	$Ltable_name = $wpdb->prefix . "bpspro_login_security";
 	$DBBtable_name = $wpdb->prefix . "bpspro_db_backup";
+	$MStable_name = $wpdb->prefix . "bpspro_mscan";
+
+	if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $MStable_name ) ) != $MStable_name ) {	
+	
+	$sql = "CREATE TABLE $MStable_name (
+	mscan_id bigint(20) NOT NULL auto_increment,
+	mscan_status varchar(8) NOT NULL default '',
+	mscan_type varchar(16) NOT NULL default '',
+	mscan_path text NOT NULL,
+	mscan_pattern text NOT NULL,
+	mscan_skipped varchar(7) NOT NULL default '',
+	mscan_ignored varchar(6) NOT NULL default '',
+	mscan_db_table varchar(64) NOT NULL default '',
+	mscan_db_column varchar(64) NOT NULL default '',
+	mscan_db_pkid text NOT NULL,
+	mscan_time datetime NOT NULL default '0000-00-00 00:00:00',
+	PRIMARY KEY (mscan_id),
+	UNIQUE KEY id (mscan_id)
+	);";
+
+	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	dbDelta($sql);
+	}
 
 	if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $Stable_name ) ) != $Stable_name ) {	
 	
@@ -101,8 +124,8 @@ global $wpdb, $wp_version, $blog_id;
 	dbDelta($sql);
 	}
 	}
-	
-// Whitelist BPS DB options: Total: 33
+
+// Whitelist BPS DB options: Total: 36
 register_setting('bulletproof_security_options', 'bulletproof_security_options', 'bulletproof_security_options_validate');
 register_setting('bulletproof_security_options_SLF', 'bulletproof_security_options_SLF', 'bulletproof_security_options_validate_SLF');
 register_setting('bulletproof_security_options_debug', 'bulletproof_security_options_debug', 'bulletproof_security_options_validate_debug');
@@ -112,13 +135,14 @@ register_setting('bulletproof_security_options_db_backup', 'bulletproof_security
 register_setting('bulletproof_security_options_wpt_nodes', 'bulletproof_security_options_wpt_nodes', 'bulletproof_security_options_validate_wpt_nodes');
 register_setting('bulletproof_security_options_customcode', 'bulletproof_security_options_customcode', 'bulletproof_security_options_validate_customcode');
 register_setting('bulletproof_security_options_autoupdate', 'bulletproof_security_options_autoupdate', 'bulletproof_security_options_validate_autoupdate');
-register_setting('bulletproof_security_options_wizard_free', 'bulletproof_security_options_wizard_free', 'bulletproof_security_options_validate_wizard_free');	
+register_setting('bulletproof_security_options_wizard_free', 'bulletproof_security_options_wizard_free', 'bulletproof_security_options_validate_wizard_free');
+register_setting('bulletproof_security_options_MScan_status', 'bulletproof_security_options_MScan_status', 'bulletproof_security_options_validate_MScan_status');	
 register_setting('bulletproof_security_options_pop_uninstall', 'bulletproof_security_options_pop_uninstall', 'bulletproof_security_options_validate_pop_uninstall');
 register_setting('bulletproof_security_options_customcode_WPA', 'bulletproof_security_options_customcode_WPA', 'bulletproof_security_options_validate_customcode_WPA');
 register_setting('bulletproof_security_options_apache_modules', 'bulletproof_security_options_apache_modules', 'bulletproof_security_options_validate_apache_modules');
 register_setting('bulletproof_security_options_hidden_plugins', 'bulletproof_security_options_hidden_plugins', 'bulletproof_security_options_validate_hidden_plugins');
-register_setting('bulletproof_security_options_setup_wizard_woo', 'bulletproof_security_options_setup_wizard_woo', 'bulletproof_security_options_validate_setup_wizard_woo');
 register_setting('bulletproof_security_options_sec_log_post_limit', 'bulletproof_security_options_sec_log_post_limit', 'bulletproof_security_options_validate_sec_log_post_limit');
+register_setting('bulletproof_security_options_login_security_jtc', 'bulletproof_security_options_login_security_jtc', 'bulletproof_security_options_validate_login_security_jtc');
 register_setting('bulletproof_security_options_wizard_autofix', 'bulletproof_security_options_wizard_autofix', 'bulletproof_security_options_validate_wizard_autofix');
 register_setting('bulletproof_security_options_status_display', 'bulletproof_security_options_status_display', 'bulletproof_security_options_validate_status_display');
 register_setting('bulletproof_security_options_login_security', 'bulletproof_security_options_login_security', 'bulletproof_security_options_validate_login_security');
@@ -129,11 +153,13 @@ register_setting('bulletproof_security_options_htaccess_res', 'bulletproof_secur
 register_setting('bulletproof_security_options_auth_cookie', 'bulletproof_security_options_auth_cookie', 'bulletproof_security_options_validate_auth_cookie');	
 register_setting('bulletproof_security_options_maint_mode', 'bulletproof_security_options_maint_mode', 'bulletproof_security_options_validate_maint_mode');
 register_setting('bulletproof_security_options_theme_skin', 'bulletproof_security_options_theme_skin', 'bulletproof_security_options_validate_theme_skin');
+register_setting('bulletproof_security_options_MScan_log', 'bulletproof_security_options_MScan_log', 'bulletproof_security_options_validate_MScan_log');
 register_setting('bulletproof_security_options_scrolltop', 'bulletproof_security_options_scrolltop', 'bulletproof_security_options_validate_scrolltop');
 register_setting('bulletproof_security_options_hpf_cron', 'bulletproof_security_options_hpf_cron', 'bulletproof_security_options_validate_hpf_cron');
 register_setting('bulletproof_security_options_spinner', 'bulletproof_security_options_spinner', 'bulletproof_security_options_validate_spinner');
 register_setting('bulletproof_security_options_mynotes', 'bulletproof_security_options_mynotes', 'bulletproof_security_options_validate_mynotes');
 register_setting('bulletproof_security_options_zip_fix', 'bulletproof_security_options_zip_fix', 'bulletproof_security_options_validate_zip_fix');
+register_setting('bulletproof_security_options_MScan', 'bulletproof_security_options_MScan', 'bulletproof_security_options_validate_MScan');
 register_setting('bulletproof_security_options_email', 'bulletproof_security_options_email', 'bulletproof_security_options_validate_email');			
 register_setting('bulletproof_security_options_GDMW', 'bulletproof_security_options_GDMW', 'bulletproof_security_options_validate_GDMW');
 	
@@ -153,6 +179,35 @@ register_setting('bulletproof_security_options_GDMW', 'bulletproof_security_opti
 	if( ! is_dir( WP_CONTENT_DIR . '/bps-backup/logs' ) ) {
 		@mkdir( WP_CONTENT_DIR . '/bps-backup/logs', 0755, true );
 		@chmod( WP_CONTENT_DIR . '/bps-backup/logs/', 0755 );
+	}
+
+	// Create the wp-hashes folder
+	if ( ! is_dir( WP_CONTENT_DIR . '/bps-backup/wp-hashes' ) ) {
+		@mkdir( WP_CONTENT_DIR . '/bps-backup/wp-hashes', 0755, true );
+		@chmod( WP_CONTENT_DIR . '/bps-backup/wp-hashes/', 0755 );
+	}
+
+	// Copy the blank wp-hashes.php file to the /wp-hashes/ folder
+	$wp_hashes_file_master = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/wp-hashes.php';
+	$wp_hashes_file = WP_CONTENT_DIR . '/bps-backup/wp-hashes/wp-hashes.php';
+	
+	if ( ! file_exists($wp_hashes_file) ) {
+		copy($wp_hashes_file_master, $wp_hashes_file);
+	}	
+
+	// Create the MScan log file in /logs
+	$bpsProMScanLog = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/mscan_log.txt';
+	$bpsProMScanLogARQ = WP_CONTENT_DIR . '/bps-backup/logs/mscan_log.txt';
+	
+	if ( ! file_exists($bpsProMScanLogARQ) ) {
+		@copy($bpsProMScanLog, $bpsProMScanLogARQ);
+	}
+
+	// Copy and rename the blank.txt file to /master-backups - used for MScan Stop Scan
+	$MScanStop = WP_CONTENT_DIR . '/bps-backup/master-backups/mscan-stop.txt';
+	
+	if ( ! file_exists($MScanStop) ) {
+		@copy($BPSblank, $MScanStop);
 	}
 
 	// Create backups folder with randomly generated folder name & save the backups folder name to the DB
@@ -228,8 +283,9 @@ global $blog_id;
 	if ( is_multisite() && $blog_id != 1 ) {
 
 	add_menu_page(__('BulletProof Security Settings', 'bulletproof-security'), __('BPS Security', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/login/login.php', '', plugins_url('bulletproof-security/admin/images/bps-icon-small.png'));
-	add_submenu_page('bulletproof-security/admin/login/login.php', __('Login Security', 'bulletproof-security'), __('Login Security', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/login/login.php' );
-	
+	add_submenu_page('bulletproof-security/admin/login/login.php', __('Login Security ~ JTC-Lite', 'bulletproof-security'), __('Login Security', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/login/login.php' );
+	add_submenu_page('bulletproof-security/admin/login/login.php', __('Login Security ~ JTC-Lite', 'bulletproof-security'), __('JTC-Lite', 'bulletproof-security'), 'manage_options', 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' );	
+
 	// Do not display the Maintenance Mode menu for GDMW hosted sites
 	$BPS_wpadmin_Options = get_option('bulletproof_security_options_htaccess_res');
 	$GDMW_options = get_option('bulletproof_security_options_GDMW');
@@ -244,8 +300,10 @@ global $blog_id;
 
 	add_menu_page(__('BulletProof Security ~ htaccess Core', 'bulletproof-security'), __('BPS Security', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/core/core.php', '', plugins_url('bulletproof-security/admin/images/bps-icon-small.png'));
 	add_submenu_page('bulletproof-security/admin/core/core.php', __('BulletProof Security ~ htaccess Core', 'bulletproof-security'), __('htaccess Core', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/core/core.php' );
-	add_submenu_page('bulletproof-security/admin/core/core.php', __('Login Security ~ ISL ~ ACE', 'bulletproof-security'), __('Login Security', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/login/login.php' );
-	add_submenu_page('bulletproof-security/admin/core/core.php', __('Login Security ~ ISL ~ ACE', 'bulletproof-security'), __('Idle Session Logout<br>Cookie Expiration', 'bulletproof-security'), 'manage_options', 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' );
+	add_submenu_page('bulletproof-security/admin/core/core.php', __('MScan ~ Malware Scanner', 'bulletproof-security'), __('MScan', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/mscan/mscan.php' );
+	add_submenu_page('bulletproof-security/admin/core/core.php', __('Login Security ~ JTC-Lite ~ ISL ~ ACE', 'bulletproof-security'), __('Login Security', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/login/login.php' );
+	add_submenu_page('bulletproof-security/admin/core/core.php', __('Login Security ~ JTC-Lite ~ ISL ~ ACE', 'bulletproof-security'), __('JTC-Lite', 'bulletproof-security'), 'manage_options', 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' );
+	add_submenu_page('bulletproof-security/admin/core/core.php', __('Login Security ~ JTC-Lite ~ ISL ~ ACE', 'bulletproof-security'), __('Idle Session Logout<br>Cookie Expiration', 'bulletproof-security'), 'manage_options', 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-3' );
 	add_submenu_page('bulletproof-security/admin/core/core.php', __('DB Backup & Security', 'bulletproof-security'), __('DB Backup', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/db-backup-security/db-backup-security.php' );
 	add_submenu_page('bulletproof-security/admin/core/core.php', __('Security Log', 'bulletproof-security'), __('Security Log', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/security-log/security-log.php' );
 	
@@ -257,6 +315,7 @@ global $blog_id;
 	}
 	
 	add_submenu_page('bulletproof-security/admin/core/core.php', __('System Info', 'bulletproof-security'), __('System Info', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/system-info/system-info.php' );
+	add_submenu_page('bulletproof-security/admin/core/core.php', __('Email|Log Settings', 'bulletproof-security'), __('Email|Log Settings', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/email-log-settings/email-log-settings.php' );
 	add_submenu_page('bulletproof-security/admin/core/core.php', __('UI|UX Settings', 'bulletproof-security'), __('UI|UX Settings', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/theme-skin/theme-skin.php' );
 	add_submenu_page('bulletproof-security/admin/core/core.php', __('Setup Wizard', 'bulletproof-security'), __('Setup Wizard', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/wizard/wizard.php' );	
 	
@@ -361,9 +420,15 @@ add_action( 'admin_enqueue_scripts', 'bpsPro_register_enqueue_scripts_styles' );
 // Register scripts and styles, Enqueue scripts and styles, Dequeue any plugin or theme scripts and styles loading in BPS plugin pages
 // .53.8: BugFix: script handles & dependencies code was fubar. Added: ver Query Strings * load scripts in footer * Debug option
 // 2.3: Remove all version compare conditions for >= 3.8. Minimum WP version required is now WP 3.8.
+// 2.4: register and enqueue new BPS MScan AJAX script
 function bpsPro_register_enqueue_scripts_styles() {
 global $wp_scripts, $wp_styles, $bulletproof_security, $wp_version, $bps_version;
 
+	// Register and Load the BPS MScan AJAX script sitewide
+	wp_register_script( 'bps-mscan-ajax', plugins_url( '/bulletproof-security/admin/js/bps-mscan-ajax.js' ), array( 'jquery' ), $bps_version, true );
+	wp_enqueue_script( 'bps-mscan-ajax' );
+	wp_localize_script( 'bps-mscan-ajax', 'bps_mscan_ajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );	
+	
 	// Register & Load BPS scripts and styles on BPS plugin pages ONLY
 	if ( preg_match( '/page=bulletproof-security/', esc_html($_SERVER['REQUEST_URI']), $matches ) ) {
 
@@ -411,7 +476,7 @@ global $wp_scripts, $wp_styles, $bulletproof_security, $wp_version, $bps_version
 		}
 		
 		// Dequeue any other plugin or theme scripts that should not be loading on BPS plugin pages
-		$script_handles = array( 'bps-tabs', 'bps-dialog', 'bps-accordion', 'admin-bar', 'jquery', 'jquery-ui-core', 'jquery-ui-tabs', 'jquery-ui-dialog', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-resizable', 'jquery-ui-draggable', 'jquery-ui-button', 'jquery-ui-position', 'jquery-ui-accordion', 'jquery-effects-core', 'jquery-effects-blind', 'jquery-effects-explode', 'common', 'utils', 'svg-painter', 'wp-auth-check', 'heartbeat', 'debug-bar' );
+		$script_handles = array( 'bps-mscan-ajax', 'bps-tabs', 'bps-dialog', 'bps-accordion', 'admin-bar', 'jquery', 'jquery-ui-core', 'jquery-ui-tabs', 'jquery-ui-dialog', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-resizable', 'jquery-ui-draggable', 'jquery-ui-button', 'jquery-ui-position', 'jquery-ui-accordion', 'jquery-effects-core', 'jquery-effects-blind', 'jquery-effects-explode', 'common', 'utils', 'svg-painter', 'wp-auth-check', 'heartbeat', 'debug-bar' );
 
 		$style_handles = array( 'bps-css', 'bps-css-38', 'admin-bar', 'colors', 'ie', 'wp-auth-check', 'debug-bar' );
 		
@@ -626,11 +691,12 @@ $previous_install = get_option('bulletproof_security_options');
 	}
 }
 
-// On BPS Plugin Deactivation: remove/unschedule all scheduled Cron jobs: 3 total
+// On BPS Plugin Deactivation: remove/unschedule all scheduled Cron jobs: 4 total
 function bulletproof_security_deactivation() {
 	wp_clear_scheduled_hook('bpsPro_DBB_check');	
 	wp_clear_scheduled_hook('bpsPro_email_log_files');	
 	wp_clear_scheduled_hook('bpsPro_HPF_check');	
+	wp_clear_scheduled_hook('bpsPro_MScan_check');
 }
 
 // Delete the /bps-backup/ files and folder
@@ -679,6 +745,7 @@ require_once( ABSPATH . 'wp-admin/includes/plugin.php');
 		$Stable_name = $wpdb->prefix . "bpspro_seclog_ignore";
 		$Ltable_name = $wpdb->prefix . "bpspro_login_security";
 		$DBBtable_name = $wpdb->prefix . "bpspro_db_backup";
+		$MStable_name = $wpdb->prefix . "bpspro_mscan";
 		$RootHtaccess = ABSPATH . '.htaccess';
 		$RootHtaccessBackup = WP_CONTENT_DIR . '/bps-backup/master-backups/root.htaccess';
 		$wpadminHtaccess = ABSPATH . 'wp-admin/.htaccess';
@@ -728,13 +795,18 @@ require_once( ABSPATH . 'wp-admin/includes/plugin.php');
 		delete_option('bulletproof_security_options_MU_tools_free');
 		delete_option('bulletproof_security_options_htaccess_files');		
 		delete_option('bulletproof_security_options_wizard_autofix');
+		delete_option('bulletproof_security_options_MScan_log');
+		delete_option('bulletproof_security_options_MScan_status');
+		delete_option('bulletproof_security_options_MScan');
+		delete_option('bulletproof_security_options_login_security_jtc'); 
 		// will be adding this new upgrade notice option later
 		// delete_option('bulletproof_security_options_upgrade_notice');	
 	
 		$wpdb->query("DROP TABLE IF EXISTS $Stable_name");
 		$wpdb->query("DROP TABLE IF EXISTS $Ltable_name");
 		$wpdb->query("DROP TABLE IF EXISTS $DBBtable_name");
-	
+		$wpdb->query("DROP TABLE IF EXISTS $MStable_name");	
+
 		delete_user_meta($user_id, 'bps_ignore_iis_notice');
 		delete_user_meta($user_id, 'bps_ignore_sucuri_notice');
 		delete_user_meta($user_id, 'bps_ignore_BLC_notice');
@@ -756,6 +828,7 @@ require_once( ABSPATH . 'wp-admin/includes/plugin.php');
 		delete_user_meta($user_id, 'bps_ignore_woocommerce_lsm_jtc_notice');
 		delete_user_meta($user_id, 'bps_ignore_autoupdate_notice');
 		delete_user_meta($user_id, 'bpsPro_ignore_EPC_plugin_notice');
+		delete_user_meta($user_id, 'bps_ignore_mscan_notice');
 
 		@unlink($wpadminHtaccess);	
 	
@@ -964,7 +1037,9 @@ function bulletproof_security_options_validate_email($input) {
 	$options['bps_security_log_emailL'] = wp_filter_nohtml_kses($input['bps_security_log_emailL']);	
 	$options['bps_dbb_log_email'] = wp_filter_nohtml_kses($input['bps_dbb_log_email']);	
 	$options['bps_dbb_log_size'] = wp_filter_nohtml_kses($input['bps_dbb_log_size']);
-	
+	$options['bps_mscan_log_size'] = wp_filter_nohtml_kses($input['bps_mscan_log_size']);
+	$options['bps_mscan_log_email'] = wp_filter_nohtml_kses($input['bps_mscan_log_email']);		
+
 	return $options;  
 }
 
@@ -1067,15 +1142,6 @@ function bulletproof_security_options_validate_wizard_free($input) {
 	return $options;  
 }
 
-// Setup Wizard New BPS Installations: Used in WooCommerce Dismiss Notice.
-// New installations of BPS should not display the WooCommerce Enable LSM option Dismiss Notice.
-function bulletproof_security_options_validate_setup_wizard_woo($input) {  
-	$options = get_option('bulletproof_security_options_setup_wizard_woo');  
-	$options['bps_wizard_woo'] = wp_filter_nohtml_kses($input['bps_wizard_woo']);
-	
-	return $options;  
-}
-
 // Setup Wizard AutoFix On/Off: Automatically creates fixes/setups or whitelist rules for any known issues with other plugins.
 function bulletproof_security_options_validate_wizard_autofix($input) {  
 	$options = get_option('bulletproof_security_options_wizard_autofix');  
@@ -1173,6 +1239,86 @@ function bulletproof_security_options_validate_MU_tools_free($input) {
 	$options['bps_mu_tools_enable_disable_deactivation'] = wp_filter_nohtml_kses($input['bps_mu_tools_enable_disable_deactivation']);	
 
 	return $options;  
+}
+
+// MScan Log Last Modified Time DB
+function bulletproof_security_options_validate_MScan_log($input) {  
+	$options = get_option('bulletproof_security_options_MScan_log');  
+	$options['bps_mscan_log_date_mod'] = wp_filter_nohtml_kses($input['bps_mscan_log_date_mod']);
+		
+	return $options;  
+}
+
+// MScan Scan: time, file counts & other stats
+// Note: Infected, Suspicious, skipped & ignored files can be outputted via a DB Query, but save these values statically as well
+function bulletproof_security_options_validate_MScan_status($input) {  
+	$options = get_option('bulletproof_security_options_MScan_status');  
+	$options['bps_mscan_time_start'] = wp_filter_nohtml_kses($input['bps_mscan_time_start']);
+	$options['bps_mscan_time_stop'] = wp_filter_nohtml_kses($input['bps_mscan_time_stop']);
+	$options['bps_mscan_time_end'] = wp_filter_nohtml_kses($input['bps_mscan_time_end']);
+	$options['bps_mscan_time_remaining'] = wp_filter_nohtml_kses($input['bps_mscan_time_remaining']);
+	$options['bps_mscan_status'] = wp_filter_nohtml_kses($input['bps_mscan_status']);
+	$options['bps_mscan_last_scan_timestamp'] = wp_filter_nohtml_kses($input['bps_mscan_last_scan_timestamp']);
+	$options['bps_mscan_total_time'] = wp_filter_nohtml_kses($input['bps_mscan_total_time']);
+	$options['bps_mscan_total_website_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_website_files']);	
+	$options['bps_mscan_total_wp_core_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_wp_core_files']);
+	$options['bps_mscan_total_non_image_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_non_image_files']);
+	$options['bps_mscan_total_image_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_image_files']);
+	$options['bps_mscan_total_all_scannable_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_all_scannable_files']);
+	$options['bps_mscan_total_skipped_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_skipped_files']);
+	$options['bps_mscan_total_suspect_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_suspect_files']);
+	@$options['bps_mscan_suspect_skipped_files'] = wp_filter_nohtml_kses($input['bps_mscan_suspect_skipped_files']);
+	@$options['bps_mscan_total_suspect_db'] = wp_filter_nohtml_kses($input['bps_mscan_total_suspect_db']);	
+	$options['bps_mscan_total_ignored_files'] = wp_filter_nohtml_kses($input['bps_mscan_total_ignored_files']);
+
+	return $options;  
+}
+
+// MScan Scan Options: folders to scan, cron schedules, etc.
+function bulletproof_security_options_validate_MScan($input) {  
+	$options = get_option('bulletproof_security_options_MScan');  
+	// Note: You cannot use: wp_filter_nohtml_kses for multidimensional arrays - it will strip out the inner array code.
+	$options['bps_mscan_dirs'] = $input['bps_mscan_dirs'];
+	$options['mscan_max_file_size'] = wp_filter_nohtml_kses($input['mscan_max_file_size']);		
+	$options['mscan_max_time_limit'] = wp_filter_nohtml_kses($input['mscan_max_time_limit']);	
+	$options['mscan_scan_database'] = wp_filter_nohtml_kses($input['mscan_scan_database']);
+	$options['mscan_scan_images'] = wp_filter_nohtml_kses($input['mscan_scan_images']);
+	$options['mscan_scan_skipped_files'] = wp_filter_nohtml_kses($input['mscan_scan_skipped_files']);
+	$options['mscan_scan_delete_tmp_files'] = wp_filter_nohtml_kses($input['mscan_scan_delete_tmp_files']);
+	$options['mscan_scan_frequency'] = wp_filter_nohtml_kses($input['mscan_scan_frequency']);	
+	// keep this option last since I am using newlines
+	@$options['mscan_exclude_dirs'] = wp_filter_nohtml_kses($input['mscan_exclude_dirs']);
+	
+	return $options;  
+}
+
+// JTC-Lite a stripped down version of the BEAST > JTC Anti-Spam|Anti-Hacker
+function bulletproof_security_options_validate_login_security_jtc($input) {  
+	$BPSoptionsJTC = get_option('bulletproof_security_options_login_security_jtc');  
+	$BPSoptionsJTC['bps_tooltip_captcha_key'] = trim(wp_filter_nohtml_kses($input['bps_tooltip_captcha_key']));	
+	$BPSoptionsJTC['bps_tooltip_captcha_hover_text'] = wp_filter_nohtml_kses($input['bps_tooltip_captcha_hover_text']);
+	$BPSoptionsJTC['bps_tooltip_captcha_title'] = wp_filter_nohtml_kses($input['bps_tooltip_captcha_title']);	
+	$BPSoptionsJTC['bps_tooltip_captcha_logging'] = wp_filter_nohtml_kses($input['bps_tooltip_captcha_logging']);		
+	$BPSoptionsJTC['bps_jtc_login_form'] = wp_filter_nohtml_kses($input['bps_jtc_login_form']);
+	$BPSoptionsJTC['bps_jtc_register_form'] = wp_filter_nohtml_kses($input['bps_jtc_register_form']);
+	$BPSoptionsJTC['bps_jtc_lostpassword_form'] = wp_filter_nohtml_kses($input['bps_jtc_lostpassword_form']);
+	$BPSoptionsJTC['bps_jtc_comment_form'] = wp_filter_nohtml_kses($input['bps_jtc_comment_form']);
+	$BPSoptionsJTC['bps_jtc_buddypress_register_form'] = wp_filter_nohtml_kses($input['bps_jtc_buddypress_register_form']);
+	$BPSoptionsJTC['bps_jtc_buddypress_sidebar_form'] = wp_filter_nohtml_kses($input['bps_jtc_buddypress_sidebar_form']);
+	$BPSoptionsJTC['bps_jtc_administrator'] = wp_filter_nohtml_kses($input['bps_jtc_administrator']);
+	$BPSoptionsJTC['bps_jtc_editor'] = wp_filter_nohtml_kses($input['bps_jtc_editor']);
+	$BPSoptionsJTC['bps_jtc_author'] = wp_filter_nohtml_kses($input['bps_jtc_author']);
+	$BPSoptionsJTC['bps_jtc_contributor'] = wp_filter_nohtml_kses($input['bps_jtc_contributor']);
+	$BPSoptionsJTC['bps_jtc_subscriber'] = wp_filter_nohtml_kses($input['bps_jtc_subscriber']);
+	$BPSoptionsJTC['bps_jtc_comment_form_error'] = $input['bps_jtc_comment_form_error'];
+	$BPSoptionsJTC['bps_jtc_comment_form_label'] = $input['bps_jtc_comment_form_label'];		
+	$BPSoptionsJTC['bps_jtc_comment_form_input'] = $input['bps_jtc_comment_form_input'];	
+	//$BPSoptionsJTC['bps_jtc_hide_ghost_text'] = wp_filter_nohtml_kses($input['bps_jtc_hide_ghost_text']);	
+	// Note: You cannot use: wp_filter_nohtml_kses for multidimensional arrays - it will strip out the inner array code.
+	@$BPSoptionsJTC['bps_jtc_custom_roles'] = $input['bps_jtc_custom_roles'];	
+	$BPSoptionsJTC['bps_enable_jtc_woocommerce'] = wp_filter_nohtml_kses($input['bps_enable_jtc_woocommerce']);
+
+	return $BPSoptionsJTC;  
 }
 
 ?>

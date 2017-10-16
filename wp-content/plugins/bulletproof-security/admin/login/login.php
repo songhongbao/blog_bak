@@ -152,15 +152,16 @@ if ( ! current_user_can('manage_options') ) {
 
 <!-- jQuery UI Tab Menu -->
 <div id="bps-tabs" class="bps-menu">
-    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-security-shield.gif'); ?>" /></div>
+    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-free-logo.gif'); ?>" /></div>
 		<ul>
 			<li><a href="#bps-tabs-1"><?php _e('Login Security & Monitoring', 'bulletproof-security'); ?></a></li>
+			<li><a href="#bps-tabs-2"><?php _e('JTC-Lite', 'bulletproof-security'); ?></a></li>
  			<?php if ( is_multisite() && $blog_id != 1 ) { ?>
             <!-- <li><a href="#bps-tabs-3"><?php //_e('Idle Session Logout', 'bulletproof-security'); ?></a></li> -->  
             <?php } else { ?>
-            <li><a href="#bps-tabs-2"><?php _e('Idle Session Logout|Auth Cookie Expiration', 'bulletproof-security'); ?></a></li>
+            <li><a href="#bps-tabs-3"><?php _e('Idle Session Logout|Auth Cookie Expiration', 'bulletproof-security'); ?></a></li>
             <?php } ?>
-			<li><a href="#bps-tabs-3"><?php _e('Help &amp; FAQ', 'bulletproof-security'); ?></a></li>
+			<li><a href="#bps-tabs-4"><?php _e('Help &amp; FAQ', 'bulletproof-security'); ?></a></li>
 		</ul>
             
 <div id="bps-tabs-1" class="bps-tab-page">
@@ -185,7 +186,7 @@ if ( ! current_user_can('manage_options') ) {
 
 <h3 style="margin:0px 0px 10px 0px;"><?php _e('Login Security & Monitoring', 'bulletproof-security'); ?>  <button id="bps-open-modal1" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content1" title="<?php _e('Login Security & Monitoring', 'bulletproof-security'); ?>">
+<div id="bps-modal-content1" class="bps-dialog-hide" title="<?php _e('Login Security & Monitoring', 'bulletproof-security'); ?>">
 	<p>
 	<?php 
 		$text = '<strong>'.__('This Read Me Help window is draggable (top) and resizable (bottom right corner)', 'bulletproof-security').'</strong><br><br>';
@@ -211,7 +212,7 @@ if ( ! current_user_can('manage_options') ) {
   </tr>
   <tr>
     <td><label for="LSLog"><?php _e('Automatic Lockout Time:', 'bulletproof-security'); ?></label></td>
-    <td><input type="text" name="bulletproof_security_options_login_security[bps_lockout_duration]" class="regular-text-50-fixed" value="<?php if ( $BPSoptions['bps_lockout_duration'] != '' ) { echo esc_html( $BPSoptions['bps_lockout_duration'] ); } else { echo esc_html('60'); } ?>" /></td>
+    <td><input type="text" name="bulletproof_security_options_login_security[bps_lockout_duration]" class="regular-text-50-fixed" value="<?php if ( $BPSoptions['bps_lockout_duration'] != '' ) { echo esc_html( $BPSoptions['bps_lockout_duration'] ); } else { echo esc_html('15'); } ?>" /></td>
     <td><label for="LSLog" style="margin:0px 0px 0px 5px;"><strong><?php _e('Minutes', 'bulletproof-security'); ?></strong></label></td>
   </tr>
   <tr>
@@ -227,7 +228,7 @@ if ( ! current_user_can('manage_options') ) {
 </table>
 
 	<div id="LSM-woocommerce" style="margin:10px 0px 10px 0px">
-	<input type="checkbox" name="bulletproof_security_options_login_security[bps_enable_lsm_woocommerce]" value="1" <?php checked( $BPSoptions['bps_enable_lsm_woocommerce'], 1 ); ?> /><label><?php _e(' Enable Login Security for WooCommerce', 'bulletproof-security'); ?></label>
+	<input type="checkbox" name="bulletproof_security_options_login_security[bps_enable_lsm_woocommerce]" value="" <?php checked( $BPSoptions['bps_enable_lsm_woocommerce'], 1 ); ?> /><label><?php _e(' Enable Login Security for WooCommerce (BPS Pro Only)', 'bulletproof-security'); ?></label>
 	</div>
 
 <table border="0">
@@ -287,87 +288,6 @@ if ( ! current_user_can('manage_options') ) {
 <input type="submit" name="Submit-Security-Log-Options" class="button bps-button" style="margin:10px 0px 0px 0px;" value="<?php esc_attr_e('Save Options', 'bulletproof-security') ?>" />
 </form>
 </div>
-
-<?php if ( is_multisite() && $blog_id != 1 ) { echo '<div style="margin:10px 0px 0px 0px;"></div>'; } else { ?>
-
-<div id="EmailOptionsLSM" style="width:100%;">   
-
-<form name="bpsEmailAlerts" action="options.php" method="post">
-    <?php settings_fields('bulletproof_security_options_email'); ?>
-	<?php $options = get_option('bulletproof_security_options_email'); ?>
-	<?php $admin_email = get_option('admin_email'); ?>
-
-<table border="0">
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files To:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_to]" class="regular-text-200" value="<?php if ( $options['bps_send_email_to'] != '' ) { echo esc_html( $options['bps_send_email_to'] ); } else { echo esc_html( $admin_email ); } ?>" /></td>
-  </tr>
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files From:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_from]" class="regular-text-200" value="<?php if ( $options['bps_send_email_from'] != '' ) { echo esc_html( $options['bps_send_email_from'] ); } else { echo esc_html( $admin_email ); } ?>" /></td>
-  </tr>
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files Cc:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_cc]" class="regular-text-200" value="<?php echo esc_html( $options['bps_send_email_cc'] ); ?>" /></td>
-  </tr>
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files Bcc:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_bcc]" class="regular-text-200" value="<?php echo esc_html( $options['bps_send_email_bcc'] ); ?>" /></td>
-  </tr>
-</table>
-<br />
-
-<table border="0">
-  <tr>
-    <td><strong><label for="bps-monitor-email"><?php _e('Login Security: Send Login Security Email Alert When...', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_login_security_email]" class="form-340">
-<option value="lockoutOnly" <?php selected( $options['bps_login_security_email'], 'lockoutOnly'); ?>><?php _e('A User Account Is Locked Out', 'bulletproof-security'); ?></option>
-<option value="adminLoginOnly" <?php selected( $options['bps_login_security_email'], 'adminLoginOnly'); ?>><?php _e('An Administrator Logs In', 'bulletproof-security'); ?></option>
-<option value="adminLoginLock" <?php selected( $options['bps_login_security_email'], 'adminLoginLock'); ?>><?php _e('An Administrator Logs In & A User Account is Locked Out', 'bulletproof-security'); ?></option>
-<option value="anyUserLoginLock" <?php selected( $options['bps_login_security_email'], 'anyUserLoginLock'); ?>><?php _e('Any User Logs In & A User Account is Locked Out', 'bulletproof-security'); ?></option>
-<option value="no" <?php selected( $options['bps_login_security_email'], 'no'); ?>><?php _e('Do Not Send Email Alerts', 'bulletproof-security'); ?></option>
-</select></td>
-  </tr>
-  <tr>
-    <td style="padding-top:5px;"><strong><label for="bps-monitor-email-log"><?php _e('Security Log: Email|Delete Security Log File When...', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_security_log_size]" class="form-80">
-<option value="500KB" <?php selected( $options['bps_security_log_size'], '500KB' ); ?>><?php _e('500KB', 'bulletproof-security'); ?></option>
-<option value="256KB" <?php selected( $options['bps_security_log_size'], '256KB'); ?>><?php _e('256KB', 'bulletproof-security'); ?></option>
-<option value="1MB" <?php selected( $options['bps_security_log_size'], '1MB' ); ?>><?php _e('1MB', 'bulletproof-security'); ?></option>
-</select>
-<select name="bulletproof_security_options_email[bps_security_log_emailL]" class="form-255">
-<option value="email" <?php selected( $options['bps_security_log_emailL'], 'email' ); ?>><?php _e('Email Log & Then Delete Log File', 'bulletproof-security'); ?></option>
-<option value="delete" <?php selected( $options['bps_security_log_emailL'], 'delete' ); ?>><?php _e('Delete Log File', 'bulletproof-security'); ?></option>
-</select></td>
-  </tr>
-  <tr>
-    <td style="padding-top:5px;"><strong><label for="bps-monitor-email-log"><?php _e('DB Backup Log: Email|Delete DB Backup Log File When...', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_dbb_log_size]" class="form-80">
-<option value="500KB" <?php selected( $options['bps_dbb_log_size'], '500KB' ); ?>><?php _e('500KB', 'bulletproof-security'); ?></option>
-<option value="256KB" <?php selected( $options['bps_dbb_log_size'], '256KB'); ?>><?php _e('256KB', 'bulletproof-security'); ?></option>
-<option value="1MB" <?php selected( $options['bps_dbb_log_size'], '1MB' ); ?>><?php _e('1MB', 'bulletproof-security'); ?></option>
-</select>
-<select name="bulletproof_security_options_email[bps_dbb_log_email]" class="form-255">
-<option value="email" <?php selected( $options['bps_dbb_log_email'], 'email' ); ?>><?php _e('Email Log & Then Delete Log File', 'bulletproof-security'); ?></option>
-<option value="delete" <?php selected( $options['bps_dbb_log_email'], 'delete' ); ?>><?php _e('Delete Log File', 'bulletproof-security'); ?></option>
-</select></td>
-  </tr>
-</table>
-
-<div id="LSM-DB-Table"></div>
-
-<!-- <strong><label for="bps-monitor-email" style="margin:0px 0px 0px 0px;"><?php //_e('BPS Plugin Upgrade Email Notification', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_upgrade_email]" class="form-340">
-<option value="yes" <?php //selected( @$options['bps_upgrade_email'], 'yes'); ?>><?php //_e('Send Email Alerts', 'bulletproof-security'); ?></option>
-<option value="no" <?php //selected( @$options['bps_upgrade_email'], 'no'); ?>><?php //_e('Do Not Send Email Alerts', 'bulletproof-security'); ?></option>
-</select><br /><br /> -->
-
-<input type="hidden" name="bpsEMA" value="bps-EMA" />
-<input type="submit" name="bpsEmailAlertSubmit" class="button bps-button" style="margin:15px 0px 0px 0px;" value="<?php esc_attr_e('Save Options', 'bulletproof-security') ?>" />
-</form>
-</div>
-
-<?php } ?>
 
 <div id="LSMExportButton">
 <form name="bpsLSMExport" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php' ); ?>" method="post">
@@ -863,9 +783,203 @@ if ( isset($_POST['Submit-Login-Search-Radio'] ) && current_user_can('manage_opt
 </table>
 </div>
 
+<div id="bps-tabs-2" class="bps-tab-page">
+	
+<?php
+	$GDMW_options = get_option('bulletproof_security_options_GDMW');
+	
+	if ( $GDMW_options['bps_gdmw_hosting'] == 'yes' ) {
+		$text = '<h3><strong><span style="font-size:1em;"><font color="blue">'.__('Notice: ', 'bulletproof-security').'</font></span><span style="font-size:.75em;">'.__('The Setup Wizard Go Daddy "Managed WordPress Hosting" option is set to Yes.', 'bulletproof-security').'<br>'.__('If you have Go Daddy "Managed WordPress Hosting" click this link: ', 'bulletproof-security').'<a href="https://forum.ait-pro.com/forums/topic/gdmw/" target="_blank" title="Link opens in a new Browser window">'.__('Go Daddy Managed WordPress Hosting', 'bulletproof-security').'</a>.<br>'.__('If you do not have Go Daddy "Managed WordPress Hosting" then change the Go Daddy "Managed WordPress Hosting" Setup Wizard option to No.', 'bulletproof-security').'</span></strong></h3>';
+		echo $text;
+	}
+?>
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
+  <tr>
+    <td class="bps-table_title">
+	<?php $text = '<h2>'.__('jQuery ToolTip CAPTCHA-Lite (JTC-Lite) ~ ', 'bulletproof-security').'<span style="font-size:.75em;">'.__('Protects the WP Login Form against constant lockouts by Bots trying to Brute Force Login to your website', 'bulletproof-security').'</span></h2><div class="promo-text">'.__('Want even more security protection?', 'bulletproof-security').'<br>'.__('Get the full version of JTC Anti-Spam|Anti-Hacker that protects all of your WP Forms', 'bulletproof-security').'<br>'.__('against SpamBots & HackerBots (auto-registering, auto-logins, auto-posting, auto-commenting) & User Account Lockouts: ', 'bulletproof-security').'<a href="https://affiliates.ait-pro.com/po/" target="_blank" title="BPS Pro JTC Anti-Spam|Anti-Hacker">'.__('Get BPS Pro JTC Anti-Spam|Anti-Hacker', 'bulletproof-security').'</a>'; echo $text; ?>
+    </td>
+  </tr>
+  <tr>
+    <td class="bps-table_cell_help">
+
+<h3 style="margin:0px 0px 5px 0px;"><?php _e('JTC-Lite', 'bulletproof-security'); ?>  <button id="bps-open-modal2" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
+
+<div id="bps-modal-content2" class="bps-dialog-hide" title="<?php _e('JTC-Lite', 'bulletproof-security'); ?>">
+	<p>
+	<?php
+		$text = '<strong>'.__('This Read Me Help window is draggable (top) and resizable (bottom right corner)', 'bulletproof-security').'</strong><br><br>';
+		echo $text;
+		echo $bps_modal_content2;
+	?>
+    </p>
+</div>
+
+<?php
+// JTC Form processing
+if ( isset( $_POST['Submit-Security-Log-Options-JTC'] ) && current_user_can('manage_options') ) {
+	check_admin_referer( 'bps_login_security_jtc' );
+	
+	$Custom_Roles = $_POST['bps_jtc_custom_roles'];
+		
+	switch( $_POST['Submit-Security-Log-Options-JTC'] ) {
+		case __('Save Options', 'bulletproof-security'):
+		
+		if ( ! empty($Custom_Roles) ) {
+			
+			$Custom_Roles_array = array();
+			
+			foreach ( $Custom_Roles as $key => $value ) {
+				
+				if ( $value == '1' ) {
+					$Custom_Roles_array[$key] = '';
+				} 
+			}
+		
+		} else {
+			
+			$Custom_Roles_array = array( 'bps', '' );
+		}
+	}
+
+	$JTC_Options = array(
+	'bps_tooltip_captcha_key' 			=> esc_html($_POST['bps_tooltip_captcha_key']), 
+	'bps_tooltip_captcha_hover_text'	=> esc_html($_POST['bps_tooltip_captcha_hover_text']), 
+	'bps_tooltip_captcha_title' 		=> esc_html($_POST['bps_tooltip_captcha_title']), 
+	'bps_tooltip_captcha_logging' 		=> 'Off', 
+	'bps_jtc_login_form' 				=> $_POST['bps_jtc_login_form'], 
+	'bps_jtc_register_form' 			=> '', 
+	'bps_jtc_lostpassword_form' 		=> '', 
+	'bps_jtc_comment_form' 				=> '', 
+	'bps_jtc_buddypress_register_form' 	=> '', 
+	'bps_jtc_buddypress_sidebar_form' 	=> '', 
+	'bps_jtc_administrator' 			=> '', 
+	'bps_jtc_editor' 					=> '', 
+	'bps_jtc_author' 					=> '', 
+	'bps_jtc_contributor' 				=> '', 
+	'bps_jtc_subscriber' 				=> '', 
+	'bps_jtc_comment_form_error' 		=> stripslashes($_POST['bps_jtc_comment_form_error']), 
+	'bps_jtc_comment_form_label' 		=> esc_html($_POST['bps_jtc_comment_form_label']), 
+	'bps_jtc_comment_form_input' 		=> esc_html($_POST['bps_jtc_comment_form_input']), 
+	'bps_jtc_custom_roles' 				=> $Custom_Roles_array, 
+	'bps_enable_jtc_woocommerce' 		=> '' 
+	);	
+	
+		foreach( $JTC_Options as $key => $value ) {
+			update_option('bulletproof_security_options_login_security_jtc', $JTC_Options);
+		}
+
+		echo $bps_topDiv;
+		echo '<strong><font color="green">'.__('JTC-Lite Settings Saved.', 'bulletproof-security').'</font></strong><br>';
+		echo $bps_bottomDiv;
+}
+
+if ( ! current_user_can('manage_options') ) { _e('Permission Denied', 'bulletproof-security'); } else {
+
+?>
+
+<div id="LoginSecurityJTC" style="position:relative;top:0px;left:0px;margin:0px 0px 0px 0px;">
+
+<form name="LoginSecurityJTC" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' ); ?>" method="post">
+	<?php wp_nonce_field('bps_login_security_jtc'); ?> 
+	<?php $BPSoptionsJTC = get_option('bulletproof_security_options_login_security_jtc'); ?>
+    
+ <h3><?php _e('JTC-Lite Settings', 'bulletproof-security'); ?></h3>   
+    
+<table border="0">
+  <tr>
+    <td><label for="LSLog"><?php _e('JTC CAPTCHA:', 'bulletproof-security'); ?></label></td>
+    <td><input type="text" name="bps_tooltip_captcha_key" class="regular-text-250" value="<?php if ( $BPSoptionsJTC['bps_tooltip_captcha_key'] != '' ) { echo $BPSoptionsJTC['bps_tooltip_captcha_key']; } else { echo ''; } ?>" /></td>
+    <td><label for="LSLog" style="margin:0px 0px 0px 5px;font-style:italic;font-weight:normal;"><?php _e('jtc', 'bulletproof-security'); ?></label></td>
+  </tr>
+  <tr>
+    <td><label for="LSLog"><?php _e('JTC ToolTip:', 'bulletproof-security'); ?></label></td>
+    <td><input type="text" name="bps_tooltip_captcha_hover_text" class="regular-text-250" value="<?php if ( $BPSoptionsJTC['bps_tooltip_captcha_hover_text'] != '' ) { echo $BPSoptionsJTC['bps_tooltip_captcha_hover_text']; } else { echo 'Type/Enter:  '; } ?>" /></td>
+    <td><label for="LSLog" style="margin:0px 0px 0px 5px;font-style:italic;font-weight:normal;"><?php _e('Type/Enter:  jtc', 'bulletproof-security'); ?></label></td>
+  </tr>
+  <tr>
+    <td><label for="LSLog"><?php _e('JTC Title|Text:', 'bulletproof-security'); ?></label></td>
+    <td><input type="text" name="bps_tooltip_captcha_title" class="regular-text-250" value="<?php if ( $BPSoptionsJTC['bps_tooltip_captcha_title'] != '' ) { echo $BPSoptionsJTC['bps_tooltip_captcha_title']; } else { echo 'Hover or click the text box below'; } ?>" /></td>
+    <td><label for="LSLog" style="margin:0px 0px 0px 5px;font-style:italic;font-weight:normal;"><?php _e('Enter a blank space for no text', 'bulletproof-security'); ?></label></td>
+  </tr>
+
+
 <?php if ( is_multisite() && $blog_id != 1 ) { echo '<div style="margin:0px 0px 0px 0px;"></div>'; } else { ?>
 
-<div id="bps-tabs-2" class="bps-tab-page">
+  <tr>
+    <td><label for="LSLog"><?php _e('JTC Logging:', 'bulletproof-security'); ?></label></td>
+    <td><select name="bps_tooltip_captcha_logging" class="form-250">
+	<option value="Off" <?php selected('Off', $BPSoptionsJTC['bps_tooltip_captcha_logging']); ?>><?php _e('JTC Logging Off', 'bulletproof-security'); ?></option>
+	</select>
+	</td>
+    <td><label for="LSLog" style="margin:0px 0px 0px 5px; font-style:italic;font-weight:normal;"><?php _e('Logged in the Security Log (BPS Pro Only)', 'bulletproof-security'); ?></label></td>
+  </tr>
+
+<?php } ?>
+<!-- Important: </table> needs to come after the closing php tag above for Network subsites -->
+</table>
+	
+    <div id="JTC-woocommerce" style="margin:10px 0px 10px 0px">
+	<input type="checkbox" name="bps_enable_jtc_woocommerce" value="1" <?php checked( $BPSoptionsJTC['bps_enable_jtc_woocommerce'], 1 ); ?> /><label><?php _e(' Enable JTC for WooCommerce (BPS Pro Only)', 'bulletproof-security'); ?></label>
+	</div>
+
+   <label><strong><?php _e('Enable|Disable JTC For These Forms: ', 'bulletproof-security'); ?></strong></label><br />
+   <label><i><?php _e('Check to Enable. Uncheck to Disable.', 'bulletproof-security'); ?></i></label><br />
+    <input type="checkbox" name="bps_jtc_login_form" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_login_form'], 1 ); ?> /><label><?php _e(' Login Form', 'bulletproof-security'); ?></label><br />
+    <input type="checkbox" name="bps_jtc_register_form" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_register_form'], 1 ); ?> /><label><?php _e(' Register Form (BPS Pro Only)', 'bulletproof-security'); ?></label><br />
+	<input type="checkbox" name="bps_jtc_lostpassword_form" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_lostpassword_form'], 1 ); ?> /><label><?php _e(' Lost Password Form (BPS Pro Only)', 'bulletproof-security'); ?></label><br />    
+	<input type="checkbox" name="bps_jtc_comment_form" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_comment_form'], 1 ); ?> /><label><?php _e(' Comment Form (BPS Pro Only)', 'bulletproof-security'); ?></label><br />
+	<input type="checkbox" name="bps_jtc_buddypress_register_form" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_buddypress_register_form'], 1 ); ?> /><label><?php _e(' BuddyPress Register Form (BPS Pro Only)', 'bulletproof-security'); ?></label><br />
+	<input type="checkbox" name="bps_jtc_buddypress_sidebar_form" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_buddypress_sidebar_form'], 1 ); ?> /><label><?php _e(' BuddyPress Sidebar Login Form (BPS Pro Only)', 'bulletproof-security'); ?></label><br /><br />
+
+    <label><strong><?php _e('Comment Form: (BPS Pro Only)', 'bulletproof-security'); ?></strong></label><br />
+    <label><strong><?php _e('Enable|Disable JTC For These Registered/Logged In User Roles (BPS Pro Only): ', 'bulletproof-security'); ?></strong></label><br />  
+  <label><i><?php _e('Check to Enable. Uncheck to Disable.', 'bulletproof-security'); ?></i></label><br />
+    <div id="Roles-scroller">
+    <input type="checkbox" name="bps_jtc_administrator" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_administrator'], 1 ); ?> /><label><?php _e(' Administrator', 'bulletproof-security'); ?></label><br />
+    <input type="checkbox" name="bps_jtc_editor" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_editor'], 1 ); ?> /><label><?php _e(' Editor', 'bulletproof-security'); ?></label><br />
+	<input type="checkbox" name="bps_jtc_author" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_author'], 1 ); ?> /><label><?php _e(' Author', 'bulletproof-security'); ?></label><br />    
+	<input type="checkbox" name="bps_jtc_contributor" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_contributor'], 1 ); ?> /><label><?php _e(' Contributor', 'bulletproof-security'); ?></label><br />
+	<input type="checkbox" name="bps_jtc_subscriber" value="1" <?php checked( $BPSoptionsJTC['bps_jtc_subscriber'], 1 ); ?> /><label><?php _e(' Subscriber', 'bulletproof-security'); ?></label><br />
+
+<?php
+
+	foreach ( get_editable_roles() as $role_name => $role_info ) {
+	
+		if ( $role_name != 'administrator' && $role_name != 'editor' && $role_name != 'author' && $role_name != 'contributor' && $role_name != 'subscriber' ) {
+			
+			echo "<input type=\"checkbox\" name=\"bps_jtc_custom_roles[$role_name]\" value=\"1\""; @checked( $BPSoptionsJTC['bps_jtc_custom_roles'][$role_name], 1 ); echo " /><label> ". $role_info['name'] ."</label>".'<br>';
+			
+		}
+	}
+?> 
+</div>
+
+	<br />
+    <label for="LSLog13"><?php _e('Comment Form: CAPTCHA Error message (BPS Pro Only)', 'bulletproof-security'); ?></label><br />
+    <input type="text" name="bps_jtc_comment_form_error" class="regular-text-short-fixed" style="width:75%;" value="<?php if ($BPSoptionsJTC['bps_jtc_comment_form_error'] != '') { echo $BPSoptionsJTC['bps_jtc_comment_form_error']; } else { echo '<strong>ERROR</strong>: Incorrect JTC CAPTCHA Entered. Click your Browser back button and re-enter the JTC CAPTCHA.'; } ?>" /><br /><br />
+    
+    <label><strong><?php _e('Comment Form: CSS Styling (BPS Pro Only)', 'bulletproof-security'); ?></strong></label><br />
+    <label><?php _e('Comment Form Label (BPS Pro Only): <i>The JTC Title|Text above the Form Input text box</i>', 'bulletproof-security'); ?></label><br />
+    <input type="text" name="bps_jtc_comment_form_label" class="regular-text-short-fixed" style="width:75%;" value="<?php if ($BPSoptionsJTC['bps_jtc_comment_form_label'] != '') { echo $BPSoptionsJTC['bps_jtc_comment_form_label']; } else { echo 'position:relative;top:0px;left:0px;padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;'; } ?>" /><br />
+    <label><?php _e('Comment Form Input Text Box (BPS Pro Only): <i>The JTC CAPTCHA Form Input text box</i>', 'bulletproof-security'); ?></label><br />
+    <input type="text" name="bps_jtc_comment_form_input" class="regular-text-short-fixed" style="width:75%;" value="<?php if ($BPSoptionsJTC['bps_jtc_comment_form_input'] != '') { echo $BPSoptionsJTC['bps_jtc_comment_form_input']; } else { echo 'position:relative;top:0px;left:0px;padding:0px 0px 0px 0px;margin:0px 0px 0px 0px;'; } ?>" /><br /><br />
+
+<input type="submit" name="Submit-Security-Log-Options-JTC" class="button bps-button"  style="margin-top:5px;" value="<?php esc_attr_e('Save Options', 'bulletproof-security') ?>" onclick="return confirm('<?php $text = __('Click OK to Proceed or click Cancel.', 'bulletproof-security'); echo $text; ?>')"/>
+</form><br />
+</div>  
+
+<?php } ?>
+
+</td>
+  </tr>
+</table>
+
+</div>
+
+<?php if ( is_multisite() && $blog_id != 1 ) { echo '<div style="margin:0px 0px 0px 0px;"></div>'; } else { ?>
+
+<div id="bps-tabs-3" class="bps-tab-page">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
   <tr>
@@ -874,9 +988,9 @@ if ( isset($_POST['Submit-Login-Search-Radio'] ) && current_user_can('manage_opt
   <tr>
     <td class="bps-table_cell_help">
 
-<h3 style="margin:0px 0px 5px 0px;"><?php _e('Idle Session Logout|Auth Cookie Expiration', 'bulletproof-security'); ?>  <button id="bps-open-modal2" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
+<h3 style="margin:0px 0px 5px 0px;"><?php _e('Idle Session Logout|Auth Cookie Expiration', 'bulletproof-security'); ?>  <button id="bps-open-modal3" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content2" title="<?php _e('Idle Session Logout|Auth Cookie Expiration', 'bulletproof-security'); ?>">
+<div id="bps-modal-content3" class="bps-dialog-hide" title="<?php _e('Idle Session Logout|Auth Cookie Expiration', 'bulletproof-security'); ?>">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-readme-table">
   <tr>
@@ -893,7 +1007,7 @@ if ( isset($_POST['Submit-Login-Search-Radio'] ) && current_user_can('manage_opt
 	<?php _e('ISL and ACE Forum Topic', 'bulletproof-security'); ?></a></strong><br /><br />
 
 <?php
-	echo $bps_modal_content2;
+	echo $bps_modal_content3;
 	$text = '<strong>'.__('The Help & FAQ tab pages contain help links.', 'bulletproof-security').'</strong>'; 
 	echo $text;
 ?>
@@ -974,7 +1088,7 @@ if ( isset( $_POST['Submit-ISL-Options'] ) && current_user_can('manage_options')
 
 <div id="Idle-Session-Logout">
 
-<form name="IdleSessionLogout" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' ); ?>" method="post">
+<form name="IdleSessionLogout" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-3' ); ?>" method="post">
 	<?php wp_nonce_field('bps_isl_logout'); ?> 
 	<?php $BPS_ISL_options = get_option('bulletproof_security_options_idle_session'); ?>
     
@@ -1146,7 +1260,7 @@ if ( isset( $_POST['Submit-ACE-Options'] ) && current_user_can('manage_options')
 }
 ?>
 
-<form name="ACELogout" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' ); ?>" method="post">
+<form name="ACELogout" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-3' ); ?>" method="post">
 	<?php wp_nonce_field('bps_auth_cookie_expiration'); ?>
 	<?php $BPS_ACE_options = get_option('bulletproof_security_options_auth_cookie'); ?>
  
@@ -1231,7 +1345,7 @@ if ( isset( $_POST['Submit-ACE-Options'] ) && current_user_can('manage_options')
 
 <?php } ?>
 
-<div id="bps-tabs-3" class="bps-tab-page">
+<div id="bps-tabs-4" class="bps-tab-page">
 
 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="bps-help_faq_table">
    <tr>

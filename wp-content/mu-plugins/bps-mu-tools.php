@@ -2,7 +2,7 @@
 /*
 Plugin Name: BPS MU Tools
 Description: <strong>Enable|Disable BPS Plugin AutoUpdates:</strong> Clicking this link enables or disables BPS Plugin automatic updates for the BPS plugin only. <strong>Enable|Disable BPS Folder|Deactivation Checks:</strong> Clicking this link enables or disables checks for whether the /bulletproof-security/ plugin folder has been renamed or deleted. Checks for whether the BPS plugin has been deactivated. Email alerts are sent every 5 minutes when the BPS plugin folder has been renamed or deleted or the BPS plugin has been deactivated. To disable these checks and the email alerts click the Disable BPS Folder|Deactivation Checks link. <strong>Note:</strong> When you click disable links you will then see enable links and vice versa.
-Version: 1.0
+Version: 3.0
 Author: AITpro
 Author URI: https://forum.ait-pro.com/forums/forum/bulletproof-security-free/
 License: GPLv2 or later
@@ -13,7 +13,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ## Important Note: If you would like to add additional customizations to this file it is recommended that you make a copy of this file after you make any customizations. 
 ## Most likely additional things will be added/created in this BPS Pro must-use file at a later time. 
 ## If you customize this BPS file then you will lose your customizations if/when this file is updated in the future.
+## The MU Tools auto-update function: bpsPro_mu_tools_plugin_copy() is located in general-functions.php at code line: 816
 ## 1.0: Added Toggle Action Links and DB options so that BPS MU Tools can be enabled or disabled.
+## 2.0: Added CSRF Nonce verification to Toggle GET links.
+## 2.7: BugFix for SSL sites nonce verification failing.
 
 ## Uncommenting these filters below and commenting out this BPS filter: add_filter( 'auto_update_plugin', 'bpsPro_autoupdate_bps_plugin', 10, 2 );
 ## will allow ALL plugin and theme automatic updates on your website. At a later time|version this BPS MU plugin file will include options to enable|disable these things.
@@ -208,34 +211,71 @@ bpsPro_plugin_deactivation_check();
 // Note: you cannot use current_user_can('manage_options') in a must-use plugin.
 function bpsPro_toggle_links() {
 	
-	if ( is_admin() && isset( $_GET['bps_toggle_a'] ) || is_network_admin() && isset( $_GET['bps_toggle_a'] ) || is_admin() && isset( $_GET['bps_toggle_d'] ) || is_network_admin() && isset( $_GET['bps_toggle_d'] ) ) {
+	if ( is_admin() && preg_match( '/\/wp-admin\/plugins\.php/', esc_html($_SERVER['REQUEST_URI']) ) || is_network_admin() && preg_match( '/\/wp-admin\/network\/plugins\.php/', esc_html($_SERVER['REQUEST_URI']) ) ) {
 		
-		$MUTools_Options = get_option('bulletproof_security_options_MU_tools_free');
+		if ( isset( $_GET['bps_toggle_a'] ) || isset( $_GET['bps_toggle_d'] ) ) {
+		
+			if ( ! function_exists( 'wp_verify_nonce' ) ) {
+				require_once( ABSPATH . '/wp-includes/pluggable.php' );
+			}
 
-		if ( ! isset( $_GET['bps_toggle_a'] ) ) {
-			$bps_toggle_a = $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'];
-		} elseif ( 'enable' == $_GET['bps_toggle_a'] ) {
-			$bps_toggle_a = 'enable';
-		} elseif ( 'disable' == $_GET['bps_toggle_a'] ) {
-			$bps_toggle_a = 'disable';
-		}
+			if ( ! defined( 'COOKIEHASH' ) ) {
+        		$siteurl = get_site_option( 'siteurl' );
+        		
+				if ( $siteurl )
+            		define( 'COOKIEHASH', md5( $siteurl ) );
+        		else
+            		define( 'COOKIEHASH', '' );
+    		}
 
-		if ( ! isset( $_GET['bps_toggle_d'] ) ) {
-			$bps_toggle_d = $MUTools_Options['bps_mu_tools_enable_disable_deactivation'];
-		} elseif ( 'enable' == $_GET['bps_toggle_d'] ) {
-			$bps_toggle_d = 'enable';
-		} elseif ( 'disable' == $_GET['bps_toggle_d'] ) {
-			$bps_toggle_d = 'disable';
-		}
+			if ( ! defined('AUTH_COOKIE') )
+        		define('AUTH_COOKIE', 'wordpress_' . COOKIEHASH);
+			
+			if ( ! defined('SECURE_AUTH_COOKIE') )
+				define('SECURE_AUTH_COOKIE', 'wordpress_sec_' . COOKIEHASH);
 
-		$MUTools_Option_settings = array( 
-		'bps_mu_tools_timestamp' 					=> time() + 300, 
-		'bps_mu_tools_enable_disable_autoupdate' 	=> $bps_toggle_a, 
-		'bps_mu_tools_enable_disable_deactivation' 	=> $bps_toggle_d 
-		);	
+    		if ( ! defined('LOGGED_IN_COOKIE') )
+				define('LOGGED_IN_COOKIE', 'wordpress_logged_in_' . COOKIEHASH);			
 
-		foreach ( $MUTools_Option_settings as $key => $value ) {
-			update_option('bulletproof_security_options_MU_tools_free', $MUTools_Option_settings);
+			if ( empty( $_REQUEST['_wpnonce'] ) ) {
+				$nonce = '';
+			} else {
+				$nonce = $_REQUEST['_wpnonce'];
+			}
+		
+			if ( ! wp_verify_nonce( $nonce, 'bps-anti-csrf' ) ) {
+				die( 'CSRF Error: Invalid Nonce used in BPS MU Tools must-use plugin GET Request' );
+			
+			} else {		
+		
+				$MUTools_Options = get_option('bulletproof_security_options_MU_tools_free');
+
+				if ( ! isset( $_GET['bps_toggle_a'] ) ) {
+					$bps_toggle_a = $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'];
+				} elseif ( 'enable' == $_GET['bps_toggle_a'] ) {
+					$bps_toggle_a = 'enable';
+				} elseif ( 'disable' == $_GET['bps_toggle_a'] ) {
+					$bps_toggle_a = 'disable';
+				}
+
+				if ( ! isset( $_GET['bps_toggle_d'] ) ) {
+					$bps_toggle_d = $MUTools_Options['bps_mu_tools_enable_disable_deactivation'];
+				} elseif ( 'enable' == $_GET['bps_toggle_d'] ) {
+					$bps_toggle_d = 'enable';
+				} elseif ( 'disable' == $_GET['bps_toggle_d'] ) {
+					$bps_toggle_d = 'disable';
+				}
+		
+				$MUTools_Option_settings = array( 
+				'bps_mu_tools_timestamp' 					=> time() + 300, 
+				'bps_mu_tools_enable_disable_autoupdate' 	=> $bps_toggle_a, 
+				'bps_mu_tools_enable_disable_deactivation' 	=> $bps_toggle_d 
+				);	
+
+				foreach ( $MUTools_Option_settings as $key => $value ) {
+					update_option('bulletproof_security_options_MU_tools_free', $MUTools_Option_settings);
+				}
+			}
 		}
 	}
 }
@@ -250,13 +290,19 @@ function bpsPro_mu_plugin_actlinks( $links, $file ) {
 	if ( $file == $this_plugin ) {
 
 		$MUTools_Options = get_option('bulletproof_security_options_MU_tools_free');
+		
+		if ( ! function_exists( 'wp_create_nonce' ) ) {
+			require_once( ABSPATH . '/wp-includes/pluggable.php' );
+		}
+		
+		$nonce = wp_create_nonce( 'bps-anti-csrf' );
 	
 		if ( $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'] == 'enable' ) {
 		
 			if ( is_multisite() ) {
-				$links[] = '<a href="'.network_admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_a=disable' ).'">Disable BPS Plugin AutoUpdates</a>';
+				$links[] = '<a href="'.network_admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_a=disable&_wpnonce=$nonce" ).'">Disable BPS Plugin AutoUpdates</a>';
 			} else {
-				$links[] = '<a href="'.admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_a=disable' ).'">Disable BPS Plugin AutoUpdates</a>';
+				$links[] = '<a href="'.admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_a=disable&_wpnonce=$nonce" ).'">Disable BPS Plugin AutoUpdates</a>';
 			}		
 
 		} else {
@@ -264,9 +310,9 @@ function bpsPro_mu_plugin_actlinks( $links, $file ) {
 			if ( $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'] == 'disable' ) {
 			
 				if ( is_multisite() ) {
-					$links[] = '<a href="'.network_admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_a=enable' ).'">Enable BPS Plugin AutoUpdates</a>';
+					$links[] = '<a href="'.network_admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_a=enable&_wpnonce=$nonce" ).'">Enable BPS Plugin AutoUpdates</a>';
 				} else {
-					$links[] = '<a href="'.admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_a=enable' ).'">Enable BPS Plugin AutoUpdates</a>';
+					$links[] = '<a href="'.admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_a=enable&_wpnonce=$nonce" ).'">Enable BPS Plugin AutoUpdates</a>';
 				}
 			}
 		}		
@@ -274,9 +320,9 @@ function bpsPro_mu_plugin_actlinks( $links, $file ) {
 		if ( $MUTools_Options['bps_mu_tools_enable_disable_deactivation'] == 'enable' ) {
 		
 			if ( is_multisite() ) {
-				$links[] = '<br><a href="'.network_admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_d=disable' ).'">Disable BPS Folder|Deactivation Checks</a>';
+				$links[] = '<br><a href="'.network_admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_d=disable&_wpnonce=$nonce" ).'">Disable BPS Folder|Deactivation Checks</a>';
 			} else {
-				$links[] = '<br><a href="'.admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_d=disable' ).'">Disable BPS Folder|Deactivation Checks</a>';
+				$links[] = '<br><a href="'.admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_d=disable&_wpnonce=$nonce" ).'">Disable BPS Folder|Deactivation Checks</a>';
 			}		
 
 		} else {
@@ -284,9 +330,9 @@ function bpsPro_mu_plugin_actlinks( $links, $file ) {
 			if ( $MUTools_Options['bps_mu_tools_enable_disable_deactivation'] == 'disable' ) {			
 			
 				if ( is_multisite() ) {
-					$links[] = '<br><a href="'.network_admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_d=enable' ).'">Enable BPS Folder|Deactivation Checks</a>';
+					$links[] = '<br><a href="'.network_admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_d=enable&_wpnonce=$nonce" ).'">Enable BPS Folder|Deactivation Checks</a>';
 				} else {
-					$links[] = '<br><a href="'.admin_url( 'plugins.php?plugin_status=mustuse&bps_toggle_d=enable' ).'">Enable BPS Folder|Deactivation Checks</a>';
+					$links[] = '<br><a href="'.admin_url( "plugins.php?plugin_status=mustuse&bps_toggle_d=enable&_wpnonce=$nonce" ).'">Enable BPS Folder|Deactivation Checks</a>';
 				}		
 			}
 		}

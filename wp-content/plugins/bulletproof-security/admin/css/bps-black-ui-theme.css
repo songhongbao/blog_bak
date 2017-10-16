@@ -89,11 +89,10 @@ span.blue-bold {color:#dfdfdf;font-weight:bold;font-size:16px;}
 #bps-tabs-11 div#bpsProFeatures p {font-weight:normal}
 div#milestone {font-weight:bold;height:20px;background-color:#CCC;border:1px solid #999;padding:3px 0px 0px 5px;margin-bottom:2px;}
 /** Login Security **/
-#EmailOptionsLSM {margin:15px 0px 15px 0px}
 #LoginSecurityOptions {width:340px;}
 #LoginSecurityCheckall {max-height:600px;width:100%;overflow:auto;margin:0px 0px 20px 0px;}
 #LoginSecurityCheckall .widefat td {font-size:12px;}
-#LoginSecuritySearch {float:right;position:relative;top:0px;right:0px;margin:0px 20px 0px 0px;}
+#LoginSecuritySearch {float:right;position:relative;bottom:35px;left:258px;margin:0px 20px 0px 0px;}
 .LSSearch-text {width:187px;margin:0px 5px 0px 0px;}
 #LSMExportButton {float:right;max-width:300px;}
 #LoginSecurityResetButton {position:relative;bottom:52px;left:115px;margin:0px 0px -30px 0px;max-width:300px;}
@@ -135,12 +134,30 @@ span.arq-tooltip-sw-60:hover {z-index:10;}
 span.arq-tooltip-sw-60 img:hover {z-index:10;}
 span.arq-tooltip-sw-60 span {display:none;position:absolute;bottom:0;left:0;right:0;}
 span.arq-tooltip-sw-60:hover span {width:700px;height:60px;display:block;position:absolute;top:0px;left:20px;right:0;color:#000;background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);}
+/** MScan **/
+.text-area-340x60 {width:340px;height:60px;}
+#MScan-Time-Container {position:relative;top:0px;left:0px;}
+div#mscantimer {color:#dfdfdf;font-size:14px!important;font-weight:600!important;padding:4px;position:relative;top:0px;left:0px;}
+#MscanProgressBar {width:100%;height:30px;background-color:#e8e8e8;border-radius:2px;-webkit-box-shadow:inset 0 2px 3px rgba(0, 0, 0, 0.25);-moz-box-shadow:inset 0 2px 3px rgba(0, 0, 0, 0.25);box-shadow:inset 0 2px 3px rgba(0, 0, 0, 0.25);}
+#MscanBar {width:0%;height:30px;font-weight:bold;text-align:center;line-height:30px;color:white;}
+.mscan-progress-bar {width:0;height:100%;background:#0e8bcb;background:-moz-linear-gradient(top, #0e8bcb 0%, #08496b 100%);background:-webkit-gradient(linear, left top, left bottom, color-stop(0%,#0e8bcb), color-stop(100%,#08496b));background:-webkit-linear-gradient(top, #0e8bcb 0%,#08496b 100%);background:-o-linear-gradient(top, #0e8bcb 0%,#08496b 100%);background:-ms-linear-gradient(top, #0e8bcb 0%,#08496b 100%);background:linear-gradient(to bottom, #0e8bcb 0%,#08496b 100%);-webkit-transition:width 1s ease-in-out;-moz-transition:width 1s ease-in-out;-o-transition:width 1s ease-in-out;transition:width 1s ease-in-out;}
+span.tooltip-250-80 {display:inline-block;position:relative;}
+span.tooltip-250-80:hover {z-index:10;}
+span.tooltip-250-80 img:hover {z-index:10;}
+span.tooltip-250-80 span {display:none;position:absolute;bottom:0;left:0;right:0;}
+span.tooltip-250-80:hover span {width:250px;height:80px;display:block;position:absolute;top:0px;left:30px;right:0;color:#000;background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);}
+span.tooltip-350-120 {display:inline-block;position:relative;}
+span.tooltip-350-120:hover {z-index:10;}
+span.tooltip-350-120 img:hover {z-index:10;}
+span.tooltip-350-120 span {display:none;position:absolute;bottom:0;left:0;right:0;}
+span.tooltip-350-120:hover span {width:350px;height:120px;display:block;position:absolute;top:0px;left:30px;right:0;color:#000;background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow:3px 3px 5px -1px rgba(153,153,153,0.7);}
+#MScanSuspectcheckall, #MScanSuspectDBcheckall {max-height:400px;width:100%;overflow:auto;margin:0px 0px 20px 0px;}
 /** Security Log **/
 #SecLogCounter {float:right;background-color:#000;border:1px solid #999;padding:5px;margin:0px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);}
 div#SecLogCounter div.sec-log-counter-text-title {font-weight:600;color:#dfdfdf;font-size:16px;padding-bottom:5px;border-bottom:2px solid #999;}
 span.sec-log-counter-text {font-weight:600;font-size:13px;color:#dfdfdf;}
 span.sec-log-counter-text-blue {font-weight:600;font-size:13px;color:#00a0d2;}
-#SecurityLogTable {position:relative;top:0px;left:0px;margin:15px 0px 15px -3px;}
+#SecurityLogTable {position:relative;top:0px;left:0px;margin:0px 0px 15px -3px;}
 #SecLogPostLimit {position:relative;top:0px;left:0px;margin:0px 0px 15px 0px;}
 /** B-Core & BPS htaccess File Editor **/
 .core-status-disabled {color:#00a0d2;background:#000;padding:0px 5px 2px 5px;border:1px solid #999}
@@ -177,7 +194,6 @@ label[for=mmode], label[for=mmode-email] {font-size:1em;}
 .bps-dbb-small-text {font-size:12px;}
 .dbb-text-500 {width:500px;margin:0px 0px 10px 0px;}
 .table-prefix-changer {width:215px;}
-#DBBLogDelete {margin:0px 0px 10px 600px;}
 /** Buttons **/
 #bps-container .button {height:28px;}
 /* Form Submit buttons */
@@ -186,6 +202,7 @@ label[for=mmode], label[for=mmode-email] {font-size:1em;}
 #bps-container .bps-button:focus {-webkit-box-shadow:inset 0 1px 0 #999, 0 0 0 1px #999, 0 0 2px 1px rgba(30, 140, 190, 0.8);box-shadow:inset 0 1px 0 #999, 0 0 0 1px #999, 0 0 2px 1px rgba(30, 140, 190, 0.8);}
 #bps-container .bps-button:active {background:#037c9a;border-color:#036881;color:white;-webkit-box-shadow:inset 0 2px 5px -3px rgba(0, 0, 0, 0.5), 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, 0.8);box-shadow:inset 0 2px 5px -3px rgba(0, 0, 0, 0.5), 0 0 0 1px #5b9dd9, 0 0 2px 1px rgba(30, 140, 190, 0.8);}
 /* Read Me Dialog buttons */
+.bps-dialog-hide {display:none}
 #bps-container .bps-modal-button {font-size:.75em;line-height:22px;height:24px;margin:-3px 0px 0px 0px;background:#222222;border-color:#999;color:#999;-webkit-box-shadow: inset 0 1px 0 #999, 0 1px 0 rgba(0, 0, 0, 0.15);box-shadow:inset 0 1px 0 #999, 0 1px 0 rgba(0, 0, 0, 0.15);}
 #bps-container .bps-modal-button:hover, #bps-container .bps-modal-button:focus {color:#2ea2cc;background-color:#111111;border-color:#dfdfdf;-webkit-box-shadow:inset 0 1px 0 #dfdfdf;box-shadow:inset 0 1px 0 #999;}
 #bps-container .bps-modal-button:focus {-webkit-box-shadow:inset 0 1px 0 #999, 0 0 0 1px #999, 0 0 2px 1px rgba(30, 140, 190, 0.8);box-shadow:inset 0 1px 0 #999, 0 0 0 1px #999, 0 0 2px 1px rgba(30, 140, 190, 0.8);}
@@ -399,16 +416,14 @@ td.bps-table_cell_help_custom_code pre {width:95%;}
 #LoginSecurityCheckall .widefat tbody tr th {width:100%;}
 #LoginSecurityCheckall .widefat tbody tr td {width:100%;}
 select.form-220 {width:90%;}
-#LoginSecuritySearch {float:right;position:relative;top:0px;right:0px;margin:0px 20px 20px 0px;}
-#LSMExportButton {float:right;max-width:300px;margin-bottom:15px}
+#LoginSecuritySearch {float:right;position:relative;bottom:35px;left:20px;margin:0px 20px 0px 0px;}
+#LSMExportButton {margin-bottom:-50px}
 #LoginSecurityDBRowCount {position:relative;left:0px;bottom:5px;color:#2ea2cc;font-weight:bold;font-size:14px;max-width:400px}
 #LoginSecurityResetButton {position:relative;bottom:10px;left:0px;margin:0px 0px 0px 0px;max-width:300px;}
 #LoginSecurityDBRowCount {float:left;position:relative;left:0px;bottom:20px;height:20px;}
 .button.bps-button.lsmreset {margin:0px 0px 0px 0px;}
 #LoginSecurityOptions select.form-220 {width:150px}
-#EmailOptionsLSM select.form-340 {width:90%}
-#EmailOptionsSecLog select.form-340 {width:90%}
-#EmailOptionsDBB select.form-340 {width:90%}
+#EmailOptions select.form-340 {width:90%}
 #LoginSecurityJTC select.form-250 {width:90%}
 #LoginSecurityJTC input.regular-text-250 {width:90%}
 #Idle-Session-Logout .PFW-Allow-From-Text-Area {margin-top:5px;max-width:250px;}
@@ -452,6 +467,12 @@ span.arq-tooltip-sw-20 {float:left;clear:left}
 span.arq-tooltip-sw-60 {float:left;clear:left}
 span.arq-tooltip-sw-20:hover span {width:220px;height:100px;}
 span.arq-tooltip-sw-60:hover span {width:220px;height:200px;}
+span.tooltip-250-80:hover span {visibility:hidden;display:none;}
+}
+
+@media screen and (min-width: 496px) and (max-width: 632px){
+#LoginSecuritySearch {float:right;position:relative;bottom:35px;left:20px;margin:0px 20px 0px 0px;}
+#LSMExportButton {margin-bottom:-50px}	
 }
 
 /* Larger mobile phone, tablets and iPads common viewport sizes: 496, *533, *540, *600, 601, 602, 603, 604, 640, 648, *720, 731, 758, *768 */
@@ -478,16 +499,12 @@ table.bps-help_faq_table {width:100%;}
 #LoginSecurityCheckall .widefat thead tr th {width:100%;text-align:left;white-space:normal;font-weight:bold;}
 #LoginSecurityCheckall .widefat tbody tr th {width:100%;}
 #LoginSecurityCheckall .widefat tbody tr td {width:100%;}
-#LoginSecuritySearch {float:right;position:relative;top:0px;right:0px;margin:0px 20px 20px 0px;}
-#LSMExportButton {float:right;max-width:300px;margin-bottom:15px}
 #LoginSecurityDBRowCount {position:relative;left:0px;bottom:5px;color:#2ea2cc;font-weight:bold;font-size:14px;max-width:400px}
 #LoginSecurityResetButton {position:relative;bottom:10px;left:0px;margin:0px 0px 0px 0px;max-width:300px;}
 #LoginSecurityDBRowCount {float:left;position:relative;left:0px;bottom:20px;height:20px;}
 .button.bps-button.lsmreset {margin:0px 0px 0px 0px;}
 #LoginSecurityOptions select.form-220 {width:220px}
-#EmailOptionsLSM select.form-340 {width:90%}
-#EmailOptionsSecLog select.form-340 {width:90%}
-#EmailOptionsDBB select.form-340 {width:90%}
+#EmailOptions select.form-340 {width:90%}
 .button.bps-button.lsmreset {margin:0px 0px 0px 0px;}
 #Idle-Session-Logout .PFW-Allow-From-Text-Area {margin-top:5px;width:450px}
 .bps_isl_custom_css_1 {width:400px}
@@ -515,6 +532,7 @@ span.arq-tooltip-sw-20 {float:left;clear:left}
 span.arq-tooltip-sw-60 {float:left;clear:left}
 span.arq-tooltip-sw-20:hover span {width:220px;height:100px;}
 span.arq-tooltip-sw-60:hover span {width:220px;height:200px;}
+span.tooltip-250-80:hover span {visibility:hidden;display:none;}
 }
 
 /* tablets, laptops and pcs with smaller viewport sizes: *800, 854, 900, 960, *1024 */
@@ -550,6 +568,7 @@ span.arq-tooltip-sw-20 {float:left;clear:left}
 span.arq-tooltip-sw-60 {float:left;clear:left}
 span.arq-tooltip-sw-20:hover span {width:220px;height:100px;}
 span.arq-tooltip-sw-60:hover span {width:220px;height:200px;}
+span.tooltip-250-80:hover span {width:80px;height:285px;}
 }
 
 /* laptops and pcs with larger viewports */

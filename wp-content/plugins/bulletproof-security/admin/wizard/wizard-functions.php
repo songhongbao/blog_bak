@@ -25,9 +25,11 @@ function bpsSetupWizard_delete_htaccess_files() {
 	$core6 = $bpsPro_pf . 'admin/security-log/.htaccess';
 	$core7 = $bpsPro_pf . 'admin/system-info/.htaccess';
 	$core8 = $bpsPro_pf . 'admin/theme-skin/.htaccess';	
-	$core9 = $bpsPro_pf . 'admin/wizard/.htaccess';	
-	
-		$files = array( $bps_backup, $bps_master_backups, $root_htaccess, $wpadmin_htaccess, $core1, $core2, $core3, $core4, $core5, $core6, $core7, $core8, $core9 );
+	$core9 = $bpsPro_pf . 'admin/wizard/.htaccess';
+	$core10 = $bpsPro_pf . 'admin/email-log-settings/.htaccess';
+	$core11 = $bpsPro_pf . 'admin/mscan/.htaccess';	
+
+		$files = array( $bps_backup, $bps_master_backups, $root_htaccess, $wpadmin_htaccess, $core1, $core2, $core3, $core4, $core5, $core6, $core7, $core8, $core9, $core10, $core11 );
 
 		$HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 				

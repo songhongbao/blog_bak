@@ -158,7 +158,7 @@ $bps_bottomDiv = '</p></div>';
 
 <!-- jQuery UI Tab Menu -->
 <div id="bps-tabs" class="bps-menu">
-    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-security-shield.gif'); ?>" /></div>
+    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-free-logo.gif'); ?>" /></div>
 		<ul>
 			<li><a href="#bps-tabs-1"><?php _e('Maintenance Mode', 'bulletproof-security'); ?></a></li>
             <li><a href="#bps-tabs-2"><?php _e('Help &amp; FAQ', 'bulletproof-security'); ?></a></li>
@@ -194,7 +194,7 @@ $bps_bottomDiv = '</p></div>';
 
 <h3 style="margin:0px 0px 10px 0px;"><?php _e('Maintenance Mode', 'bulletproof-security'); ?>  <button id="bps-open-modal1" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content1" style="background-color:#fff; padding:0px 10px 10px 10px;" title="<?php _e('Maintenance Mode', 'bulletproof-security'); ?>">
+<div id="bps-modal-content1" class="bps-dialog-hide" style="background-color:#fff; padding:0px 10px 10px 10px;" title="<?php _e('Maintenance Mode', 'bulletproof-security'); ?>">
 	<p>
 	<?php
         $text = '<strong>'.__('This Read Me Help window is draggable (top) and resizable (bottom right corner)', 'bulletproof-security').'</strong><br><br>';
@@ -499,7 +499,7 @@ bpsPro_maintenance_mode_values_form();
 $MMoptions = get_option('bulletproof_security_options_maint_mode');
 ?>
 
-<div id="bps-accordion-3" class="bps-accordion-main-2">
+<div id="bps-accordion-3" class="bps-accordion-main-2" style="">
 <h3><?php _e('MMode Editor', 'bulletproof-security'); ?></h3>
 <div id="mmode-accordion-inner">
 
@@ -693,7 +693,7 @@ if ( isset( $_POST['maintenance-mode-preview-submit'] ) && current_user_can('man
 <form name="MaintenanceModePreview" method="post" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" target="" onSubmit="window.open('<?php echo plugins_url('/bulletproof-security/admin/htaccess/bps-maintenance-'.$subsite_remove_slashes.'.php'); ?>','','scrollbars=yes,menubar=yes,width=800,height=600,resizable=yes,status=yes,toolbar=yes')">
 <?php wp_nonce_field('bulletproof_security_maintenance_preview'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
+<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
 </p>
 </form>
 
@@ -702,7 +702,7 @@ if ( isset( $_POST['maintenance-mode-preview-submit'] ) && current_user_can('man
 <form name="MaintenanceModePreview" method="post" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" target="" onSubmit="window.open('<?php echo plugins_url('/bulletproof-security/admin/htaccess/bps-maintenance.php'); ?>','','scrollbars=yes,menubar=yes,width=800,height=600,resizable=yes,status=yes,toolbar=yes')">
 <?php wp_nonce_field('bulletproof_security_maintenance_preview'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
+<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
 </p>
 </form>
 
@@ -711,14 +711,14 @@ if ( isset( $_POST['maintenance-mode-preview-submit'] ) && current_user_can('man
 <form name="bpsMaintenanceModeOn" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_mmode_on'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="Submit-maintenance-mode-on" class="button bps-button" value="<?php esc_attr_e('Turn On', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-maintenance-mode-on" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Turn On', 'bulletproof-security') ?>" />
 </p>
 </form>
 
 <form name="bpsMaintenanceModeOff" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_mmode_off'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="Submit-maintenance-mode-off" class="button bps-button" value="<?php esc_attr_e('Turn Off', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-maintenance-mode-off" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Turn Off', 'bulletproof-security') ?>" />
 </p>
 </form>
 

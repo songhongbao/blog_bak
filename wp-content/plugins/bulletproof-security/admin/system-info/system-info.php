@@ -83,7 +83,7 @@ $bps_bottomDiv = '</p></div>';
 
 <!-- jQuery UI Tab Menu -->
 <div id="bps-tabs" class="bps-menu">
-    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-security-shield.gif'); ?>" /></div>
+    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-free-logo.gif'); ?>" /></div>
 		<ul>
 			<li><a href="#bps-tabs-1"><?php _e('System Info', 'bulletproof-security'); ?></a></li>
             <li><a href="#bps-tabs-2"><?php _e('Website Headers Check Tool', 'bulletproof-security'); ?></a></li>			
@@ -97,7 +97,7 @@ $bps_bottomDiv = '</p></div>';
 
 <h3><?php _e('File|Folder Permissions & UID', 'bulletproof-security'); ?>  <button id="bps-open-modal1" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-	<div id="bps-modal-content1" title="<?php _e('File|Folder Permissions & UID', 'bulletproof-security'); ?>">
+	<div id="bps-modal-content1" class="bps-dialog-hide" title="<?php _e('File|Folder Permissions & UID', 'bulletproof-security'); ?>">
 	<p>
 	<?php
         $text = '<strong>'.__('This Read Me Help window is draggable (top) and resizable (bottom right corner)', 'bulletproof-security').'</strong><br><br>';
@@ -414,7 +414,20 @@ function bpsPro_count_network_activated_plugins($count) {
 	}
 	}
 	echo '<br>';    
-echo '<strong><span class="sysinfo-label-text">'.__('ionCube Loader', 'bulletproof-security').':</span></strong> '; 
+	
+	if ( function_exists('opcache_get_status') ) {
+		$zend_opcache = opcache_get_status();
+		echo '<strong><span class="sysinfo-label-text">'.__('Zend OPcache', 'bulletproof-security').':</span></strong> '; 
+		if ( $zend_opcache['opcache_enabled'] == '1' ) {
+			$zend_opcache_config = opcache_get_configuration();
+			echo __('Zend OPcache is Enabled', 'bulletproof-security').' '.__('Version: ', 'bulletproof-security') . $zend_opcache_config['version']['version'];
+		} else {
+			echo __('Zend OPcache is Not Enabled', 'bulletproof-security');
+		}
+	echo '<br>';
+	}	
+	
+	echo '<strong><span class="sysinfo-label-text">'.__('ionCube Loader', 'bulletproof-security').':</span></strong> '; 
 	if ( extension_loaded('IonCube Loader') && function_exists('ioncube_loader_iversion') ) {
 		echo __('ionCube Loader Extension is Loaded ', 'bulletproof-security').__('Version: ', 'bulletproof-security') . ioncube_loader_iversion();
 	} else {
@@ -602,7 +615,7 @@ echo '<strong><span class="sysinfo-label-text">'.__('ionCube Loader', 'bulletpro
 
 <h3><button id="bps-open-modal600" class="button bps-modal-button"><?php _e('Get Plugins List', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content600" title="<?php _e('Get Plugins List', 'bulletproof-security'); ?>">
+<div id="bps-modal-content600" class="bps-dialog-hide" title="<?php _e('Get Plugins List', 'bulletproof-security'); ?>">
 	<p><?php $text = '<strong>'.__('This window is draggable (top) and resizable (bottom right corner)', 'bulletproof-security').'</strong><br><br>'; 
 	echo $text; bpsPro_get_plugins_list(); ?></p>
 </div>	

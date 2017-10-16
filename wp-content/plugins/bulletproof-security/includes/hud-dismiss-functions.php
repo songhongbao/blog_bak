@@ -20,11 +20,11 @@ function bps_HUD_WP_Dashboard() {
 		bps_hud_PhpiniHandlerCheck();
 		bps_hud_check_sucuri();
 		bps_hud_check_wordpress_firewall2();
-		bpsPro_hud_woocommerce_enable_lsm_jtc();
 		bps_hud_BPSQSE_old_code_check();
 		bpsPro_BBM_htaccess_check();
 		bpsPro_hud_speed_boost_cache_code();
 		bps_hud_check_autoupdate();
+		bpsPro_hud_mscan_notice();
 		//bps_hud_check_public_username();
 	}
 }
@@ -502,59 +502,6 @@ $user_id = $current_user->ID;
 	}
 }
 
-// Heads Up Display w/ Dismiss - WooCommerce LSM enable options
-// Notes: This Notice needs to be displayed to everyone who already currently have WooCommerce installed until they Dismiss this Notice.
-// The reason for that is the BPS upgrade will automatically enable LSM for the WooCommerce custom login page.
-// If they install WooCommerce at a later time then this Notice is displayed.
-// Exception: This Notice should not be displayed for new BPS installations before or after the Setup Wizard has been run.
-function bpsPro_hud_woocommerce_enable_lsm_jtc() {
-
-	$lsm_options = get_option('bulletproof_security_options_login_security');
-	$sw_woo_options = get_option('bulletproof_security_options_setup_wizard_woo');
-
-	if ( ! $lsm_options['bps_enable_lsm_woocommerce'] ) {
-		return;
-	}
-
-	if ( $sw_woo_options['bps_wizard_woo'] == '1' ) {
-		return;
-	}
-
-	$woocommerce = 'woocommerce/woocommerce.php';
-	$woocommerce_active = in_array( $woocommerce, apply_filters('active_plugins', get_option('active_plugins')));
-
-	if ( $woocommerce_active == 1 || is_plugin_active_for_network( $woocommerce ) ) {
-
-		global $current_user;
-		$user_id = $current_user->ID;
-
-		if ( ! get_user_meta($user_id, 'bps_ignore_woocommerce_lsm_jtc_notice') ) { 
-			
-		if ( esc_html($_SERVER['QUERY_STRING']) == '' && basename(esc_html($_SERVER['REQUEST_URI'])) != 'wp-admin' ) {
-			$bps_base = basename(esc_html($_SERVER['REQUEST_URI'])) . '?';
-		} elseif ( esc_html($_SERVER['QUERY_STRING']) == '' && basename(esc_html($_SERVER['REQUEST_URI'])) == 'wp-admin' ) {
-			$bps_base = basename( str_replace( 'wp-admin', 'index.php?', esc_html($_SERVER['REQUEST_URI'])));
-		} else {
-			$bps_base = str_replace( admin_url(), '', esc_html($_SERVER['REQUEST_URI']) ) . '&';
-		}			
-			
-			$text = '<div class="update-nag" style="background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="blue">'.__('BPS WooCommerce Options Notice: Enable Login Security for WooCommerce', 'bulletproof-security').'</font><br>'.__('BPS Login Security & Monitoring (LSM) can be enabled/disabled for the WooCommerce custom login page by checking or unchecking the ', 'bulletproof-security').'<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php' ).'">'.__('Enable Login Security for WooCommerce', 'bulletproof-security').'</a>'.__(' checkbox option setting. The LSM WooCommerce option is automatically enabled during the BPS upgrade if you already had WooCommerce installed before upgrading BPS. If you just installed WooCommerce you can either run the Setup Wizard to enable the LSM WooCommerce option or you can enable this option manually by going to the BPS LSM plugin page if you want to enable LSM for WooCommerce.', 'bulletproof-security').'<br>'.__('To Dismiss this Notice click the Dismiss Notice button below. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the Custom Code page.', 'bulletproof-security').'<br><div style="float:left;margin:3px 0px 3px 0px;padding:2px 6px 2px 6px;background-color:#e8e8e8;border:1px solid gray;"><a href="'.$bps_base.'bps_woo_jtc_lsm_nag_ignore=0'.'" style="text-decoration:none;font-weight:600;">'.__('Dismiss Notice', 'bulletproof-security').'</a></div></div>';
-			echo $text;
-		}
-	}
-}
-
-add_action('admin_init', 'bps_woo_jtc_lsm_nag_ignore');
-
-function bps_woo_jtc_lsm_nag_ignore() {
-global $current_user;
-$user_id = $current_user->ID;
-        
-	if ( isset($_GET['bps_woo_jtc_lsm_nag_ignore']) && '0' == $_GET['bps_woo_jtc_lsm_nag_ignore'] ) {
-		add_user_meta($user_id, 'bps_ignore_woocommerce_lsm_jtc_notice', 'true', true);
-	}
-}
-
 // Check for older BPS Query String Exploits code saved to BPS Custom Code
 function bps_hud_BPSQSE_old_code_check() {
 $CustomCodeoptions = get_option('bulletproof_security_options_customcode');	
@@ -709,6 +656,33 @@ $user_id = $current_user->ID;
         
 	if ( isset( $_GET['bps_autoupdate_nag_ignore'] ) && '0' == $_GET['bps_autoupdate_nag_ignore'] ) {
 		add_user_meta($user_id, 'bps_ignore_autoupdate_notice', 'true', true);
+	}
+}
+
+// Heads Up Display w/ Dismiss - MScan first run notice
+function bpsPro_hud_mscan_notice() {
+
+	if ( esc_html($_SERVER['QUERY_STRING']) == 'page=bulletproof-security/admin/mscan/mscan.php' ) {
+
+		global $current_user;
+		$user_id = $current_user->ID;
+	
+		if ( ! get_user_meta($user_id, 'bps_ignore_mscan_notice') ) {
+				
+			$text = '<div style="background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:0px 5px;margin:0px 0px 35px 0px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="blue">'.__('MScan First Run Notice', 'bulletproof-security').'</font><br>'.__('Please take a few minutes to read the "Basic Info|Recommendations|Limitations|Restrictions" help section in the', 'bulletproof-security').' <a href="https://forum.ait-pro.com/forums/topic/mscan-malware-scanner-guide/" target="_blank" title="MScan Malware Scanner Guide">'.__('MScan Malware Scanner Guide', 'bulletproof-security').'</a> '.__('before running a scan.', 'bulletproof-security').'<br>'.__('It is highly recommended that you use the Scan Time Estimate Tool before running an actual scan. The Scan Time Estimate Tool calculates the total estimated time of a scan based on your MScan Option settings without actually running a scan. To Dismiss this Notice click the Dismiss Notice button below. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the Custom Code page.', 'bulletproof-security').'<br><div style="float:left;margin:3px 0px 3px 0px;padding:2px 6px 2px 6px;background-color:#e8e8e8;border:1px solid gray;"><a href="'.admin_url( 'admin.php?page=bulletproof-security%2Fadmin%2Fmscan%2Fmscan.php&bps_mscan_nag_ignore=0' ).''.'" style="text-decoration:none;font-weight:bold;">'.__('Dismiss Notice', 'bulletproof-security').'</a></div></div>';
+			echo $text;
+		}
+	}
+}
+
+add_action('admin_init', 'bpsPro_mscan_nag_ignore');
+
+function bpsPro_mscan_nag_ignore() {
+global $current_user;
+$user_id = $current_user->ID;
+        
+	if ( isset($_GET['bps_mscan_nag_ignore']) && '0' == $_GET['bps_mscan_nag_ignore'] ) {
+		add_user_meta($user_id, 'bps_ignore_mscan_notice', 'true', true);
 	}
 }
 

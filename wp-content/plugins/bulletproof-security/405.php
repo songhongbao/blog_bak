@@ -94,11 +94,11 @@ $gmt_offset = get_option( 'gmt_offset' ) * 3600;
 			$request_body = 'BPS Security Log option set to: Do Not Log POST Request Body Data';
 		}
 
-	if ( preg_match_all('/(.*)\/plugins\/(.*)\.js|(.*)\/plugins\/(.*)\.json|(.*)\/plugins\/(.*)\.php|(.*)\/plugins\/(.*)\.swf/', $_SERVER['REQUEST_URI'], $matches ) ) {
+	if ( preg_match_all('/(.*)\/plugins\/(.*)\.[a-zA-Z0-9]/', $_SERVER['REQUEST_URI'], $matches ) ) {
 		$event = 'PSBR-HPRA-HEAD';
 		$solution = 'https://forum.ait-pro.com/forums/topic/security-log-event-codes/';
 	}
-	elseif ( preg_match('/(.*)\/wp-admin\/(.*)\.php/', $_SERVER['REQUEST_URI'], $matches ) || @preg_match('/(.*)\/wp-admin\/(.*)\.php/', $_SERVER['HTTP_REFERER'], $matches ) ) {
+	elseif ( preg_match('/(.*)\/wp-admin\/(.*)\.[a-zA-Z0-9]/', $_SERVER['REQUEST_URI'], $matches ) || @preg_match('/(.*)\/wp-admin\/(.*)\.[a-zA-Z0-9]/', $_SERVER['HTTP_REFERER'], $matches ) ) {
 		$event = 'WPADMIN-SBR-HEAD';
 		$solution = 'https://forum.ait-pro.com/forums/topic/security-log-event-codes/';	
 
@@ -126,11 +126,11 @@ $gmt_offset = get_option( 'gmt_offset' ) * 3600;
 	// All legitmate HEAD Requests should not have a Body and should only be logged by this condition.
 	if ( empty($request_body) ) {
 
-	if ( preg_match_all('/(.*)\/plugins\/(.*)\.js|(.*)\/plugins\/(.*)\.php|(.*)\/plugins\/(.*)\.swf/', $_SERVER['REQUEST_URI'], $matches ) ) {
+	if ( preg_match_all('/(.*)\/plugins\/(.*)\.[a-zA-Z0-9]/', $_SERVER['REQUEST_URI'], $matches ) ) {
 		$event = 'PSBR-HPRA-HEAD';
 		$solution = 'https://forum.ait-pro.com/forums/topic/security-log-event-codes/';
 	}
-	elseif ( preg_match('/(.*)\/wp-admin\/(.*)\.php/', $_SERVER['REQUEST_URI'], $matches ) || @preg_match('/(.*)\/wp-admin\/(.*)\.php/', $_SERVER['HTTP_REFERER'], $matches ) ) {
+	elseif ( preg_match('/(.*)\/wp-admin\/(.*)\.[a-zA-Z0-9]/', $_SERVER['REQUEST_URI'], $matches ) || @preg_match('/(.*)\/wp-admin\/(.*)\.[a-zA-Z0-9]/', $_SERVER['HTTP_REFERER'], $matches ) ) {
 		$event = 'WPADMIN-SBR-HEAD';
 		$solution = 'https://forum.ait-pro.com/forums/topic/security-log-event-codes/';	
 

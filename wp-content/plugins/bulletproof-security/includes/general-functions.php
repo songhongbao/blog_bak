@@ -812,6 +812,188 @@ function bpsPro_upgrade_CC_automatic_fix() {
 	}
 }
 
+// Copies the new version of BPS MU Tools must-use plugin to the /mu-plugins/ folder on BPS upgrade
+function bpsPro_mu_tools_plugin_copy() {
+	
+	// 2.4: Add strpos Version check
+	// 2.3: Always update the mu tools timestamp to time + 5 minutes on BPS upgrade. Hopefully that will prevent email alerts being sent during BPS upgrades.
+	// 2.0: Update and Pre-save the new BPS MU Tools DB options
+	// Delete the old bulletproof_security_options_autoupdate DB option
+	// Delete the old bps-plugin-autoupdate.php files
+	// Copy the new BPS MU Tools file to the /mu-plugins/ folder
+	$AutoUpdate_options = get_option('bulletproof_security_options_autoupdate');
+	$MUTools_Options = get_option('bulletproof_security_options_MU_tools_free');
+		
+	if ( $AutoUpdate_options['bps_autoupdate'] == 'On' ) {
+		$bps_mu_tools2 = 'enable';
+	} else {
+		$bps_mu_tools2 = ! $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'] ? 'disable' : $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'];
+	}
+
+	$bps_mu_tools3 = ! $MUTools_Options['bps_mu_tools_enable_disable_deactivation'] ? 'enable' : $MUTools_Options['bps_mu_tools_enable_disable_deactivation'];
+
+	$MUTools_Option_settings = array( 
+	'bps_mu_tools_timestamp' 					=> time() + 300,
+	'bps_mu_tools_enable_disable_autoupdate' 	=> $bps_mu_tools2, 
+	'bps_mu_tools_enable_disable_deactivation' 	=> $bps_mu_tools3 
+	);	
+
+	foreach ( $MUTools_Option_settings as $key => $value ) {
+		update_option('bulletproof_security_options_MU_tools_free', $MUTools_Option_settings);
+	}		
+		
+	delete_option('bulletproof_security_options_autoupdate');
+	$autoupdate_master_file = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-plugin-autoupdate.php';
+	$autoupdate_muplugins_file = WP_CONTENT_DIR . '/mu-plugins/bps-plugin-autoupdate.php';
+		
+	if ( file_exists($autoupdate_master_file) ) {
+		unlink($autoupdate_master_file);
+	}
+		
+	if ( file_exists($autoupdate_muplugins_file) ) {
+		unlink($autoupdate_muplugins_file);
+	}
+		
+	if ( ! is_dir( WP_CONTENT_DIR . '/mu-plugins' ) ) {
+		mkdir( WP_CONTENT_DIR . '/mu-plugins', 0755, true );
+		chmod( WP_CONTENT_DIR . '/mu-plugins/', 0755 );
+	}
+		
+	$BPS_MU_tools = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-mu-tools.php';
+	$BPS_MU_tools_copy = WP_CONTENT_DIR . '/mu-plugins/bps-mu-tools.php';
+
+	if ( file_exists($BPS_MU_tools_copy) ) {
+		
+		$check_string = @file_get_contents($BPS_MU_tools_copy);
+		$pos1 = strpos( $check_string, 'Version: 1.0' );
+		$pos2 = strpos( $check_string, 'Version: 2.0' );
+
+		if ( $pos1 !== false || $pos2 !== false ) {
+			@copy($BPS_MU_tools, $BPS_MU_tools_copy);			
+		}
+	}
+}
+
+// Get any new dirs that have been created and remove any old dirs from the bps_mscan_dirs db option.
+// Also used in Setup Wizard: need to add setup wizard condition to display saved or updated db options etc.
+// Note: MScan Status db options do not need to be pre-saved. Will use bps_mscan_status == '' for display.
+// 2.6: open_basedir "fix" added
+function bpsPro_presave_mscan_options() {
+	
+	$raw_source = $_SERVER['DOCUMENT_ROOT'];
+	$source = realpath($raw_source);
+
+	if ( is_dir($source) ) {
+		
+		$MScan_options = get_option('bulletproof_security_options_MScan'); 
+		$iterator = new DirectoryIterator($source);	
+		$dir_array = array();
+		
+		foreach ( $iterator as $files ) {
+			try {			
+				if ( $files->isDir() && ! $files->isDot() ) {
+	
+					if ( ! empty( $files ) ) {
+						$dir_array[] = $files->getFilename();
+					}
+				}
+			} catch (RuntimeException $e) {   
+				// pending error message or log entry after Beta Testing is completed
+			}
+		}
+	
+		$dir_flip = array_flip($dir_array);
+		
+		// replace values in the flipped array, good for bulk replacing all values. ie all dirs found.
+		$mscan_actual_dirs = array();
+		
+		foreach ( $dir_flip as $key => $value ) {
+			$mscan_actual_dirs[$key] = preg_replace( '/\d+/', "1", $value );
+		}
+					
+		$MScan_options = get_option('bulletproof_security_options_MScan');
+		
+		if ( $MScan_options['bps_mscan_dirs'] != '' ) {
+		
+			$mscan_dirs_options_inner_array = array();
+        		
+			foreach ( $MScan_options['bps_mscan_dirs'] as $key => $value ) {			
+				$mscan_dirs_options_inner_array[$key] = $value;
+			}
+
+			// get new dirs found that do not exist in the bps_mscan_dirs db option. ie a new dir has been created.
+			$mscan_diff_key_dir = array_diff_key($mscan_actual_dirs, $mscan_dirs_options_inner_array);
+	
+			// get old dirs that still exist in the bps_mscan_dirs db option. ie a dir has been deleted.
+			$mscan_diff_key_options = array_diff_key($mscan_dirs_options_inner_array, $dir_flip);
+	
+			if ( ! empty($mscan_diff_key_options) ) {
+		
+				foreach ( $mscan_diff_key_options as $key => $value ) {
+					unset($mscan_dirs_options_inner_array[$key]);
+				}
+	
+				// merge any new dirs found
+				$mscan_array_merge = array_merge( $mscan_diff_key_dir, $mscan_dirs_options_inner_array );
+				ksort($mscan_array_merge);
+	
+			} else {
+		
+				// merge any new dirs found
+				$mscan_array_merge = array_merge( $mscan_diff_key_dir, $mscan_dirs_options_inner_array );
+				ksort($mscan_array_merge);		
+			}
+	
+		} else {
+			$mscan_array_merge = $mscan_actual_dirs;
+			ksort($mscan_array_merge);
+		}
+		
+		$mscan_max_file_size = $MScan_options['mscan_max_file_size'] == '' ? '400' : $MScan_options['mscan_max_file_size'];
+		$mscan_max_time_limit = $MScan_options['mscan_max_time_limit'] == '' ? '300' : $MScan_options['mscan_max_time_limit'];
+		$mscan_scan_database = $MScan_options['mscan_scan_database'] == '' ? 'On' : $MScan_options['mscan_scan_database'];
+		$mscan_scan_images = $MScan_options['mscan_scan_images'] == '' ? 'Off' : $MScan_options['mscan_scan_images'];
+		$mscan_scan_skipped_files = $MScan_options['mscan_scan_skipped_files'] == '' ? 'Off' : $MScan_options['mscan_scan_skipped_files'];
+		$mscan_scan_delete_tmp_files = $MScan_options['mscan_scan_delete_tmp_files'] == '' ? 'On' : $MScan_options['mscan_scan_delete_tmp_files'];
+		$mscan_scan_frequency = $MScan_options['mscan_scan_frequency'] == '' ? 'Off' : $MScan_options['mscan_scan_frequency'];
+
+		$MS_Options = array(
+		'bps_mscan_dirs' 				=> $mscan_array_merge, 
+		'mscan_max_file_size' 			=> $mscan_max_file_size, 
+		'mscan_max_time_limit' 			=> $mscan_max_time_limit, 
+		'mscan_scan_database' 			=> $mscan_scan_database, 
+		'mscan_scan_images' 			=> $mscan_scan_images, 
+		'mscan_scan_skipped_files' 		=> $mscan_scan_skipped_files, 
+		'mscan_scan_delete_tmp_files' 	=> $mscan_scan_delete_tmp_files, 
+		'mscan_scan_frequency' 			=> $mscan_scan_frequency 
+		);	
+	
+		$mscan_successMessage = __(' DB Option created or updated Successfully!', 'bulletproof-security');
+		$mscan_dir_successMessage = __(' Hosting Account Root Folder Option setup or updated Successfully!', 'bulletproof-security');
+		$successTextBegin = '<font color="green"><strong>';
+		$successTextEnd = '</strong></font><br>';
+
+		foreach( $MS_Options as $key => $value ) {
+			update_option('bulletproof_security_options_MScan', $MS_Options);
+			
+			if ( esc_html($_SERVER['QUERY_STRING']) == 'page=bulletproof-security/admin/wizard/wizard.php' ) {
+				echo $successTextBegin.$key.$mscan_successMessage.$successTextEnd;
+			}
+		}
+	
+		if ( esc_html($_SERVER['QUERY_STRING']) == 'page=bulletproof-security/admin/wizard/wizard.php' ) {
+			$MScan_options = get_option('bulletproof_security_options_MScan');
+			
+			if ( $MScan_options['bps_mscan_dirs'] != '' ) {
+				
+				foreach ( $MScan_options['bps_mscan_dirs'] as $key => $value ) {			
+					echo $successTextBegin.$key.$mscan_dir_successMessage.$successTextEnd;
+				}
+			}
+		}
+	}
+}
+
 // BPS upgrade: adds/updates/saves any new DB options, does cleanup & everything else.
 // This function is executed in this function: bpsPro_new_feature_autoupdate() which is executed ONLY during BPS upgrades.
 // .53.1: This function has been completely changed: literally checks if a DB option exists and has a value using ternary operations.
@@ -823,8 +1005,83 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 	if ( current_user_can('manage_options') ) {
 		global $bps_version, $bps_last_version, $wp_version, $wpdb, $aitpro_bullet, $pagenow, $current_user;
 	
+		// 2.4: new function created to handle all BPS MU Tools must-use plugin processing
+		bpsPro_mu_tools_plugin_copy();
+		// 2.4: Pre-save MScan Options
+		bpsPro_presave_mscan_options();		
+
+		// 2.4: Pre-save MScan Log option
+		$bps_option_name_mscan = 'bulletproof_security_options_MScan_log';
+		$bps_new_value_mscan = bpsPro_MScan_LogLastMod_wp_secs();
+		$BPS_Options_mscan = array( 'bps_mscan_log_date_mod' => $bps_new_value_mscan );
+	
+		if ( ! get_option( $bps_option_name_mscan ) ) {	
+			foreach( $BPS_Options_mscan as $key => $value ) {
+				update_option('bulletproof_security_options_MScan_log', $BPS_Options_mscan);
+			}
+		}
+
+		// 2.4: pre-save JTC-Lite db options
+		$jtc_options = get_option('bulletproof_security_options_login_security_jtc');
+
+		if ( ! $jtc_options['bps_jtc_custom_roles'] ) {
+			$jtc_options19 = array( 'bps', '' );
+		
+		} else {
+
+			foreach ( $jtc_options as $key => $value ) {
+		
+				if ( $key == 'bps_jtc_custom_roles' ) {
+					
+					if ( ! is_array($value) ) {
+						$jtc_options19 = array( 'bps', '' );
+					} else { 
+						$jtc_options19 = $jtc_options['bps_jtc_custom_roles'];
+					}
+				}
+			}	
+		}
+
+		$jtc1 = ! $jtc_options['bps_tooltip_captcha_key'] ? 'jtc' : $jtc_options['bps_tooltip_captcha_key'];
+		$jtc2 = ! $jtc_options['bps_tooltip_captcha_hover_text'] ? 'Type/Enter:  jtc' : $jtc_options['bps_tooltip_captcha_hover_text'];
+		$jtc3 = ! $jtc_options['bps_tooltip_captcha_title'] ? 'Hover or click the text box below' : $jtc_options['bps_tooltip_captcha_title'];
+		$jtc4 = ! $jtc_options['bps_jtc_login_form'] ? '1' : $jtc_options['bps_jtc_login_form'];
+
+		$jtc_db_options = array(
+		'bps_tooltip_captcha_key' 			=> $jtc1, 
+		'bps_tooltip_captcha_hover_text' 	=> $jtc2, 
+		'bps_tooltip_captcha_title' 		=> $jtc3, 
+		'bps_tooltip_captcha_logging' 		=> 'Off', 
+		'bps_jtc_login_form' 				=> $jtc4, 
+		'bps_jtc_register_form' 			=> '', 
+		'bps_jtc_lostpassword_form' 		=> '', 
+		'bps_jtc_comment_form' 				=> '', 
+		'bps_jtc_buddypress_register_form' 	=> '', 
+		'bps_jtc_buddypress_sidebar_form' 	=> '', 
+		'bps_jtc_administrator' 			=> '', 
+		'bps_jtc_editor' 					=> '', 
+		'bps_jtc_author' 					=> '', 
+		'bps_jtc_contributor' 				=> '', 
+		'bps_jtc_subscriber' 				=> '', 
+		'bps_jtc_comment_form_error' 		=> $jtc_options['bps_jtc_comment_form_error'], 
+		'bps_jtc_comment_form_label' 		=> $jtc_options['bps_jtc_comment_form_label'], 
+		'bps_jtc_comment_form_input' 		=> $jtc_options['bps_jtc_comment_form_input'], 
+		'bps_jtc_custom_roles' 				=> $jtc_options19, 
+		'bps_enable_jtc_woocommerce' 		=> '' 
+		);
+
+		if ( ! get_option('bulletproof_security_options_login_security_jtc') ) {	
+		
+			foreach( $jtc_db_options as $key => $value ) {
+				update_option('bulletproof_security_options_login_security_jtc', $jtc_db_options);
+			}
+		}
+
 		$user_id = $current_user->ID;
 		
+		// 2.4: Delete the Woo Dimiss Notice and Woo check option. No longer used in BPS free.
+		delete_user_meta($user_id, 'bps_ignore_woocommerce_lsm_jtc_notice');
+		delete_option('bulletproof_security_options_setup_wizard_woo');
 		// 2.0: New SBC Dismiss Notice check created: checks for redundant Browser caching code & the BPS NOCHECK Marker in BPS Custom Code
 		delete_user_meta($user_id, 'bpsPro_ignore_speed_boost_notice');
 		// 2.0: New Endurance Page Cache Dismiss Notice check created: A dismiss notice will only be displayed if: EPC is enabled and Cache level is 1,2,3,4
@@ -854,54 +1111,6 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		// Add additional https scheme conditions to 3 htaccess security rules and combine 2 rules into 1 rule in Root and wp-admin Custom Code.
 		bpsPro_upgrade_CC_automatic_fix();	
 		
-		// 2.3: Always update the mu tools timestamp to time + 5 minutes on BPS upgrade. Hopefully that will prevent email alerts being sent during BPS upgrades.
-		// 2.0: Update and Pre-save the new BPS MU Tools DB options
-		// Delete the old bulletproof_security_options_autoupdate DB option
-		// Delete the old bps-plugin-autoupdate.php files
-		// Copy the new BPS MU Tools file to the /mu-plugins/ folder
-		$AutoUpdate_options = get_option('bulletproof_security_options_autoupdate');
-		$MUTools_Options = get_option('bulletproof_security_options_MU_tools_free');
-		
-		if ( $AutoUpdate_options['bps_autoupdate'] == 'On' ) {
-			$bps_mu_tools2 = 'enable';
-		} else {
-			$bps_mu_tools2 = ! $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'] ? 'disable' : $MUTools_Options['bps_mu_tools_enable_disable_autoupdate'];
-		}
-
-		$bps_mu_tools3 = ! $MUTools_Options['bps_mu_tools_enable_disable_deactivation'] ? 'enable' : $MUTools_Options['bps_mu_tools_enable_disable_deactivation'];
-
-		$MUTools_Option_settings = array( 
-		'bps_mu_tools_timestamp' 					=> time() + 300,
-		'bps_mu_tools_enable_disable_autoupdate' 	=> $bps_mu_tools2, 
-		'bps_mu_tools_enable_disable_deactivation' 	=> $bps_mu_tools3 
-		);	
-
-		foreach ( $MUTools_Option_settings as $key => $value ) {
-			update_option('bulletproof_security_options_MU_tools_free', $MUTools_Option_settings);
-		}		
-		
-		delete_option('bulletproof_security_options_autoupdate');
-		$autoupdate_master_file = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-plugin-autoupdate.php';
-		$autoupdate_muplugins_file = WP_CONTENT_DIR . '/mu-plugins/bps-plugin-autoupdate.php';
-		
-		if ( file_exists($autoupdate_master_file) ) {
-			unlink($autoupdate_master_file);
-		}
-		
-		if ( file_exists($autoupdate_muplugins_file) ) {
-			unlink($autoupdate_muplugins_file);
-		}
-		
-		if ( ! is_dir( WP_CONTENT_DIR . '/mu-plugins' ) ) {
-			mkdir( WP_CONTENT_DIR . '/mu-plugins', 0755, true );
-			chmod( WP_CONTENT_DIR . '/mu-plugins/', 0755 );
-		}
-		
-		$bps_mu_tools_master_file = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-mu-tools.php';
-		$bps_mu_tools_muplugins_file = WP_CONTENT_DIR . '/mu-plugins/bps-mu-tools.php';
-
-		copy($bps_mu_tools_master_file, $bps_mu_tools_muplugins_file);
-		
 		// .54.6: New Sucuri Dismiss Notice check created. Delete the user_meta for this Dismiss Notice.
 		delete_user_meta($user_id, 'bps_ignore_sucuri_notice');		
 		
@@ -912,48 +1121,48 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		
 		if ( $isl_options['bps_isl'] == 'On' || $isl_options['bps_isl'] == 'Off' ) {
 
-		if ( ! $isl_options['bps_isl_custom_roles'] ) {
-			$isl_options18 = array( 'bps', '' );
-		
-		} else {
-
-			foreach ( $isl_options as $key => $value ) {
-		
-				if ( $key == 'bps_isl_custom_roles' ) {
-					
-					if ( ! is_array($value) ) {
-						$isl_options18 = array( 'bps', '' );
-					} else { 
-						$isl_options18 = $isl_options['bps_isl_custom_roles'];
+			if ( ! $isl_options['bps_isl_custom_roles'] ) {
+				$isl_options18 = array( 'bps', '' );
+			
+			} else {
+	
+				foreach ( $isl_options as $key => $value ) {
+			
+					if ( $key == 'bps_isl_custom_roles' ) {
+						
+						if ( ! is_array($value) ) {
+							$isl_options18 = array( 'bps', '' );
+						} else { 
+							$isl_options18 = $isl_options['bps_isl_custom_roles'];
+						}
 					}
-				}
-			}	
-		}
-
-		$isl_db_options = array(
-		'bps_isl' 							=> $isl_options['bps_isl'], 
-		'bps_isl_timeout' 					=> $isl_options['bps_isl_timeout'], 
-		'bps_isl_logout_url' 				=> $isl_options['bps_isl_logout_url'], 
-		'bps_isl_login_url' 				=> $isl_options['bps_isl_login_url'], 
-		'bps_isl_custom_message' 			=> $isl_options['bps_isl_custom_message'], 
-		'bps_isl_custom_css_1' 				=> $isl_options['bps_isl_custom_css_1'], 
-		'bps_isl_custom_css_2' 				=> $isl_options['bps_isl_custom_css_2'], 
-		'bps_isl_custom_css_3' 				=> $isl_options['bps_isl_custom_css_3'], 
-		'bps_isl_custom_css_4' 				=> $isl_options['bps_isl_custom_css_4'], 
-		'bps_isl_user_account_exceptions'	=> $isl_options['bps_isl_user_account_exceptions'],  
-		'bps_isl_administrator' 			=> $isl_options['bps_isl_administrator'], 
-		'bps_isl_editor' 					=> $isl_options['bps_isl_editor'], 
-		'bps_isl_author' 					=> $isl_options['bps_isl_author'], 
-		'bps_isl_contributor' 				=> $isl_options['bps_isl_contributor'], 
-		'bps_isl_subscriber' 				=> $isl_options['bps_isl_subscriber'], 
-		'bps_isl_tinymce' 					=> $isl_options['bps_isl_tinymce'], 
-		'bps_isl_uri_exclusions' 			=> $isl_options['bps_isl_uri_exclusions'], 
-		'bps_isl_custom_roles' 				=> $isl_options18 
-		);
-
-		foreach( $isl_db_options as $key => $value ) {
-			update_option('bulletproof_security_options_idle_session', $isl_db_options);
-		}
+				}	
+			}
+	
+			$isl_db_options = array(
+			'bps_isl' 							=> $isl_options['bps_isl'], 
+			'bps_isl_timeout' 					=> $isl_options['bps_isl_timeout'], 
+			'bps_isl_logout_url' 				=> $isl_options['bps_isl_logout_url'], 
+			'bps_isl_login_url' 				=> $isl_options['bps_isl_login_url'], 
+			'bps_isl_custom_message' 			=> $isl_options['bps_isl_custom_message'], 
+			'bps_isl_custom_css_1' 				=> $isl_options['bps_isl_custom_css_1'], 
+			'bps_isl_custom_css_2' 				=> $isl_options['bps_isl_custom_css_2'], 
+			'bps_isl_custom_css_3' 				=> $isl_options['bps_isl_custom_css_3'], 
+			'bps_isl_custom_css_4' 				=> $isl_options['bps_isl_custom_css_4'], 
+			'bps_isl_user_account_exceptions'	=> $isl_options['bps_isl_user_account_exceptions'],  
+			'bps_isl_administrator' 			=> $isl_options['bps_isl_administrator'], 
+			'bps_isl_editor' 					=> $isl_options['bps_isl_editor'], 
+			'bps_isl_author' 					=> $isl_options['bps_isl_author'], 
+			'bps_isl_contributor' 				=> $isl_options['bps_isl_contributor'], 
+			'bps_isl_subscriber' 				=> $isl_options['bps_isl_subscriber'], 
+			'bps_isl_tinymce' 					=> $isl_options['bps_isl_tinymce'], 
+			'bps_isl_uri_exclusions' 			=> $isl_options['bps_isl_uri_exclusions'], 
+			'bps_isl_custom_roles' 				=> $isl_options18 
+			);
+	
+			foreach( $isl_db_options as $key => $value ) {
+				update_option('bulletproof_security_options_idle_session', $isl_db_options);
+			}
 		}
 
 		// .54.3: BugFix: pre-save ACE db options.
@@ -961,60 +1170,51 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 	
 		if ( $ace_options['bps_ace'] == 'On' || $ace_options['bps_ace'] == 'Off' ) {
 			
-		if ( ! $ace_options['bps_ace_custom_roles'] ) {
-			$ace_options11 = array( 'bps', '' );
-		
-		} else {
+			if ( ! $ace_options['bps_ace_custom_roles'] ) {
+				$ace_options11 = array( 'bps', '' );
 			
-			foreach ( $ace_options as $key => $value ) {
-		
-				if ( $key == 'bps_ace_custom_roles' ) {
-					
-					if ( ! is_array($value) ) {
-						$ace_options11 = array( 'bps', '' );
-					} else { 
-						$ace_options11 = $ace_options['bps_ace_custom_roles'];
+			} else {
+				
+				foreach ( $ace_options as $key => $value ) {
+			
+					if ( $key == 'bps_ace_custom_roles' ) {
+						
+						if ( ! is_array($value) ) {
+							$ace_options11 = array( 'bps', '' );
+						} else { 
+							$ace_options11 = $ace_options['bps_ace_custom_roles'];
+						}
 					}
-				}
-			}	
+				}	
+			}
+			
+			$ace_db_options = array(
+			'bps_ace' 							=> $ace_options['bps_ace'], 
+			'bps_ace_expiration' 				=> $ace_options['bps_ace_expiration'], 
+			'bps_ace_rememberme_expiration' 	=> $ace_options['bps_ace_rememberme_expiration'], 
+			'bps_ace_user_account_exceptions' 	=> $ace_options['bps_ace_user_account_exceptions'], 
+			'bps_ace_administrator' 			=> $ace_options['bps_ace_administrator'], 
+			'bps_ace_editor' 					=> $ace_options['bps_ace_editor'], 
+			'bps_ace_author' 					=> $ace_options['bps_ace_author'], 
+			'bps_ace_contributor' 				=> $ace_options['bps_ace_contributor'], 
+			'bps_ace_subscriber' 				=> $ace_options['bps_ace_subscriber'], 
+			'bps_ace_rememberme_disable'		=> $ace_options['bps_ace_rememberme_disable'],  
+			'bps_ace_custom_roles' 				=> $ace_options11 
+			);
+	
+			foreach( $ace_db_options as $key => $value ) {
+				update_option('bulletproof_security_options_auth_cookie', $ace_db_options);
+			}
 		}
-		
-		$ace_db_options = array(
-		'bps_ace' 							=> $ace_options['bps_ace'], 
-		'bps_ace_expiration' 				=> $ace_options['bps_ace_expiration'], 
-		'bps_ace_rememberme_expiration' 	=> $ace_options['bps_ace_rememberme_expiration'], 
-		'bps_ace_user_account_exceptions' 	=> $ace_options['bps_ace_user_account_exceptions'], 
-		'bps_ace_administrator' 			=> $ace_options['bps_ace_administrator'], 
-		'bps_ace_editor' 					=> $ace_options['bps_ace_editor'], 
-		'bps_ace_author' 					=> $ace_options['bps_ace_author'], 
-		'bps_ace_contributor' 				=> $ace_options['bps_ace_contributor'], 
-		'bps_ace_subscriber' 				=> $ace_options['bps_ace_subscriber'], 
-		'bps_ace_rememberme_disable'		=> $ace_options['bps_ace_rememberme_disable'],  
-		'bps_ace_custom_roles' 				=> $ace_options11 
-		);
 
-		foreach( $ace_db_options as $key => $value ) {
-			update_option('bulletproof_security_options_auth_cookie', $ace_db_options);
-		}
-		}
-
+		// 2.4: Enable Login Security for WooCommerce option is disabled by default in BPS free and cannot be enabled.
 		// 2.3: BugFix: Enable Login Security for WooCommerce option being reset on upgrade. Only enable once if the option does not exist.
 		// .54.3: New Enable LSM for WooCommerce option added
 		// .51.8: New Login Security Attempts Remaining option added
 		$lsm = get_option('bulletproof_security_options_login_security');	
 	
-		if ( $woo_plugin_active == 1 || is_plugin_active_for_network( $woo_plugin ) ) {
-			if ( $lsm['bps_enable_lsm_woocommerce'] == '' || $lsm['bps_enable_lsm_woocommerce'] == '1' ) {
-				$bps_enable_lsm_woocommerce = $lsm['bps_enable_lsm_woocommerce'];
-			} elseif ( ! $lsm['bps_enable_lsm_woocommerce'] ) {
-				$bps_enable_lsm_woocommerce = '1';
-			} 
-		} else {
-			$bps_enable_lsm_woocommerce = '';
-		}
-
 		$lsm1 = ! $lsm['bps_max_logins'] ? '3' : $lsm['bps_max_logins'];
-		$lsm2 = ! $lsm['bps_lockout_duration'] ? '60' : $lsm['bps_lockout_duration'];
+		$lsm2 = ! $lsm['bps_lockout_duration'] ? '15' : $lsm['bps_lockout_duration'];
 		$lsm3 = ! $lsm['bps_manual_lockout_duration'] ? '60' : $lsm['bps_manual_lockout_duration'];
 		$lsm4 = ! $lsm['bps_max_db_rows_display'] ? '' : $lsm['bps_max_db_rows_display'];
 		$lsm5 = ! $lsm['bps_login_security_OnOff'] ? 'On' : $lsm['bps_login_security_OnOff'];
@@ -1035,7 +1235,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		'bps_login_security_remaining' 	=> $lsm8, 
 		'bps_login_security_pw_reset' 	=> $lsm9, 
 		'bps_login_security_sort' 		=> $lsm10, 
-		'bps_enable_lsm_woocommerce' 	=> $bps_enable_lsm_woocommerce 
+		'bps_enable_lsm_woocommerce' 	=> '' 
 		);
 
 		foreach( $lsm_options as $key => $value ) {
@@ -1082,6 +1282,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		// .53.6: Wordfence WAF mess - Reset php handler dismiss notice.
 		bpsPro_php_handler_dismiss_notice_reset();
 
+		// 2.4: new email alerting options added
 		// .53.5: Old obsolete function deleted and code moved here.
 		// Email Alerting & Log file zip, email and deleting DB options.
 		$email_log = get_option('bulletproof_security_options_email');
@@ -1096,6 +1297,8 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		$email_log7 = ! $email_log['bps_security_log_emailL'] ? 'email' : $email_log['bps_security_log_emailL'];
 		$email_log8 = ! $email_log['bps_dbb_log_email'] ? 'email' : $email_log['bps_dbb_log_email'];
 		$email_log9 = ! $email_log['bps_dbb_log_size'] ? '500KB' : $email_log['bps_dbb_log_size'];
+		$email_log10 = ! $bps_email_options['bps_mscan_log_size'] ? '500KB' : $bps_email_options['bps_mscan_log_size'];	
+		$email_log11 = ! $bps_email_options['bps_mscan_log_email'] ? 'email' : $bps_email_options['bps_mscan_log_email'];	
 
 		$email_log_options = array(
 		'bps_send_email_to' 			=> $email_log1, 
@@ -1106,7 +1309,9 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		'bps_security_log_size' 		=> $email_log6, 
 		'bps_security_log_emailL' 		=> $email_log7, 
 		'bps_dbb_log_email' 			=> $email_log8, 
-		'bps_dbb_log_size' 				=> $email_log9 
+		'bps_dbb_log_size' 				=> $email_log9, 
+		'bps_mscan_log_size' 			=> $email_log10, 
+		'bps_mscan_log_email' 			=> $email_log11 		
 		);
 
 		foreach( $email_log_options as $key => $value ) {

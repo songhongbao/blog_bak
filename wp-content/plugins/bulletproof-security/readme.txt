@@ -1,30 +1,31 @@
 === BulletProof Security ===
 Contributors: AITpro
 Donate link: https://wordpress.org/support/view/plugin-reviews/bulletproof-security?rate=5#postform
-Tags: security, secure, security plugin, wordpress security, login, firewall, malware, bruteforce, backup, exploit, infection, login security, protection, virus, antivirus, logout, spam
+Tags: security, secure, scanner, login security, firewall, security plugin, wordpress security, login, malware, malware scanner, bruteforce, backup, exploit, infection, protection, virus, anti-virus, logout, spam, anti-spam
 Requires at least: 3.8 
 Tested up to: 4.8
-Stable tag: 2.3
+Stable tag: 2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Automated user friendly Security Plugin: Firewall Security, Login Security, Database Security & Backup & much more...
+WordPress Security Protection: Malware scanner, Firewall, Login Security, DB Backup, Anti-Spam & much more.
 
 == Description ==
 
-Automated user friendly Security Plugin: Firewall Security, Login Security, Database Security & Backup & much more... View Security feature highlights below. View BulletProof Security feature details for specific details about security features. Secure your WordPress website even further by adding additional BulletProof Security Bonus Custom Code (See the BulletProof Security Bonus Custom Code help section). Effective, Reliable & Easy to use WordPress Security Plugin.
+WordPress Security Protection: Malware scanner, Firewall, Login Security, DB Backup, Anti-Spam & much more. View Security feature highlights below. View BulletProof Security feature details under the FAQ help section below. Secure your WordPress website even further by adding additional BulletProof Security Bonus Custom Code. See BulletProof Security Bonus Custom Code under the FAQ help section below. Effective, Reliable & Easy to use WordPress Security Plugin.
 
 = BulletProof Security Feature Highlights =
 
 * One-Click Setup Wizard
 * Setup Wizard AutoFix (AutoWhitelist|AutoSetup|AutoCleanup)
+* MScan Malware Scanner
 * .htaccess Website Security Protection (Firewalls)
 * Hidden Plugin Folders|Files Cron (HPF)
 * Login Security & Monitoring
+* JTC-Lite (Limited version of BPS Pro JTC Anti-Spam|Anti-Hacker)
 * Idle Session Logout (ISL)
 * Auth Cookie Expiration (ACE)
 * DB Backup: Full|Partial DB Backups | Manual|Scheduled DB Backups | Email Zip Backups | Cron Delete Old Backups
-* DB Backup Logging
 * DB Table Prefix Changer
 * Security Logging
 * HTTP Error Logging
@@ -39,11 +40,12 @@ Automated user friendly Security Plugin: Firewall Security, Login Security, Data
 * AutoRestore Intrusion Detection & Prevention System (ARQ IDPS)
 * Quarantine Intrusion Detection & Prevention System (ARQ IDPS)
 * Real-time File Monitor (IDPS)
+* MScan Malware Scanner
 * DB Monitor Intrusion Detection System (IDS)
 * DB Diff Tool: data comparison tool
 * DB Backup: Full|Partial DB Backups | Manual|Scheduled DB Backups | Email Zip Backups | Cron Delete Old Backups
 * DB Status & Info: extensive database status & info
-* Plugin Firewall (IP Firewall): Automated Whitelisting & IP Address Updating in Real Time
+* Plugin Firewall (IP Firewall): Automated Whitelisting & IP Address Updating in Real-time
 * JTC Anti-Spam|Anti-Hacker
 * Uploads Folder Anti-Exploit Guard (UAEG)
 * .htaccess Website Security Protection (Firewalls)
@@ -57,10 +59,7 @@ Automated user friendly Security Plugin: Firewall Security, Login Security, Data
 * Security Logging
 * HTTP Error Logging
 * PHP Error Logging
-* DB Monitor Logging
-* DB Backup Logging
 * DB Table Prefix Changer
-* AutoRestore|Quarantine Logging
 * S-Monitor: Monitoring & Alerting Core
 * Pro Tools: 16 mini-plugins
 * Heads Up Dashboard Status Display
@@ -75,182 +74,23 @@ https://www.youtube.com/watch?v=qTX-SjOVZdw
 * <a href="https://forum.ait-pro.com/video-tutorials/#custom-code" title="BulletProof Security Custom Code Video Tutorial" rel="nofollow" target="_blank">BulletProof Security Custom Code Video Tutorial</a>
 * <a href="https://forum.ait-pro.com/video-tutorials/#security-log-firewall" title="BulletProof Security Security Log Video Tutorial" rel="nofollow" target="_blank">BulletProof Security Security Log Video Tutorial</a>
 
-= Setup Wizard AutoFix (AutoWhitelist|AutoSetup|AutoCleanup) =
-
-Setup Wizard AutoFix checks which plugins and themes you currently have installed and will display a BPS Setup Wizard AutoFix Notice to run the BPS Setup Wizard if any currently installed plugins or themes require Custom Code whitelist rules or AutoSetup. The BPS Setup Wizard automatically creates BPS Custom Code whitelist rules for known issues with any plugins and themes that need Custom Code whitelist rules. Setup Wizard AutoFix also automatically sets up and cleans up caching plugin's htaccess code for these WordPress caching plugins: WP Super Cache, W3 Total Cache, Comet Cache Plugin (free & Pro), WP Fastest Cache Plugin (free & Premium), Endurance Page Cache and WP Rocket. For more detailed help information and a list of all plugins and themes that have AutoFixes click this link: <a href="https://forum.ait-pro.com/forums/topic/setup-wizard-autofix/" title="Setup Wizard AutoFix Forum Topic" rel="nofollow" target="_blank">Setup Wizard AutoFix Forum Topic</a>.
-
-= Why .htaccess Website Security So Much Better Than Other Types of Website Security =
-
-The answer is very simple - .htaccess files (distributed Server configuration files) are processed by your server first before any other code on your website. In other words, hackers malicious scripts are stopped by BulletProof Security .htaccess files/Firewalls before those scripts even have a chance to reach the php code in WordPress.
-
-= BulletProof Security Additional Website Security Protection =
-
-WordPress is already very secure, but every website, no matter what type of platform it is built on should have additional website security measures in place as a standard.
-
-= BulletProof Security is Website Performance Optimized (Performance|Optimization) =
-
-Website performance is just as important as website security. BulletProof Security is website performance optimized with website owners best interests at heart. BulletProof Security does NOT abuse the WordPress Database by making excessive MySQL Queries. BulletProof Security does NOT store excessive & non-essential data in your WordPress Database. BulletProof Security does NOT use excessive Server Memory & Resources. BulletProof Security does NOT use any gimmicks or bells & whistles that will cost website owners their website performance. The benefits of having website security protection are negated if your website is performing poorly/slowly, continually experiencing out of memory errors/running out of memory, database size growing exponentially with non-essential stored data, etc. BulletProof Security can actually speed up & improve your website performance by using the Speed Boost Cache Bonus Code. See the BulletProof Security Bonus Custom Code help section below.
-
 == Screenshots ==
 
 1. BulletProof Security - Setup Wizard
-2. BulletProof Security - Security Log: Logs blocked hackers/spammers & troubleshooting tool
-3. BulletProof Security - htaccess Core Security Modes (Firewalls)
-4. BulletProof Security - System Info: Extensive website/server information
-5. BulletProof Security - Login Security and Monitoring: Log all logins or only locked accounts
-6. BulletProof Security - Idle Session Logout (ISL)|Auth Cookie Expiration (ACE)
-7. BulletProof Security - DB Backup: Scheduled/manual DB Backups
-8. BulletProof Security - Maintenance Mode
-9. BulletProof Security - Maintenance Mode examples
+2. BulletProof Security - MScan Malware Scanner
+3. BulletProof Security - Security Log: Logs blocked hackers/spammers & troubleshooting tool
+4. BulletProof Security - htaccess Core Security Modes (Firewalls)
+5. BulletProof Security - System Info: Extensive website/server information
+6. BulletProof Security - Login Security and Monitoring: Log all logins or only locked accounts
+7. BulletProof Security - Idle Session Logout (ISL)|Auth Cookie Expiration (ACE)
+8. BulletProof Security - DB Backup: Scheduled/manual DB Backups
+9. BulletProof Security - Maintenance Mode
+10. BulletProof Security - Maintenance Mode examples
 
 == Help Info ==
 
-Extensive Help Info can be found on the <a href="https://forum.ait-pro.com/forums/topic/read-me-first-free/#bps-free-general-troubleshooting" title="AIT-pro.com Forum" rel="nofollow" target="_blank">AIT-pro.com Forum</a> website and by clicking the Read Me Help buttons on BulletProof Security pages themselves. The BPS Help and FAQ tab pages contain additional help links.
-
-= BulletProof Security htaccess Core (Firewalls, etc.) Features =
-
-<strong>Description:</strong> WordPress Website Security Protection: BulletProof Security protects your website against 100,000's of different hacking attempts/attacks. The .htaccess security filters in BulletProof Security are designed to match malicious and nuisance attack patterns. The most important benefits of using a finite pattern matching method vs infinite banning/blocking individual IP's, Host's, Referer's, etc. is that your website performance and Server resources are not negatively impacted. In general, BulletProof Security takes an "Action Approach" to website security. Hacker X, Spammer X, Bad Bot X does bad Action Y = Forbidden/Blocked. An "Action Approach" is a much more effective and performance optimized approach to website security since the bad action itself is being blocked/forbidden instead of attempting to block an individual hacker/spammer that performed a bad action. Example: BulletProof Security blocks all SQL Injection hacking attempts/attacks no matter who (IP Address, hostname, Bot name, etc.) performed the SQL Injection hacking attempt/attack. See the BulletProof Security Login Security & Monitoring Features section for additional features and options. See the BulletProof Security htaccess Core (Firewalls, etc.) Features section for additional features and options.
-
-* Root Folder BulletProof Mode|Firewall
-* wp-admin Folder BulletProof Mode|Firewall
-* Built-in .htaccess File Editor & File Manager
-* Built-in .htaccess Backup and Restore
-* One-click .htaccess website security protection from within the WP Dashboard
-* .htaccess security protection against hacking attempts: XSS|RFI|CRLF|CSRF|Base64|Code Injection|SQL Injection
-* TimThumb Vulnerability|Exploit .htaccess security protection (Firewall)
-* .htaccess Lock|Unlock (404 Read-Only)
-* .htaccess AutoLock On|Off
-* Security|HTTP Error Logging: 400|403|404|405|410 HTTP Status Codes
-* Security Log: Add|Remove User Agents|Bots to Ignore|Not Log or Allow|Log
-* Security Log: Turn On|Turn Off|Delete Log
-* Security Log: Limit POST Request Body Data - capture or do not capture hacker scripts used in attacks. Note: See BPS POST Request Attack Protection Bonus Custom Code
-* Security Log Automation: Automatically zipped, emailed and replaced based on file size
-* Automatic .htaccess file updating on BPS upgrade installation
-* New .htaccess security filters automatically added during upgrade
-* WP Dashboard Alerts|WP Dashboard Dismiss Notices
-* Anti Comment Spam .htaccess code - works together with Akismet or other Spam plugins to keep Comment Spam at a minimum
-* Anti Comment Spambot .htaccess code - Forbid Empty Referrer Spambots
-* Author ID|User ID|Username Bot Probe Protection
-* Custom Code feature: Add|Edit|Modify|Save|Export|Import additional Bonus or personal custom .htaccess code
-* WordPress and other files protected with .htaccess security protection: readme.html, /wp-admin/install.php, wp-config.php, bb-config.php, php.ini and php5.ini files
-* Help & FAQ page: links to BPS Guide and other detailed Help & Info pages
-* Extensive jQuery UI Dialog Read Me Help buttons throughout the BulletProof Security plugin pages
-* HUD Success|Error message display
-
-= BulletProof Security System Info =
-
-* PHP|MySQL|MySQLi|OS|Server|Memory Usage and Limits|IP|SAPI|WP Filesystem API Method|DNS|Apache Modules|Directives Compatibility Checks|Max Upload|Zend Engine Version|Zend Guard|Loader|Optimizer|ionCube Loader|Suhosin|APC|eAccelerator|XCache|Varnish|cURL|OpenSSL Library|cURL OpenSSL Version|Memcache|Memcached|Plugins|Versions Installed|Activated|Get Plugins List|Browser Compression|GD Library|ImageMagick|WP Temp Dir|PHP Temp Dir|PHP Upload Temp Dir|Session Save Path|WP_TEMP_DIR constant|php.ini file path, etc.
-* File|Folder Permissions (CGI or DSO)|Script Owner User ID (UID)|File Owner User ID
-* PHP Server|PHP.ini|PHP directives Info
-* Website Headers Check Tool: Check your website Headers or another website's Headers remotely by making a GET or HEAD Request
-
-= BulletProof Security Hidden Plugin Folders|Files Cron (HPF) =
-
-<strong>Description:</strong> The HPF Cron checks the WordPress /plugins/ folder for hidden or empty plugin folders and any non-standard WP files or altered files in the /plugins/ folder. If a hidden or empty plugin folder or non-standard WP file is found in the WordPress /plugins/ folder, BPS displays a Dashboard Alert and sends an Email Alert. A hidden or empty plugin folder is a plugin the exists in your /plugins/ folder, but is not displayed on the WordPress Plugins page. A hidden plugin can be used as a hacker backdoor to gain access to your WP Dashboard, hosting account, create user accounts, completely control your website and hosting account, etc. A non-standard WP file or modified/altered file in your /plugins/ folder can also do all of the things a hidden plugin can do.
-
-* A hidden or empty plugin folder is a plugin the exists in your /plugins/ folder, but is not displayed on the WordPress Plugins page. A hidden plugin can be used as a hacker backdoor to gain access to your WP Dashboard, hosting account, create user accounts, completely control your website and hosting account, etc. A non-standard WP file or modified/altered file in your /plugins/ folder can also do all of the things a hidden plugin can do.
-* Automated Cron check that checks the WordPress /plugins folder for hidden plugins or non-standard WP file
-* Displays Dashboard Alerts
-* Sends Email Alerts
-* HPF Cron Check Frequency settings: 1, 5, 10, 15, 30 or 60 minutes
-* HPF Cron On|Off: Turn the HPF Cron On or Off
-* Ignore Hidden Plugin Folders & Files: Whitelisting tool to ignore plugin folders or non-standard WP files
-* HPF is automatically setup during BPS Upgrades or when running the BPS Setup Wizard
-
-= BulletProof Security Login Security & Monitoring Features =
-
-<strong>Description:</strong> Login Security & Login Monitoring: Log All User Account Logins or Log Only User Account Lockouts (see Screenshot). Brute Force Login Security Protection. Email alerting options allow you to choose 5 different email alerting options: Choose to have email alerts sent when a User Account is locked out, An Administrator Logs in, An Administrator Logs in and when a User Account is locked out, Any User logs in and when a User Account is locked out or Do Not Send Email Alerts. Choose Standard WP Error Messages or Generic Error Messages for Login Security Stealth Mode. Choose to Enable or Disable Login Password Reset capability for Login Security Stealth Mode. See the BulletProof Security Login Security & Monitoring Features section for additional features and options.
-
-* Brute Force Login Security Protection
-* Log All User Account Logins or Log Only User Account Lockouts
-* Logged DB Fields: User ID|Username|Display Name|Email|Role|Login Time|Lockout Expires|IP Address|Hostname|Request URI
-* Email Alerting Options: User Account is locked out|An Administrator Logs in|An Administrator Logs in and when a User Account is locked out|Any User logs in and when a User Account is locked out|Do Not Send Email Alerts
-* Login Security Additional Options: Max Login Attempts|Automatic Lockout Time|Manual Lockout Time|Max DB Rows To Show|Enable Login Security for WooCommerce|Turn On|Turn Off
-* Login Security Stealth Mode: Standard WP Error Messages or Generic Error Messages. 
-* Login Security Attempts Remaining: Display a "Login Attempts Remaining X" message when an incorrect password is entered. 
-* Login Security Stealth Mode: Enable or Disable Login Password Reset capability and links.
-* Dynamic DB Form: Lock|Unlock|Delete
-* Enhanced Search: Allows you to search all of the Login Security database rows/Fields
-* Click the Login Security Read Me help button for full descriptions of all features and options.
-
-= BulletProof Security Idle Session Logout (ISL) Features =
-
-<strong>Description:</strong> Automatically logout idle/inactive Users. ISL uses javascript Event Listeners to monitor Users activity for these ISL events: keyboard key is pressed, mouse button is pressed, mouse is moved, mouse wheel is rolled up or down, finger is placed on the touch surface/screen and finger already placed on the screen is moved across the screen. Option Settings: Turn On|Off, Idle Session Logout Time in Minutes, Idle Session Logout Page URL, Idle Session Logout Page Login URL, Idle Session Logout Page Custom Message, Idle Session Logout Page Custom CSS Style, User Account Exceptions, Enable|Disable Idle Session Logouts For These User Roles: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles, Enable|Disable Idle Session Logouts For TinyMCE Editors. See the BulletProof Security Idle Session Logout (ISL) Features section for additional features and options info.
-
-* Turn On|Turn Off: ISL is Turned Off by default. Select Turn On ISL to turn ISL On.
-* Idle Session Logout Time in Minutes: Time in minutes for when an idle/inactive User should be logged out of your site.
-* Idle Session Logout Page URL: Defaults to BPS ISL Logout page URL or choose to redirect logged out users to any URL that you want to redirect them to.
-* Idle Session Logout Page Login URL: Displays a clickable Login URL/link to your WP Login page or you can choose not to display a Login URL/link.
-* Idle Session Logout Exclude URLs|URIs: This option allows you to exclude any pages or posts that you do not want ISL to check/monitor.
-* Idle Session Logout Page Custom Message: Use the default BPS ISL message/text or you can create your own custom ISL message/text.
-* Idle Session Logout Page Custom CSS Style: Use the default BPS CSS Style code or enter your own custom CSS Style customizations.
-* User Account Exceptions: Disable ISL by User Account names. User Account Exceptions override the User Roles option setting.
-* Enable|Disable Idle Session Logouts For These User Roles: Enable ISL for Users by User Role: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles.
-* Enable|Disable Idle Session Logouts For TinyMCE Editors: Disable ISL for any/all pages that have a TinyMCE Editor on them.
-
-= BulletProof Security Auth Cookie Expiration (ACE) Features =
-
-<strong>Description:</strong> Change the WordPress Authentication Cookie Expiration time. The default WordPress Authentication Cookie Expiration time is 2880 Minutes/2 Days and 20160 Minutes/14 Days if a User checks the Remember Me checkbox when they login. You can change the WordPress Authentication Cookie Expiration time to whatever expiration time setting that you choose. Option Settings: Turn On|Off, Auth Cookie Expiration Time in Minutes, Remember Me Auth Cookie Expiration Time in Minutes, User Account Exceptions, Enable|Disable Auth Cookie Expiration Time For These User Roles: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles. See the BulletProof Security Auth Cookie Expiration (ACE) Features section for additional features and options info.
-
-* Turn On|Turn Off: ACE is Turned Off by default. Select Turn On ACE to turn ACE On.
-* Auth Cookie Expiration Time in Minutes: Time in minutes for when a User should be logged out of your site.
-* Remember Me Auth Cookie Expiration Time in Minutes: Time in minutes for when a User should be logged out of your site when the User has checked the Remember Me checkbox.
-* Enable|Disable Remember Me Checkbox: Disable and do not display the Remember Me checkbox on your login page.
-* User Account Exceptions: Disable ACE by User Account names. User Account Exceptions override the User Roles option setting.
-* Enable|Disable Auth Cookie Expiration Time For These User Roles: Enable ACE for Users by User Role: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles.
-
-= BulletProof Security DB Backup|Database Backup Features =
-
-<strong>Description:</strong> DB Backup: Create manual and scheduled Backup Jobs. Selective database table backup and full database backup. Scheduled backup job options: Hourly, Daily, Weekly and Monthly. Send scheduled backup zip file via email or just send email only, automatically delete old backup files after a certain period of time, etc., etc., etc. All DB Backup options/settings and default setup is done automatically during upgrades and new installations. See the BulletProof Security DB Backup|Database Backup Features section for additional features and options.
-
-* Manual or scheduled database backups
-* Scheduled backup job options: Hourly, Daily, Weekly and Monthly
-* Send scheduled backup zip file via email or just send email only
-* Selective database table backup and full database backup
-* Automatically deletion of old backup files after a certain period of time
-* Backup Jobs - Manual|Scheduled Accordion Tab
-* Displays the Description|Job Name, Delete and Run Checkboxes, Job Type, Frequency, Last Backup, Next Backup, Email Backup and Job Created table columns.
-* Backup Files - Download|Delete Accordion Tab
-* Displays the Backup Filename, Delete Checkbox, Download Links, Backup Folder, Size and Date|Time table columns.
-* Create Backup Jobs Accordion Tab
-* Displays a dynamic DB Table Name checkbox form, Description|Backup Job Name, DB Backup Folder Location (default Obfuscated & Secure BPS Backup Folder location), DB Backup File Download Link|URL, Backup Job Type: Manual or Scheduled, Frequency of Scheduled Backup Job (recurring - Hourly, Daily, Weekly or Monthly), Hour When Scheduled Backup is Run (recurring - start time for a scheduled backup job), Day of Week When Scheduled Backup is Run (recurring - weekday day), Day of Month When Scheduled Backup is Run (recurring - day of the month), Send Scheduled Backup Zip File Via Email or Just Email Only - email zip backup file, do not email backup zip file, email and delete zip backup file or just send an email, Automatically Delete Old Backup Files (Never delete old backup files, delete backup files older than 1 day, 5 days, 10 days, 15 days, 30 days, 60 days, 90 days or 180 days), - Turn On|Off All Scheduled Backups (override - turn on all scheduled backups or turn off all scheduled backups).
-* Rename|Create|Reset Tool: Rename|Create|Reset DB Backup Folder Name
-* DB Backup Logging
-* Depending on your DB Backup settings, log entries will be logged anytime you run a Manual Backup Job or whenever a Scheduled Cron Backup Job is run. The Backup Job Completion Time, Zip Backup File Name, timestamp and other information is logged. If you have chosen the option to automatically delete old zip backup files then the zip backup file name and timestamp will be logged when old zip backup files are automatically deleted. When you create a new Backup Job your Backup Job Settings are logged/saved in the DB Backup Log.
-* DB Backup Log Automation: Automatically zipped, emailed and replaced based on file size
-* Click the DB Backup Read Me help button for full descriptions of all features and options.
-
-= BulletProof Security FrontEnd|BackEnd Maintenance Mode Features =
-
-<strong>Description:</strong> Display a website under maintenance page with Countdown Timer to website visitors while the website displays and functions normally for you. When the Countdown Timer has completed (reached 0) an email reminder is sent to you to remind you that the Countdown Timer has completed. The new BPS Maintenance Mode design includes 20 background images, 15 center images (text box image), allows you to embed image files and YouTube videos, FrontEnd Maintenance Mode, BackEnd Maintenance Mode or both FrontEnd & BackEnd Maintenance Modes and most importantly is fast and simple to use so that you can switch in and out of Maintenance mode quickly and easily. FrontEnd Maintenance mode is primarily designed for development/maintenance purposes and BackEnd Maintenance Mode is technically a security feature since enabling BackEnd Maintenance Mode allows you to deny access to the /wp-admin folder/WP Dashboard by IP address. See the BulletProof Security FrontEnd|BackEnd Maintenance Mode Features section for additional features and options.
-
-* FrontEnd Maintenance Mode|BackEnd Maintenance Mode or both FrontEnd & BackEnd Maintenance Modes
-* Website displays & functions normally while visitors see a website under maintenance page
-* TinyMCE WYSIWYG Editor - Create Customizable Website Under Maintenance page
-* Embed image files and YouTube videos
-* 20 background images|15 center images (text box image)|Roll Your Own Design|Under Maintenance Page
-* Background image files/options and Center images (text box image) are independent of each other so that you can mix and match different background images with different Center images (text box image)
-* Enable Countdown Timer
-* Countdown Timer Text Color
-* Maintenance Mode Time in Minutes
-* Header Retry-After in Minutes ~ 503 HTTP Status Code
-* Enable FrontEnd Maintenance Mode ~ site development, maintenance, coming soon, under construction, etc.
-* Enable BackEnd Maintenance Mode ~ Deny All IP address .htaccess protection for the wp-admin folder/WP Dashboard
-* Maintenance Mode IP Address Whitelist Text Box: Enter The IP Addresses That Can View The Website Normally (not in Maintenance Mode)
-* Maintenance Mode Text|Images|Videos Displayed To Website Visitors
-* Background Images: 20 background images ~ mix and match with center images ~ see screenshot
-* Center Images: 15 center images ~ mix and match with background images ~ see screenshot
-* Background Colors (If not using a Background Image)
-* Display Visitor IP Address
-* Display Admin|Login Link
-* Enable Visitor Logging
-* Display Dashboard Reminder Message when site is in Maintenance Mode
-* Send Email Reminder when Maintenance Mode Countdown Timer has completed
-* Email: To|From|cc|bcc
-* Network|Multisite Primary Site Options ONLY
-* Put The Primary Site And All Subsites In Maintenance Mode
-* Put All Subsites In Maintenance Mode, But Not The Primary Site
-* Click the Maintenance Mode Read Me help button for full descriptions of all features and options.
+Extensive Help Info can be found on the <a href="https://forum.ait-pro.com/forums/topic/read-me-first-free/#bps-free-general-troubleshooting" title="AIT-pro.com Forum" rel="nofollow" target="_blank">AIT-pro.com Forum</a> website and by clicking the Read Me Help buttons on BulletProof Security plugin pages. For details about BulletProof 
+Security plugin features and frequently asked questions see the FAQ section below. The BPS plugin Help and FAQ tab pages also contain additional help links.
 
 == Frequently Asked Questions ==
 
@@ -349,6 +189,179 @@ Please see the <a href="https://forum.ait-pro.com/forums/topic/read-me-first-fre
 * <strong>Note:</strong> The Setup Wizard Pre-Installation Check displays compatibility information.
 * <strong>Note:</strong> The Setup Wizard Pre-Installation Check tests if htaccess files can or cannot be used on your website and will automatically disable BPS htaccess features and files if your server/website cannot use htaccess files. You will see the "htaccess Files Disabled Notice" on the Setup Wizard page with a link to a Help Forum Topic.
 * <strong>Note:</strong> BulletProof Security works on all web hosts except for these 3 web hosts: <a href="https://forum.ait-pro.com/forums/topic/read-me-first-free/#incompatible-hosts" title="Incompatible Hosts" rel="nofollow" target="_blank">Incompatible Hosts</a>.
+
+= Setup Wizard AutoFix (AutoWhitelist|AutoSetup|AutoCleanup) =
+
+Setup Wizard AutoFix checks which plugins and themes you currently have installed and will display a BPS Setup Wizard AutoFix Notice to run the BPS Setup Wizard if any currently installed plugins or themes require Custom Code whitelist rules or AutoSetup. The BPS Setup Wizard automatically creates BPS Custom Code whitelist rules for known issues with any plugins and themes that need Custom Code whitelist rules. Setup Wizard AutoFix also automatically sets up and cleans up caching plugin's htaccess code for these WordPress caching plugins: WP Super Cache, W3 Total Cache, Comet Cache Plugin (free & Pro), WP Fastest Cache Plugin (free & Premium), Endurance Page Cache and WP Rocket. For more detailed help information and a list of all plugins and themes that have AutoFixes click this link: <a href="https://forum.ait-pro.com/forums/topic/setup-wizard-autofix/" title="Setup Wizard AutoFix Forum Topic" rel="nofollow" target="_blank">Setup Wizard AutoFix Forum Topic</a>.
+
+= Why .htaccess Website Security So Much Better Than Other Types of Website Security =
+
+The answer is very simple - .htaccess files (distributed Server configuration files) are processed by your server first before any other code on your website. In other words, hackers malicious scripts are stopped by BulletProof Security .htaccess files/Firewalls before those scripts even have a chance to reach the php code in WordPress.
+
+= BulletProof Security htaccess Core (Firewalls, etc.) Features =
+
+<strong>Description:</strong> WordPress Website Security Protection: BulletProof Security protects your website against 100,000's of different hacking attempts/attacks. The .htaccess security filters in BulletProof Security are designed to match malicious and nuisance attack patterns. The most important benefits of using a finite pattern matching method vs infinite banning/blocking individual IP's, Host's, Referer's, etc. is that your website performance and Server resources are not negatively impacted. In general, BulletProof Security takes an "Action Approach" to website security. Hacker X, Spammer X, Bad Bot X does bad Action Y = Forbidden/Blocked. An "Action Approach" is a much more effective and performance optimized approach to website security since the bad action itself is being blocked/forbidden instead of attempting to block an individual hacker/spammer that performed a bad action. Example: BulletProof Security blocks all SQL Injection hacking attempts/attacks no matter who (IP Address, hostname, Bot name, etc.) performed the SQL Injection hacking attempt/attack. See the BulletProof Security Login Security & Monitoring Features section for additional features and options. See the BulletProof Security htaccess Core (Firewalls, etc.) Features section for additional features and options.
+
+* Root Folder BulletProof Mode|Firewall
+* wp-admin Folder BulletProof Mode|Firewall
+* Built-in .htaccess File Editor & File Manager
+* Built-in .htaccess Backup and Restore
+* One-click .htaccess website security protection from within the WP Dashboard
+* .htaccess security protection against hacking attempts: XSS|RFI|CRLF|CSRF|Base64|Code Injection|SQL Injection
+* TimThumb Vulnerability|Exploit .htaccess security protection (Firewall)
+* .htaccess Lock|Unlock (404 Read-Only)
+* .htaccess AutoLock On|Off
+* Security|HTTP Error Logging: 400|403|404|405|410 HTTP Status Codes
+* Security Log: Add|Remove User Agents|Bots to Ignore|Not Log or Allow|Log
+* Security Log: Turn On|Turn Off|Delete Log
+* Security Log: Limit POST Request Body Data - capture or do not capture hacker scripts used in attacks. Note: See BPS POST Request Attack Protection Bonus Custom Code
+* Security Log Automation: Automatically zipped, emailed and replaced based on file size
+* Automatic .htaccess file updating on BPS upgrade installation
+* New .htaccess security filters automatically added during upgrade
+* WP Dashboard Alerts|WP Dashboard Dismiss Notices
+* Anti Comment Spam .htaccess code - works together with Akismet or other Spam plugins to keep Comment Spam at a minimum
+* Anti Comment Spambot .htaccess code - Forbid Empty Referrer Spambots
+* Author ID|User ID|Username Bot Probe Protection
+* Custom Code feature: Add|Edit|Modify|Save|Export|Import additional Bonus or personal custom .htaccess code
+* WordPress and other files protected with .htaccess security protection: readme.html, /wp-admin/install.php, wp-config.php, bb-config.php, php.ini and php5.ini files
+* Help & FAQ page: links to BPS Guide and other detailed Help & Info pages
+* Extensive jQuery UI Dialog Read Me Help buttons throughout the BulletProof Security plugin pages
+* HUD Success|Error message display
+
+= BulletProof Security MScan Malware Scanner =
+
+<strong>Description:</strong> MScan is a malware scanner that scans website files for hacker files or code and scans the WP database for hacker code. MScan Scheduled 
+scanning is available in BPS Pro only. For more details see the <a href="https://forum.ait-pro.com/forums/topic/mscan-malware-scanner-guide/" title="MScan Malware Scanner Guide" rel="nofollow" target="_blank">MScan Malware Scanner Guide</a>.
+
+= BulletProof Security System Info =
+
+* PHP|MySQL|MySQLi|OS|Server|Memory Usage and Limits|IP|SAPI|WP Filesystem API Method|DNS|Apache Modules|Directives Compatibility Checks|Max Upload|Zend Engine Version|Zend Guard|Loader|Optimizer|ionCube Loader|Suhosin|APC|eAccelerator|XCache|Varnish|cURL|OpenSSL Library|cURL OpenSSL Version|Memcache|Memcached|Plugins|Versions Installed|Activated|Get Plugins List|Browser Compression|GD Library|ImageMagick|WP Temp Dir|PHP Temp Dir|PHP Upload Temp Dir|Session Save Path|WP_TEMP_DIR constant|php.ini file path, etc.
+* File|Folder Permissions (CGI or DSO)|Script Owner User ID (UID)|File Owner User ID
+* PHP Server|PHP.ini|PHP directives Info
+* Website Headers Check Tool: Check your website Headers or another website's Headers remotely by making a GET or HEAD Request
+
+= BulletProof Security Hidden Plugin Folders|Files Cron (HPF) =
+
+<strong>Description:</strong> The HPF Cron checks the WordPress /plugins/ folder for hidden or empty plugin folders and any non-standard WP files or altered files in the /plugins/ folder. If a hidden or empty plugin folder or non-standard WP file is found in the WordPress /plugins/ folder, BPS displays a Dashboard Alert and sends an Email Alert. A hidden or empty plugin folder is a plugin the exists in your /plugins/ folder, but is not displayed on the WordPress Plugins page. A hidden plugin can be used as a hacker backdoor to gain access to your WP Dashboard, hosting account, create user accounts, completely control your website and hosting account, etc. A non-standard WP file or modified/altered file in your /plugins/ folder can also do all of the things a hidden plugin can do.
+
+* A hidden or empty plugin folder is a plugin the exists in your /plugins/ folder, but is not displayed on the WordPress Plugins page. A hidden plugin can be used as a hacker backdoor to gain access to your WP Dashboard, hosting account, create user accounts, completely control your website and hosting account, etc. A non-standard WP file or modified/altered file in your /plugins/ folder can also do all of the things a hidden plugin can do.
+* Automated Cron check that checks the WordPress /plugins folder for hidden plugins or non-standard WP file
+* Displays Dashboard Alerts
+* Sends Email Alerts
+* HPF Cron Check Frequency settings: 1, 5, 10, 15, 30 or 60 minutes
+* HPF Cron On|Off: Turn the HPF Cron On or Off
+* Ignore Hidden Plugin Folders & Files: Whitelisting tool to ignore plugin folders or non-standard WP files
+* HPF is automatically setup during BPS Upgrades or when running the BPS Setup Wizard
+
+= BulletProof Security Login Security & Monitoring Features =
+
+<strong>Description:</strong> Login Security & Login Monitoring: Log All User Account Logins or Log Only User Account Lockouts (see Screenshot). Brute Force Login Security Protection. Email alerting options allow you to choose 5 different email alerting options: Choose to have email alerts sent when a User Account is locked out, An Administrator Logs in, An Administrator Logs in and when a User Account is locked out, Any User logs in and when a User Account is locked out or Do Not Send Email Alerts. Choose Standard WP Error Messages or Generic Error Messages for Login Security Stealth Mode. Choose to Enable or Disable Login Password Reset capability for Login Security Stealth Mode. See the BulletProof Security Login Security & Monitoring Features section for additional features and options.
+
+* Brute Force Login Security Protection
+* Log All User Account Logins or Log Only User Account Lockouts
+* Logged DB Fields: User ID|Username|Display Name|Email|Role|Login Time|Lockout Expires|IP Address|Hostname|Request URI
+* Email Alerting Options: User Account is locked out|An Administrator Logs in|An Administrator Logs in and when a User Account is locked out|Any User logs in and when a User Account is locked out|Do Not Send Email Alerts
+* Login Security Additional Options: Max Login Attempts|Automatic Lockout Time|Manual Lockout Time|Max DB Rows To Show|Enable Login Security for WooCommerce|Turn On|Turn Off
+* Login Security Stealth Mode: Standard WP Error Messages or Generic Error Messages. 
+* Login Security Attempts Remaining: Display a "Login Attempts Remaining X" message when an incorrect password is entered. 
+* Login Security Stealth Mode: Enable or Disable Login Password Reset capability and links.
+* Dynamic DB Form: Lock|Unlock|Delete
+* Enhanced Search: Allows you to search all of the Login Security database rows/Fields
+* Click the Login Security Read Me help button for full descriptions of all features and options.
+
+= BulletProof Security JTC-Lite =
+
+<strong>Description:</strong> JTC-Lite is a limited version of BPS Pro JTC Anti-Spam|Anti-Hacker that provides Login Form Bot Lockout Protection for the WordPress Login page/Form. 
+JTC-Lite prevents against constant and repeated user account lockouts caused by Bots attempting to Brute Force Login to your WordPress Login Form and website. If you would like to 
+protect all of your WordPress Forms, BuddyPress, bbPress and WooCommerce Forms against SpamBot and HackerBot attacks (auto-registrations, auto-logins, auto-posting,
+ auto-commenting), that security protection is available in BPS Pro JTC Anti-Spam|Anti-Hacker. 99% of all hacking and spamming is automated using HackerBots and SpamBots.
+
+= BulletProof Security Idle Session Logout (ISL) Features =
+
+<strong>Description:</strong> Automatically logout idle/inactive Users. ISL uses javascript Event Listeners to monitor Users activity for these ISL events: keyboard key is pressed, mouse button is pressed, mouse is moved, mouse wheel is rolled up or down, finger is placed on the touch surface/screen and finger already placed on the screen is moved across the screen. Option Settings: Turn On|Off, Idle Session Logout Time in Minutes, Idle Session Logout Page URL, Idle Session Logout Page Login URL, Idle Session Logout Page Custom Message, Idle Session Logout Page Custom CSS Style, User Account Exceptions, Enable|Disable Idle Session Logouts For These User Roles: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles, Enable|Disable Idle Session Logouts For TinyMCE Editors. See the BulletProof Security Idle Session Logout (ISL) Features section for additional features and options info.
+
+* Turn On|Turn Off: ISL is Turned Off by default. Select Turn On ISL to turn ISL On.
+* Idle Session Logout Time in Minutes: Time in minutes for when an idle/inactive User should be logged out of your site.
+* Idle Session Logout Page URL: Defaults to BPS ISL Logout page URL or choose to redirect logged out users to any URL that you want to redirect them to.
+* Idle Session Logout Page Login URL: Displays a clickable Login URL/link to your WP Login page or you can choose not to display a Login URL/link.
+* Idle Session Logout Exclude URLs|URIs: This option allows you to exclude any pages or posts that you do not want ISL to check/monitor.
+* Idle Session Logout Page Custom Message: Use the default BPS ISL message/text or you can create your own custom ISL message/text.
+* Idle Session Logout Page Custom CSS Style: Use the default BPS CSS Style code or enter your own custom CSS Style customizations.
+* User Account Exceptions: Disable ISL by User Account names. User Account Exceptions override the User Roles option setting.
+* Enable|Disable Idle Session Logouts For These User Roles: Enable ISL for Users by User Role: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles.
+* Enable|Disable Idle Session Logouts For TinyMCE Editors: Disable ISL for any/all pages that have a TinyMCE Editor on them.
+
+= BulletProof Security Auth Cookie Expiration (ACE) Features =
+
+<strong>Description:</strong> Change the WordPress Authentication Cookie Expiration time. The default WordPress Authentication Cookie Expiration time is 2880 Minutes/2 Days and 20160 Minutes/14 Days if a User checks the Remember Me checkbox when they login. You can change the WordPress Authentication Cookie Expiration time to whatever expiration time setting that you choose. Option Settings: Turn On|Off, Auth Cookie Expiration Time in Minutes, Remember Me Auth Cookie Expiration Time in Minutes, User Account Exceptions, Enable|Disable Auth Cookie Expiration Time For These User Roles: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles. See the BulletProof Security Auth Cookie Expiration (ACE) Features section for additional features and options info.
+
+* Turn On|Turn Off: ACE is Turned Off by default. Select Turn On ACE to turn ACE On.
+* Auth Cookie Expiration Time in Minutes: Time in minutes for when a User should be logged out of your site.
+* Remember Me Auth Cookie Expiration Time in Minutes: Time in minutes for when a User should be logged out of your site when the User has checked the Remember Me checkbox.
+* Enable|Disable Remember Me Checkbox: Disable and do not display the Remember Me checkbox on your login page.
+* User Account Exceptions: Disable ACE by User Account names. User Account Exceptions override the User Roles option setting.
+* Enable|Disable Auth Cookie Expiration Time For These User Roles: Enable ACE for Users by User Role: Administrator, Editor, Author, Contributor, Subscriber & Custom User Roles.
+
+= BulletProof Security DB Backup|Database Backup Features =
+
+<strong>Description:</strong> DB Backup: Create manual and scheduled Backup Jobs. Selective database table backup and full database backup. Scheduled backup job options: Hourly, Daily, Weekly and Monthly. Send scheduled backup zip file via email or just send email only, automatically delete old backup files after a certain period of time, etc., etc., etc. All DB Backup options/settings and default setup is done automatically during upgrades and new installations. See the BulletProof Security DB Backup|Database Backup Features section for additional features and options.
+
+* Manual or scheduled database backups
+* Scheduled backup job options: Hourly, Daily, Weekly and Monthly
+* Send scheduled backup zip file via email or just send email only
+* Selective database table backup and full database backup
+* Automatically deletion of old backup files after a certain period of time
+* Backup Jobs - Manual|Scheduled Accordion Tab
+* Displays the Description|Job Name, Delete and Run Checkboxes, Job Type, Frequency, Last Backup, Next Backup, Email Backup and Job Created table columns.
+* Backup Files - Download|Delete Accordion Tab
+* Displays the Backup Filename, Delete Checkbox, Download Links, Backup Folder, Size and Date|Time table columns.
+* Create Backup Jobs Accordion Tab
+* Displays a dynamic DB Table Name checkbox form, Description|Backup Job Name, DB Backup Folder Location (default Obfuscated & Secure BPS Backup Folder location), DB Backup File Download Link|URL, Backup Job Type: Manual or Scheduled, Frequency of Scheduled Backup Job (recurring - Hourly, Daily, Weekly or Monthly), Hour When Scheduled Backup is Run (recurring - start time for a scheduled backup job), Day of Week When Scheduled Backup is Run (recurring - weekday day), Day of Month When Scheduled Backup is Run (recurring - day of the month), Send Scheduled Backup Zip File Via Email or Just Email Only - email zip backup file, do not email backup zip file, email and delete zip backup file or just send an email, Automatically Delete Old Backup Files (Never delete old backup files, delete backup files older than 1 day, 5 days, 10 days, 15 days, 30 days, 60 days, 90 days or 180 days), - Turn On|Off All Scheduled Backups (override - turn on all scheduled backups or turn off all scheduled backups).
+* Rename|Create|Reset Tool: Rename|Create|Reset DB Backup Folder Name
+* DB Backup Logging
+* Depending on your DB Backup settings, log entries will be logged anytime you run a Manual Backup Job or whenever a Scheduled Cron Backup Job is run. The Backup Job Completion Time, Zip Backup File Name, timestamp and other information is logged. If you have chosen the option to automatically delete old zip backup files then the zip backup file name and timestamp will be logged when old zip backup files are automatically deleted. When you create a new Backup Job your Backup Job Settings are logged/saved in the DB Backup Log.
+* DB Backup Log Automation: Automatically zipped, emailed and replaced based on file size
+* Click the DB Backup Read Me help button for full descriptions of all features and options.
+
+= BulletProof Security FrontEnd|BackEnd Maintenance Mode Features =
+
+<strong>Description:</strong> Display a website under maintenance page with Countdown Timer to website visitors while the website displays and functions normally for you. When the Countdown Timer has completed (reached 0) an email reminder is sent to you to remind you that the Countdown Timer has completed. The new BPS Maintenance Mode design includes 20 background images, 15 center images (text box image), allows you to embed image files and YouTube videos, FrontEnd Maintenance Mode, BackEnd Maintenance Mode or both FrontEnd & BackEnd Maintenance Modes and most importantly is fast and simple to use so that you can switch in and out of Maintenance mode quickly and easily. FrontEnd Maintenance mode is primarily designed for development/maintenance purposes and BackEnd Maintenance Mode is technically a security feature since enabling BackEnd Maintenance Mode allows you to deny access to the /wp-admin folder/WP Dashboard by IP address. See the BulletProof Security FrontEnd|BackEnd Maintenance Mode Features section for additional features and options.
+
+* FrontEnd Maintenance Mode|BackEnd Maintenance Mode or both FrontEnd & BackEnd Maintenance Modes
+* Website displays & functions normally while visitors see a website under maintenance page
+* TinyMCE WYSIWYG Editor - Create Customizable Website Under Maintenance page
+* Embed image files and YouTube videos
+* 20 background images|15 center images (text box image)|Roll Your Own Design|Under Maintenance Page
+* Background image files/options and Center images (text box image) are independent of each other so that you can mix and match different background images with different Center images (text box image)
+* Enable Countdown Timer
+* Countdown Timer Text Color
+* Maintenance Mode Time in Minutes
+* Header Retry-After in Minutes ~ 503 HTTP Status Code
+* Enable FrontEnd Maintenance Mode ~ site development, maintenance, coming soon, under construction, etc.
+* Enable BackEnd Maintenance Mode ~ Deny All IP address .htaccess protection for the wp-admin folder/WP Dashboard
+* Maintenance Mode IP Address Whitelist Text Box: Enter The IP Addresses That Can View The Website Normally (not in Maintenance Mode)
+* Maintenance Mode Text|Images|Videos Displayed To Website Visitors
+* Background Images: 20 background images ~ mix and match with center images ~ see screenshot
+* Center Images: 15 center images ~ mix and match with background images ~ see screenshot
+* Background Colors (If not using a Background Image)
+* Display Visitor IP Address
+* Display Admin|Login Link
+* Enable Visitor Logging
+* Display Dashboard Reminder Message when site is in Maintenance Mode
+* Send Email Reminder when Maintenance Mode Countdown Timer has completed
+* Email: To|From|cc|bcc
+* Network|Multisite Primary Site Options ONLY
+* Put The Primary Site And All Subsites In Maintenance Mode
+* Put All Subsites In Maintenance Mode, But Not The Primary Site
+* Click the Maintenance Mode Read Me help button for full descriptions of all features and options.
+
+= BulletProof Security Additional Website Security Protection =
+
+WordPress is already very secure, but every website, no matter what type of platform it is built on should have additional website security measures in place as a standard.
+
+= BulletProof Security is Website Performance Optimized (Performance|Optimization) =
+
+Website performance is just as important as website security. BulletProof Security is website performance optimized with website owners best interests at heart. BulletProof Security does NOT abuse the WordPress Database by making excessive MySQL Queries. BulletProof Security does NOT store excessive & non-essential data in your WordPress Database. BulletProof Security does NOT use excessive Server Memory & Resources. BulletProof Security does NOT use any gimmicks or bells & whistles that will cost website owners their website performance. The benefits of having website security protection are negated if your website is performing poorly/slowly, continually experiencing out of memory errors/running out of memory, database size growing exponentially with non-essential stored data, etc. BulletProof Security can actually speed up & improve your website performance by using the Speed Boost Cache Bonus Code. See the BulletProof Security Bonus Custom Code help section below.
 
 = Can BulletProof Security be Network Activated on Network|Multisite Sites? =
 

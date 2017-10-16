@@ -151,7 +151,7 @@ bpsPro_DBBackup_deny_all();
 
 <!-- jQuery UI Tab Menu -->
 <div id="bps-tabs" class="bps-menu">
-    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-security-shield.gif'); ?>" />
+    <div id="bpsHead"><img src="<?php echo plugins_url('/bulletproof-security/admin/images/bps-free-logo.gif'); ?>" />
     
 <style>
 <!--
@@ -275,7 +275,7 @@ function bpsSpinnerTableRefresh() {
 
 <h3 style="margin:0px 0px 15px 0px;"><?php _e('DB Backup', 'bulletproof-security'); ?>  <button id="bps-open-modal1" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content1" title="<?php _e('DB Backup', 'bulletproof-security'); ?>">
+<div id="bps-modal-content1" class="bps-dialog-hide" title="<?php _e('DB Backup', 'bulletproof-security'); ?>">
 	<p>
 	<?php
         $text = '<strong>'.__('This Read Me Help window is draggable (top) and resizable (bottom right corner)', 'bulletproof-security').'</strong><br><br>';
@@ -923,7 +923,7 @@ jQuery(document).ready(function($){
 if ( isset($_POST['Submit-DBB-Create-Job']) && current_user_can('manage_options') ) {
 	check_admin_referer('bulletproof_security_db_backup_create_job');
 	
-	if ( $DBBoptions['bps_db_backup_status_display'] == 'No DB Backups' ) {
+	if ( $DBBoptions['bps_db_backup_status_display'] == 'No DB Backups' || $DBBoptions['bps_db_backup_status_display'] == '' ) {
 		$bps_db_backup_status_display = 'Backup Job Created';
 	} else {
 		$bps_db_backup_status_display = $DBBoptions['bps_db_backup_status_display'];
@@ -1139,7 +1139,7 @@ if ( isset($_POST['Submit-DBB-Create-Job']) && current_user_can('manage_options'
 
 <h3 style="margin:0px 0px 10px 0px;"><?php _e('DB Backup Log', 'bulletproof-security'); ?>  <button id="bps-open-modal2" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content2" title="<?php _e('DB Backup Log', 'bulletproof-security'); ?>">
+<div id="bps-modal-content2" class="bps-dialog-hide" title="<?php _e('DB Backup Log', 'bulletproof-security'); ?>">
 	<p><?php echo $bps_modal_content2; ?></p>
 </div>
 
@@ -1153,10 +1153,10 @@ if ( file_exists($filename) ) {
 	$logSize = filesize($filename);
 	
 	if ( $logSize < 2097152 ) {
- 		$text = '<strong>'. __('DB Backup Log File Size: ', 'bulletproof-security').'<font color="#2ea2cc">'. round($logSize / 1024, 2) .' KB</font></strong><br>';
+ 		$text = '<span style="font-size:13px;"><strong>'. __('DB Backup Log File Size: ', 'bulletproof-security').'<font color="#2ea2cc">'. round($logSize / 1024, 2) .' KB</font></strong></span><br>';
 		echo $text;
 	} else {
- 		$text = '<strong>'. __('DB Backup Log File Size: ', 'bulletproof-security').'<font color="#fb0101">'. round($logSize / 1024, 2) .' KB<br>'.__('The Email Logging options will only send log files up to 2MB in size.', 'bulletproof-security').'</font></strong><br>'.__('Copy and paste the DB Backup Log file contents into a Notepad text file on your computer and save it.', 'bulletproof-security').'<br>'.__('Then click the Delete Log button to delete the contents of this Log file.', 'bulletproof-security').'<br>';		
+ 		$text = '<span style="font-size:13px;"><strong>'. __('DB Backup Log File Size: ', 'bulletproof-security').'<font color="#fb0101">'. round($logSize / 1024, 2) .' KB<br>'.__('The Email Logging options will only send log files up to 2MB in size.', 'bulletproof-security').'</font></strong><br>'.__('Copy and paste the DB Backup Log file contents into a Notepad text file on your computer and save it.', 'bulletproof-security').'<br>'.__('Then click the Delete Log button to delete the contents of this Log file.', 'bulletproof-security').'</span><br>';		
 		echo $text;
 	}
 	}
@@ -1176,84 +1176,7 @@ $filename = WP_CONTENT_DIR . '/bps-backup/logs/db_backup_log.txt';
 	}
 }
 bpsPro_DBB_Log_LastMod();
-?>
 
-<div id="EmailOptionsDBB" style="width:100%;">   
-
-<form name="bpsEmailAlerts" action="options.php" method="post">
-    <?php settings_fields('bulletproof_security_options_email'); ?>
-	<?php $options = get_option('bulletproof_security_options_email'); ?>
-	<?php $admin_email = get_option('admin_email'); ?>
-
-<table border="0">
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files To:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_to]" class="regular-text-200" value="<?php if ( $options['bps_send_email_to'] != '' ) { echo esc_html( $options['bps_send_email_to'] ); } else { echo esc_html( $admin_email ); } ?>" /></td>
-  </tr>
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files From:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_from]" class="regular-text-200" value="<?php if ( $options['bps_send_email_from'] != '' ) { echo esc_html( $options['bps_send_email_from'] ); } else { echo esc_html( $admin_email ); } ?>" /></td>
-  </tr>
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files Cc:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_cc]" class="regular-text-200" value="<?php echo esc_html( $options['bps_send_email_cc'] ); ?>" /></td>
-  </tr>
-  <tr>
-    <td><label for="bps-monitor-email"><?php _e('Send Email Alerts & Log Files Bcc:', 'bulletproof-security'); ?> </label></td>
-    <td><input type="text" name="bulletproof_security_options_email[bps_send_email_bcc]" class="regular-text-200" value="<?php echo esc_html( $options['bps_send_email_bcc'] ); ?>" /></td>
-  </tr>
-</table>
-<br />
-
-<table border="0">
-  <tr>
-    <td><strong><label for="bps-monitor-email"><?php _e('Login Security: Send Login Security Email Alert When...', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_login_security_email]" class="form-340">
-<option value="lockoutOnly" <?php selected( $options['bps_login_security_email'], 'lockoutOnly'); ?>><?php _e('A User Account Is Locked Out', 'bulletproof-security'); ?></option>
-<option value="adminLoginOnly" <?php selected( $options['bps_login_security_email'], 'adminLoginOnly'); ?>><?php _e('An Administrator Logs In', 'bulletproof-security'); ?></option>
-<option value="adminLoginLock" <?php selected( $options['bps_login_security_email'], 'adminLoginLock'); ?>><?php _e('An Administrator Logs In & A User Account is Locked Out', 'bulletproof-security'); ?></option>
-<option value="anyUserLoginLock" <?php selected( $options['bps_login_security_email'], 'anyUserLoginLock'); ?>><?php _e('Any User Logs In & A User Account is Locked Out', 'bulletproof-security'); ?></option>
-<option value="no" <?php selected( $options['bps_login_security_email'], 'no'); ?>><?php _e('Do Not Send Email Alerts', 'bulletproof-security'); ?></option>
-</select></td>
-  </tr>
-  <tr>
-    <td style="padding-top:5px;"><strong><label for="bps-monitor-email-log"><?php _e('Security Log: Email|Delete Security Log File When...', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_security_log_size]" class="form-80">
-<option value="500KB" <?php selected( $options['bps_security_log_size'], '500KB' ); ?>><?php _e('500KB', 'bulletproof-security'); ?></option>
-<option value="256KB" <?php selected( $options['bps_security_log_size'], '256KB'); ?>><?php _e('256KB', 'bulletproof-security'); ?></option>
-<option value="1MB" <?php selected( $options['bps_security_log_size'], '1MB' ); ?>><?php _e('1MB', 'bulletproof-security'); ?></option>
-</select>
-<select name="bulletproof_security_options_email[bps_security_log_emailL]" class="form-255">
-<option value="email" <?php selected( $options['bps_security_log_emailL'], 'email' ); ?>><?php _e('Email Log & Then Delete Log File', 'bulletproof-security'); ?></option>
-<option value="delete" <?php selected( $options['bps_security_log_emailL'], 'delete' ); ?>><?php _e('Delete Log File', 'bulletproof-security'); ?></option>
-</select></td>
-  </tr>
-  <tr>
-    <td style="padding-top:5px;"><strong><label for="bps-monitor-email-log"><?php _e('DB Backup Log: Email|Delete DB Backup Log File When...', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_dbb_log_size]" class="form-80">
-<option value="500KB" <?php selected( $options['bps_dbb_log_size'], '500KB' ); ?>><?php _e('500KB', 'bulletproof-security'); ?></option>
-<option value="256KB" <?php selected( $options['bps_dbb_log_size'], '256KB'); ?>><?php _e('256KB', 'bulletproof-security'); ?></option>
-<option value="1MB" <?php selected( $options['bps_dbb_log_size'], '1MB' ); ?>><?php _e('1MB', 'bulletproof-security'); ?></option>
-</select>
-<select name="bulletproof_security_options_email[bps_dbb_log_email]" class="form-255">
-<option value="email" <?php selected( $options['bps_dbb_log_email'], 'email' ); ?>><?php _e('Email Log & Then Delete Log File', 'bulletproof-security'); ?></option>
-<option value="delete" <?php selected( $options['bps_dbb_log_email'], 'delete' ); ?>><?php _e('Delete Log File', 'bulletproof-security'); ?></option>
-</select></td>
-  </tr>
-</table>
-
-<!-- <strong><label for="bps-monitor-email" style="margin:0px 0px 0px 0px;"><?php //_e('BPS Plugin Upgrade Email Notification', 'bulletproof-security'); ?></label></strong><br />
-<select name="bulletproof_security_options_email[bps_upgrade_email]" class="form-340">
-<option value="yes" <?php //selected( @$options['bps_upgrade_email'], 'yes'); ?>><?php //_e('Send Email Alerts', 'bulletproof-security'); ?></option>
-<option value="no" <?php //selected( @$options['bps_upgrade_email'], 'no'); ?>><?php //_e('Do Not Send Email Alerts', 'bulletproof-security'); ?></option>
-</select><br /><br /> -->
-
-<input type="hidden" name="bpsEMA" value="bps-EMA" />
-<input type="submit" name="bpsEmailAlertSubmit" class="button bps-button" style="margin:15px 0px 0px 0px;" value="<?php esc_attr_e('Save Options', 'bulletproof-security') ?>" />
-</form>
-</div>
-
-<?php
 if ( isset( $_POST['Submit-Delete-DBB-Log'] ) && current_user_can('manage_options') ) {
 	check_admin_referer( 'bulletproof_security_delete_dbb_log' );
 
@@ -1268,13 +1191,10 @@ if ( isset( $_POST['Submit-Delete-DBB-Log'] ) && current_user_can('manage_option
 }
 ?>
 
-<div id="DBBLogDelete">
-
 <form name="DeleteDBBLogForm" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php#bps-tabs-2' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_delete_dbb_log'); ?>
-<input type="submit" name="Submit-Delete-DBB-Log" value="<?php esc_attr_e('Delete Log', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Clicking OK will delete the contents of your DB Backup Log file.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Delete the Log file contents or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+<input type="submit" name="Submit-Delete-DBB-Log" value="<?php esc_attr_e('Delete Log', 'bulletproof-security') ?>" class="button bps-button" style="margin:15px 0px 15px 0px" onclick="return confirm('<?php $text = __('Clicking OK will delete the contents of your DB Backup Log file.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Delete the Log file contents or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
-</div>
 
 <div id="messageinner" class="updatedinner">
 <?php
@@ -1375,7 +1295,7 @@ jQuery(document).ready(function($){
 
 <h3 style="margin:0px 0px 10px 0px;"><?php _e('DB Table Prefix Changer', 'bulletproof-security'); ?>  <button id="bps-open-modal3" class="button bps-modal-button"><?php _e('Read Me', 'bulletproof-security'); ?></button></h3>
 
-<div id="bps-modal-content3" title="<?php _e('DB Table Prefix Changer', 'bulletproof-security'); ?>">
+<div id="bps-modal-content3" class="bps-dialog-hide" title="<?php _e('DB Table Prefix Changer', 'bulletproof-security'); ?>">
 	<p><?php echo $bps_modal_content3; ?>
 </div>
 

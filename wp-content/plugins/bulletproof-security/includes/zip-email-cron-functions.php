@@ -36,6 +36,8 @@ $SecurityLog = WP_CONTENT_DIR . '/bps-backup/logs/http_error_log.txt';
 $SecurityLogMaster = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/http_error_log.txt';
 $DBBLog = WP_CONTENT_DIR . '/bps-backup/logs/db_backup_log.txt';
 $DBBLogMaster = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/db_backup_log.txt';
+$MScanLog = WP_CONTENT_DIR . '/bps-backup/logs/mscan_log.txt';
+$MScanLogMaster = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/mscan_log.txt';
 
 switch ( $options['bps_security_log_size'] ) {
     case "256KB":
@@ -108,6 +110,41 @@ switch ( $options['bps_dbb_log_size'] ) {
 		break;
 		}
 	}
+switch ( $options['bps_mscan_log_size'] ) {
+    case "256KB":
+		if ( file_exists($MScanLog) && filesize($MScanLog) >= 262144 && filesize($MScanLog) < 524288 || file_exists($MScanLog) && filesize($MScanLog) > 2097152) {
+		if ( $options['bps_mscan_log_email'] == 'email') {
+			if ( bps_Zip_MScan_Log_File() == true ) {
+				bps_Email_MScan_Log_File();
+			}
+		} elseif ( $options['bps_arq_log_email'] == 'delete') {
+			copy($MScanLogMaster, $MScanLog);	
+		}
+		break;
+		}
+    case "500KB":
+		if ( file_exists($MScanLog) && filesize($MScanLog) >= 524288 && filesize($MScanLog) < 1048576 || file_exists($MScanLog) && filesize($MScanLog) > 2097152) {
+		if ( $options['bps_mscan_log_email'] == 'email') {
+			if ( bps_Zip_MScan_Log_File() == true ) {
+				bps_Email_MScan_Log_File();
+			}
+		} elseif ( $options['bps_arq_log_email'] == 'delete') {
+			copy($MScanLogMaster, $MScanLog);	
+		}		
+		break;
+		}
+    case "1MB":
+		if ( file_exists($MScanLog) && filesize($MScanLog) >= 1048576 && filesize($MScanLog) < 2097152 || file_exists($MScanLog) && filesize($MScanLog) > 2097152) {
+		if ( $options['bps_mscan_log_email'] == 'email') {
+			if ( bps_Zip_MScan_Log_File() == true ) {
+				bps_Email_MScan_Log_File();
+			}
+		} elseif ( $options['bps_mscan_log_email'] == 'delete') {
+			copy($MScanLogMaster, $MScanLog);	
+		}		
+		break;
+		}
+}
 }
 
 // EMAIL NOTES: You cannot fake a zip file by renaming a file extension 
@@ -176,6 +213,39 @@ $DBBLogZip = WP_CONTENT_DIR . '/bps-backup/logs/db-backup-log.zip';
 		$time = strtotime( $DBBLogLastModifiedTime['bps_dbb_log_date_mod'] );
 		touch( $DBBLog, $time );	
 	}
+	}
+}
+
+// Email MScan Log File
+function bps_Email_MScan_Log_File() {
+$options = get_option('bulletproof_security_options_email');
+$bps_email_to = $options['bps_send_email_to'];
+$bps_email_from = $options['bps_send_email_from'];
+$bps_email_cc = $options['bps_send_email_cc'];
+$bps_email_bcc = $options['bps_send_email_bcc'];
+$justUrl = get_site_url();
+$timestamp = date_i18n(get_option('date_format'), strtotime("11/15-1976")) . ' - ' . date_i18n(get_option('time_format'), strtotime($date));
+$MScanLog = WP_CONTENT_DIR . '/bps-backup/logs/mscan_log.txt';
+$MScanLogMaster = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/mscan_log.txt';
+$MScanLogZip = WP_CONTENT_DIR . '/bps-backup/logs/mscan-log.zip';
+
+	$attachments = array( $MScanLogZip );
+	$headers = array( 'Content-Type: text/html; charset=UTF-8', 'From: ' . $bps_email_from, 'Cc: ' . $bps_email_cc, 'Bcc: ' . $bps_email_bcc );
+	$subject = " BPS Pro MScan Log - $timestamp ";
+	$message = '<p><font color="blue"><strong>MScan Log File For:</strong></font></p>';
+	$message .= '<p>Site: '.$justUrl.'</p>'; 
+		
+	$mailed = wp_mail($bps_email_to, $subject, $message, $headers, $attachments);
+
+	if ( $mailed && file_exists($MScanLogZip) ) {
+		unlink($MScanLogZip); 
+
+	if ( copy($MScanLogMaster, $MScanLog) ) {
+		$MScanLogoptions = get_option('bulletproof_security_options_MScan_log');
+		$last_modified_time_db = $MScanLogoptions['bps_mscan_log_date_mod'];
+		$time = strtotime($last_modified_time_db);
+		touch($MScanLog, $time);	
+	}	
 	}
 }
 
@@ -300,6 +370,45 @@ require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php' );
 	if ( $v_list == 0) {
 		die( "Error : ".$archive->errorInfo(true) );
 		return false;	
+	}
+	}
+}
+
+// Zip MScan Log File - If ZipArchive Class is not available use PclZip
+function bps_Zip_MScan_Log_File() {
+	// Use ZipArchive
+	if ( class_exists('ZipArchive') ) {
+
+	$zip = new ZipArchive();
+	$filename = WP_CONTENT_DIR . '/bps-backup/logs/mscan-log.zip';
+	
+	if ( $zip->open($filename, ZIPARCHIVE::CREATE)!==TRUE ) {
+    	exit("Error: Cannot Open $filename\n");
+	}
+
+	$zip->addFile(WP_CONTENT_DIR . '/bps-backup/logs/mscan_log.txt', "mscan_log.txt");
+	$zip->close();
+
+	return true;
+
+	} else {
+
+// Use PCLZip
+define( 'PCLZIP_TEMPORARY_DIR', WP_CONTENT_DIR . '/bps-backup/logs/' );
+require_once( ABSPATH . 'wp-admin/includes/class-pclzip.php');
+	
+	if ( ini_get( 'mbstring.func_overload' ) && function_exists( 'mb_internal_encoding' ) ) {
+		$previous_encoding = mb_internal_encoding();
+		mb_internal_encoding( 'ISO-8859-1' );
+	}
+  		$archive = new PclZip(WP_CONTENT_DIR . '/bps-backup/logs/mscan-log.zip');
+  		$v_list = $archive->create(WP_CONTENT_DIR . '/bps-backup/logs/mscan_log.txt', PCLZIP_OPT_REMOVE_PATH, WP_CONTENT_DIR . '/bps-backup/logs/');
+	
+	return true;  	
+
+	if ( $v_list == 0) {
+		die("Error : ".$archive->errorInfo(true) );
+		return false;
 	}
 	}
 }
