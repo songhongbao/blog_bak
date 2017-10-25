@@ -117,7 +117,7 @@ function bpsPro_HUD_autofix_whitelist_check() {
 	
 	if ( $woocommerce_active == 1 || is_plugin_active_for_network( $woocommerce ) ) {
 		$ptsb1 = '/RewriteCond\s%{REQUEST_URI}\s\^\.\*\/\(shop\|cart\|checkout\|wishlist\)\.\*\s\[NC\]/';	
-		$ptsb2 = '/RewriteCond\s%{QUERY_STRING}\s\.\*\(order\|wc-ajax=get_refreshed_fragments\)\.\*\s\[NC\]/';
+		$ptsb2 = '/RewriteCond\s%{QUERY_STRING}\s\.\*\(order\|wc-ajax=\)\.\*\s\[NC\]/';
 		if ( ! preg_match( $ptsb1, $bps_customcode_two ) || ! preg_match( $ptsb2, $bps_customcode_two ) ) {
 			$autofix_message = 1;
 			$debug_PTSB .= __('CC Root Text Box 10: WooCommerce Plugin', 'bulletproof-security').'<br>';

@@ -276,7 +276,7 @@ global $bps_version;
 <?php wp_nonce_field('bulletproof_security_rbm_activate'); ?>
 
 	<div id="RBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-RBM-Activate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-RBM-Activate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -284,7 +284,7 @@ global $bps_version;
 <?php wp_nonce_field('bulletproof_security_rbm_deactivate'); ?>
 
 	<div id="RBM-buttons" style="">
-    <input type="submit" name="Submit-RBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-RBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -294,7 +294,7 @@ global $bps_version;
 <?php wp_nonce_field('bulletproof_security_rbm_activate_network'); ?>
 
 	<div id="RBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-RBM-Activate-Network" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-RBM-Activate-Network" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -302,7 +302,7 @@ global $bps_version;
 <?php wp_nonce_field('bulletproof_security_rbm_deactivate_network'); ?>
 
 	<div id="RBM-buttons" style="">
-    <input type="submit" name="Submit-RBM-Deactivate-Network" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-RBM-Deactivate-Network" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate Root Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -383,7 +383,7 @@ global $bps_version;
 <?php wp_nonce_field('bulletproof_security_wbm_activate'); ?>
 
 	<div id="WBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-WBM-Activate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate wp-admin Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-WBM-Activate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate wp-admin Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -391,7 +391,7 @@ global $bps_version;
 <?php wp_nonce_field('bulletproof_security_wbm_deactivate'); ?>
 
 	<div id="WBM-buttons" style="">
-    <input type="submit" name="Submit-WBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate wp-admin Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-WBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate wp-admin Folder BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -570,7 +570,7 @@ function bpsPro_mbm_status() {
 <?php wp_nonce_field('bulletproof_security_mbm_activate'); ?>
 
 	<div id="MBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-MBM-Activate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate MBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-MBM-Activate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate MBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -578,7 +578,7 @@ function bpsPro_mbm_status() {
 <?php wp_nonce_field('bulletproof_security_mbm_deactivate'); ?>
 
 	<div id="MBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-MBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate MBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-MBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Deactivate MBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -646,7 +646,7 @@ function bpsPro_bbm_status() {
 <?php wp_nonce_field('bulletproof_security_bbm_activate'); ?>
 
 	<div id="BBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-BBM-Activate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate BBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-BBM-Activate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Activate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Click OK to Activate BBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -654,7 +654,7 @@ function bpsPro_bbm_status() {
 <?php wp_nonce_field('bulletproof_security_bbm_deactivate'); ?>
 
 	<div id="BBM-buttons" style="float:left;padding-right:20px;">
-    <input type="submit" name="Submit-BBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Caution: BPS Backup Folder BulletProof Mode (BBM) should only be deactivated for testing or troubleshooting. Be sure to activate BBM BulletProof Mode after you are done testing or troubleshooting.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Deactivate BBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-BBM-Deactivate" style="margin:10px 0px 10px 0px;width:84px;height:auto;white-space:normal" value="<?php esc_attr_e('Deactivate', 'bulletproof-security') ?>" class="button bps-button" onclick="return confirm('<?php $text = __('Caution: BPS Backup Folder BulletProof Mode (BBM) should only be deactivated for testing or troubleshooting. Be sure to activate BBM BulletProof Mode after you are done testing or troubleshooting.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Deactivate BBM BulletProof Mode or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 	</div>
 </form>
 
@@ -1212,7 +1212,7 @@ if ( isset( $_POST['submit-ProFlockUnLock'] ) && current_user_can('manage_option
 <div id="bpsLockHtaccess">  
 <form name="bpsFlockLockForm" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/core/core.php#bps-tabs-6' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_flock_lock'); ?>
-	<input type="submit" name="submit-ProFlockLock" value="<?php esc_attr_e('Lock htaccess File', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px" onclick="return confirm('<?php $text = __('Click OK to Lock your Root htaccess file or click Cancel.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Note: The File Open and Write Test window will still display the last status of the file as Unlocked. To see the current status refresh your browser.', 'bulletproof-security'); echo $text; ?>')" />
+	<input type="submit" name="submit-ProFlockLock" value="<?php esc_attr_e('Lock htaccess File', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Click OK to Lock your Root htaccess file or click Cancel.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Note: The File Open and Write Test window will still display the last status of the file as Unlocked. To see the current status refresh your browser.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
 </div>
 
@@ -1220,7 +1220,7 @@ if ( isset( $_POST['submit-ProFlockUnLock'] ) && current_user_can('manage_option
 <form name="bpsFlockUnLockForm" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/core/core.php#bps-tabs-6' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_flock_unlock'); ?>
 
-	<input type="submit" name="submit-ProFlockUnLock" value="<?php esc_attr_e('Unlock htaccess File', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px" onclick="return confirm('<?php $text = __('Click OK to Unlock your Root htaccess file or click Cancel.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Note: The File Open and Write Test window will still display the last status of the file as Locked. To see the current status refresh your browser.', 'bulletproof-security'); echo $text; ?>')" />
+	<input type="submit" name="submit-ProFlockUnLock" value="<?php esc_attr_e('Unlock htaccess File', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Click OK to Unlock your Root htaccess file or click Cancel.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Note: The File Open and Write Test window will still display the last status of the file as Locked. To see the current status refresh your browser.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
 </div>
 
@@ -1229,7 +1229,7 @@ if ( isset( $_POST['submit-ProFlockUnLock'] ) && current_user_can('manage_option
     <?php settings_fields('bulletproof_security_options_autolock'); ?>
 	<?php $options = get_option('bulletproof_security_options_autolock'); ?>
 	<input type="hidden" name="bulletproof_security_options_autolock[bps_root_htaccess_autolock]" value="On" />
-	<input type="submit" name="submit-RootHtaccessAutoLock-On" value="<?php esc_attr_e('Turn On AutoLock', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px" onclick="return confirm('<?php $text = __('Turning AutoLock On will allow BPS Pro to automatically lock your Root .htaccess file. For some folks this causes a problem because their Web Hosts do not allow the Root .htaccess file to be locked. For most folks allowing BPS Pro to AutoLock the Root .htaccess file works fine.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Turn AutoLock On or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+	<input type="submit" name="submit-RootHtaccessAutoLock-On" value="<?php esc_attr_e('Turn On AutoLock', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Turning AutoLock On will allow BPS Pro to automatically lock your Root .htaccess file. For some folks this causes a problem because their Web Hosts do not allow the Root .htaccess file to be locked. For most folks allowing BPS Pro to AutoLock the Root .htaccess file works fine.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Turn AutoLock On or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 
 <?php if ( $options['bps_root_htaccess_autolock'] == '' || $options['bps_root_htaccess_autolock'] == 'On' ) { echo '<label class="autolock_status" style="font-weight:bold;">'.__('On', 'bulletproof-security').'</label>'; } ?>
 
@@ -1241,7 +1241,7 @@ if ( isset( $_POST['submit-ProFlockUnLock'] ) && current_user_can('manage_option
     <?php settings_fields('bulletproof_security_options_autolock'); ?>
 	<?php $options = get_option('bulletproof_security_options_autolock'); ?>
 	<input type="hidden" name="bulletproof_security_options_autolock[bps_root_htaccess_autolock]" value="Off" />
-	<input type="submit" name="submit-RootHtaccessAutoLock-Off" value="<?php esc_attr_e('Turn Off AutoLock', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px" onclick="return confirm('<?php $text = __('Turning AutoLock Off will prevent BPS Pro from automatically locking your Root .htaccess file. For some folks this is necessary because their Web Hosts do not allow the Root .htaccess file to be locked. For most folks allowing BPS Pro to AutoLock the Root .htaccess file works fine.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Turn AutoLock Off or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+	<input type="submit" name="submit-RootHtaccessAutoLock-Off" value="<?php esc_attr_e('Turn Off AutoLock', 'bulletproof-security'); ?>" class="button bps-button" style="width:138px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Turning AutoLock Off will prevent BPS Pro from automatically locking your Root .htaccess file. For some folks this is necessary because their Web Hosts do not allow the Root .htaccess file to be locked. For most folks allowing BPS Pro to AutoLock the Root .htaccess file works fine.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Turn AutoLock Off or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 
 <?php if ( $options['bps_root_htaccess_autolock'] == 'Off') { echo '<label class="autolock_status" style="font-weight:bold;">'.__('Off', 'bulletproof-security').'</label>'; } ?>
 
@@ -1716,7 +1716,7 @@ $text = '<h3><span class="blue-bold">'.__('The Complete Website Security Solutio
 <div id="milestone" style="margin-top:5px">6 Year Milestone: 8-1-2017 | First Public Release: 8-1-2011</div>
 <div class="pro-links">
 <?php 
-echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.3/13.3.1', 'https://www.ait-pro.com/aitpro-blog/5471/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-3/' ).'<br>';
+echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.3/13.3.1/13.3.2/13.3.3', 'https://www.ait-pro.com/aitpro-blog/5471/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-3/' ).'<br>';
 echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.2', 'https://www.ait-pro.com/aitpro-blog/5466/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-2/' ).'<br>';
 echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13/13.1', 'https://www.ait-pro.com/aitpro-blog/5457/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13/' ).'<br>';
 echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '12.9/12.9.1', 'https://www.ait-pro.com/aitpro-blog/5446/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-12-9/' ).'<br>';

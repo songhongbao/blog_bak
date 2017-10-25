@@ -257,7 +257,7 @@ function bpsPro_Pwizard_Autofix_plugin_skip_bypass_root() {
 	$woocommerce = 'woocommerce/woocommerce.php';
 	$woocommerce_active = in_array( $woocommerce, apply_filters('active_plugins', get_option('active_plugins')));
 	$pattern1 = '/RewriteCond\s%{REQUEST_URI}\s\^\.\*\/\(shop\|cart\|checkout\|wishlist\)\.\*\s\[NC\]/';	
-	$pattern2 = '/RewriteCond\s%{QUERY_STRING}\s\.\*\(order\|wc-ajax=get_refreshed_fragments\)\.\*\s\[NC\]/';
+	$pattern2 = '/RewriteCond\s%{QUERY_STRING}\s\.\*\(order\|wc-ajax=\)\.\*\s\[NC\]/';
 	$woocommerce_array1 = array();
 	$woocommerce_array2 = array();
 	$woocommerce_fix = '';
@@ -267,8 +267,8 @@ function bpsPro_Pwizard_Autofix_plugin_skip_bypass_root() {
 
 		if ( ! preg_match( $pattern1, $bps_customcode_two ) ) {
 
-			$woocommerce_array1[] = "# WooCommerce order & wc-ajax=get_refreshed_fragments Query String skip/bypass rule
-RewriteCond %{QUERY_STRING} .*(order|wc-ajax=get_refreshed_fragments).* [NC]
+			$woocommerce_array1[] = "# WooCommerce order & wc-ajax= Query String skip/bypass rule
+RewriteCond %{QUERY_STRING} .*(order|wc-ajax=).* [NC]
 RewriteRule . - [S=99]";
 		}	
 

@@ -1021,6 +1021,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 			}
 		}
 
+		// 2.5: Change default setting to Login Form CAPTCHA Off. Has New Feature Dismiss Notice.
 		// 2.4: pre-save JTC-Lite db options
 		$jtc_options = get_option('bulletproof_security_options_login_security_jtc');
 
@@ -1045,7 +1046,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		$jtc1 = ! $jtc_options['bps_tooltip_captcha_key'] ? 'jtc' : $jtc_options['bps_tooltip_captcha_key'];
 		$jtc2 = ! $jtc_options['bps_tooltip_captcha_hover_text'] ? 'Type/Enter:  jtc' : $jtc_options['bps_tooltip_captcha_hover_text'];
 		$jtc3 = ! $jtc_options['bps_tooltip_captcha_title'] ? 'Hover or click the text box below' : $jtc_options['bps_tooltip_captcha_title'];
-		$jtc4 = ! $jtc_options['bps_jtc_login_form'] ? '1' : $jtc_options['bps_jtc_login_form'];
+		$jtc4 = ! $jtc_options['bps_jtc_login_form'] ? '0' : $jtc_options['bps_jtc_login_form'];
 
 		$jtc_db_options = array(
 		'bps_tooltip_captcha_key' 			=> $jtc1, 

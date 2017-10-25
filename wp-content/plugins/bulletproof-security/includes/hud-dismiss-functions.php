@@ -25,6 +25,7 @@ function bps_HUD_WP_Dashboard() {
 		bpsPro_hud_speed_boost_cache_code();
 		bps_hud_check_autoupdate();
 		bpsPro_hud_mscan_notice();
+		bpsPro_hud_jtc_lite_notice();
 		//bps_hud_check_public_username();
 	}
 }
@@ -669,7 +670,7 @@ function bpsPro_hud_mscan_notice() {
 	
 		if ( ! get_user_meta($user_id, 'bps_ignore_mscan_notice') ) {
 				
-			$text = '<div style="background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:0px 5px;margin:0px 0px 35px 0px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="blue">'.__('MScan First Run Notice', 'bulletproof-security').'</font><br>'.__('Please take a few minutes to read the "Basic Info|Recommendations|Limitations|Restrictions" help section in the', 'bulletproof-security').' <a href="https://forum.ait-pro.com/forums/topic/mscan-malware-scanner-guide/" target="_blank" title="MScan Malware Scanner Guide">'.__('MScan Malware Scanner Guide', 'bulletproof-security').'</a> '.__('before running a scan.', 'bulletproof-security').'<br>'.__('It is highly recommended that you use the Scan Time Estimate Tool before running an actual scan. The Scan Time Estimate Tool calculates the total estimated time of a scan based on your MScan Option settings without actually running a scan. To Dismiss this Notice click the Dismiss Notice button below. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the Custom Code page.', 'bulletproof-security').'<br><div style="float:left;margin:3px 0px 3px 0px;padding:2px 6px 2px 6px;background-color:#e8e8e8;border:1px solid gray;"><a href="'.admin_url( 'admin.php?page=bulletproof-security%2Fadmin%2Fmscan%2Fmscan.php&bps_mscan_nag_ignore=0' ).''.'" style="text-decoration:none;font-weight:bold;">'.__('Dismiss Notice', 'bulletproof-security').'</a></div></div>';
+			$text = '<div style="background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:0px 5px;margin:0px 0px 35px 0px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="blue">'.__('MScan First Run Notice', 'bulletproof-security').'</font><br>'.__('Please take a few minutes to read the "Basic Info|Recommendations|Limitations|Restrictions" help section in the', 'bulletproof-security').' <a href="https://forum.ait-pro.com/forums/topic/mscan-malware-scanner-guide/" target="_blank" title="MScan Malware Scanner Guide">'.__('MScan Malware Scanner Guide', 'bulletproof-security').'</a> '.__('before running a scan.', 'bulletproof-security').'<br>'.__('It is highly recommended that you use the Scan Time Estimate Tool before running an actual scan. The Scan Time Estimate Tool calculates the total estimated time of a scan based on your MScan Option settings without actually running a scan. To Dismiss this Notice click the Dismiss Notice button below. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the BPS Custom Code page.', 'bulletproof-security').'<br><div style="float:left;margin:3px 0px 3px 0px;padding:2px 6px 2px 6px;background-color:#e8e8e8;border:1px solid gray;"><a href="'.admin_url( 'admin.php?page=bulletproof-security%2Fadmin%2Fmscan%2Fmscan.php&bps_mscan_nag_ignore=0' ).''.'" style="text-decoration:none;font-weight:bold;">'.__('Dismiss Notice', 'bulletproof-security').'</a></div></div>';
 			echo $text;
 		}
 	}
@@ -683,6 +684,43 @@ $user_id = $current_user->ID;
         
 	if ( isset($_GET['bps_mscan_nag_ignore']) && '0' == $_GET['bps_mscan_nag_ignore'] ) {
 		add_user_meta($user_id, 'bps_ignore_mscan_notice', 'true', true);
+	}
+}
+
+// Heads Up Display w/ Dismiss - JTC-Lite New Feature Dismiss Notice
+function bpsPro_hud_jtc_lite_notice() {
+
+	$jtc_options = get_option('bulletproof_security_options_login_security_jtc');
+
+	if ( $jtc_options['bps_jtc_login_form']	== '0' ) {
+		
+		global $current_user;
+		$user_id = $current_user->ID;
+	
+		if ( ! get_user_meta($user_id, 'bps_ignore_jtc_lite_notice') ) {
+				
+			if ( esc_html($_SERVER['QUERY_STRING']) == '' && basename(esc_html($_SERVER['REQUEST_URI'])) != 'wp-admin' ) {
+				$bps_base = basename(esc_html($_SERVER['REQUEST_URI'])) . '?';
+			} elseif ( esc_html($_SERVER['QUERY_STRING']) == '' && basename(esc_html($_SERVER['REQUEST_URI'])) == 'wp-admin' ) {
+				$bps_base = basename( str_replace( 'wp-admin', 'index.php?', esc_html($_SERVER['REQUEST_URI'])));
+			} else {
+				$bps_base = str_replace( admin_url(), '', esc_html($_SERVER['REQUEST_URI']) ) . '&';
+			}
+
+			$text = '<div style="background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:0px 5px;margin:0px 0px 35px 0px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="blue">'.__('BPS New Feature Notice: JTC-Lite', 'bulletproof-security').'</font><br>'.__('JTC-Lite protects the WordPress Login page Form against automated SpamBot and HackerBot Brute Force Login attacks', 'bulletproof-security').'<br>'.__('and also prevents User Accounts from being locked repeatedly by Brute Force Login Bot attacks on your Login page Form.', 'bulletproof-security').'<br>'.__('To enable/turn On JTC-Lite, click this ', 'bulletproof-security').'<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/login/login.php#bps-tabs-2' ).'">'.esc_attr__('JTC-Lite link', 'bulletproof-security').'</a>'.__('. Click/check the Login Form Checkbox and click the Save Options button.', 'bulletproof-security').'<br>'.__('To Dismiss this Notice click the Dismiss Notice button below. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the BPS Custom Code page.', 'bulletproof-security').'<br><div style="float:left;margin:3px 0px 3px 0px;padding:2px 6px 2px 6px;background-color:#e8e8e8;border:1px solid gray;"><a href="'.$bps_base.'bpsPro_jtc_lite_nag_ignore=0'.'" style="text-decoration:none;font-weight:600;">'.__('Dismiss Notice', 'bulletproof-security').'</a></div></div>';
+			echo $text;
+		}
+	}
+}
+
+add_action('admin_init', 'bpsPro_jtc_lite_nag_ignore');
+
+function bpsPro_jtc_lite_nag_ignore() {
+global $current_user;
+$user_id = $current_user->ID;
+        
+	if ( isset($_GET['bpsPro_jtc_lite_nag_ignore']) && '0' == $_GET['bpsPro_jtc_lite_nag_ignore'] ) {
+		add_user_meta($user_id, 'bps_ignore_jtc_lite_notice', 'true', true);
 	}
 }
 

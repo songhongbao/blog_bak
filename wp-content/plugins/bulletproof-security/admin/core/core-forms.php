@@ -646,6 +646,14 @@ if ( isset( $_POST['bpsResetDismissSubmit'] ) && current_user_can('manage_option
 		echo $text;
 	}
 
+	if ( ! delete_user_meta($user_id, 'bps_ignore_jtc_lite_notice') ) {
+		$text = __('The JTC-Lite New Feature Notice is NOT set. Nothing to reset.', 'bulletproof-security').'<br>';
+		echo $text;
+	} else {
+		$text = '<span style="color:#008000;">'.__('Success! The JTC-Lite New Feature Notice is reset.', 'bulletproof-security').'</span><br>';
+		echo $text;
+	}
+
 	echo '<div class="bps-message-button" style="width:90px;margin-bottom:9px;"><a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/core/core.php#bps-tabs-7' ).'">'.__('Refresh Status', 'bulletproof-security').'</a></div>';
 	echo '</p></div>';
 	}

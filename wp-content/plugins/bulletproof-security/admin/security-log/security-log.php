@@ -462,7 +462,7 @@ $search = '';
     <strong><label for="UA-ignore"><?php _e('Add User Agents|Bots to Ignore|Not Log', 'bulletproof-security'); ?></label></strong><br />
     <strong><label for="UA-ignore"><?php _e('Click the Read Me Help button for examples', 'bulletproof-security'); ?></label></strong><br />    
     <input type="text" name="user-agent-ignore" class="regular-text-320" value="" />
-    <input type="submit" name="Submit-UserAgent-Ignore" value="<?php esc_attr_e('Add|Ignore', 'bulletproof-security') ?>" class="button bps-button" style="width:104px" onclick="return confirm('<?php $text = __('Clicking OK will Add the User Agent|Bot name you have entered to your DB and the 403.php Security Logging template.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Security logging checks are done by the 403.php Security Logging file and not by DB Queries.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('To remove User Agents|Bots from being ignored/not logged use the Remove|Allow tool.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to proceed or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+    <input type="submit" name="Submit-UserAgent-Ignore" value="<?php esc_attr_e('Add|Ignore', 'bulletproof-security') ?>" class="button bps-button" style="width:104px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Clicking OK will Add the User Agent|Bot name you have entered to your DB and the 403.php Security Logging template.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Security logging checks are done by the 403.php Security Logging file and not by DB Queries.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('To remove User Agents|Bots from being ignored/not logged use the Remove|Allow tool.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to proceed or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
 </div>
 
@@ -477,7 +477,7 @@ $search = '';
 	wp_nonce_field('bulletproof_security_seclog_db_search');
 	echo '<span style="font-size:13px;"><strong>'.__('Remove User Agents|Bots to Allow|Log', 'bulletproof-security').'</strong></span><br>';
 	echo '<input type="text" name="userAgentSearchRemove" class="regular-text-320" value="" />';
-	echo '<input type="submit" name="Submit-SecLog-Search" value="'.esc_attr__('Remove|Allow', 'bulletproof-security').'" class="button bps-button" style="margin-left:3px;width:104px" onclick="return confirm('."'".__('Clicking OK will search your database and display User Agent|Bot DB search results in a Dynamic Radio button Form.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('To search for ALL User Agents|Bots to remove/delete from your database leave the text box blank and click the Remove|Allow button.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to proceed or click Cancel.', 'bulletproof-security')."'".')" />';
+	echo '<input type="submit" name="Submit-SecLog-Search" value="'.esc_attr__('Remove|Allow', 'bulletproof-security').'" class="button bps-button" style="margin-left:3px;width:104px;height:auto;white-space:normal" onclick="return confirm('."'".__('Clicking OK will search your database and display User Agent|Bot DB search results in a Dynamic Radio button Form.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('To search for ALL User Agents|Bots to remove/delete from your database leave the text box blank and click the Remove|Allow button.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to proceed or click Cancel.', 'bulletproof-security')."'".')" />';
 	echo '</form><br>';
 
 ?>
@@ -490,7 +490,7 @@ $search = '';
 <div id="SecurityLogTurnOffButton">
 <form name="BPSErrorLogOff" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/security-log/security-log.php' ); ?>" method="post">
 <?php wp_nonce_field('bps-error-log-off'); ?>
-<input type="submit" name="Submit-Error-Log-Off" value="<?php esc_attr_e('Turn Off Logging', 'bulletproof-security') ?>" class="button bps-button" style="width:120px;margin-right:15px" onclick="return confirm('<?php $text = __('Click OK to Turn Off Error Logging or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+<input type="submit" name="Submit-Error-Log-Off" value="<?php esc_attr_e('Turn Off Logging', 'bulletproof-security') ?>" class="button bps-button" style="width:120px;margin-right:15px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Click OK to Turn Off Error Logging or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
 </div>
 </td>
@@ -498,7 +498,7 @@ $search = '';
 <div id="SecurityLogTurnOnButton">
 <form name="BPSErrorLogOn" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/security-log/security-log.php' ); ?>" method="post">
 <?php wp_nonce_field('bps-error-log-on'); ?>
-<input type="submit" name="Submit-Error-Log-On" value="<?php esc_attr_e('Turn On Logging', 'bulletproof-security') ?>" class="button bps-button" style="width:120px;margin-right:15px" onclick="return confirm('<?php $text = __('Click OK to Turn On Logging or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+<input type="submit" name="Submit-Error-Log-On" value="<?php esc_attr_e('Turn On Logging', 'bulletproof-security') ?>" class="button bps-button" style="width:120px;margin-right:15px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Click OK to Turn On Logging or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
 </div>
 </td>
@@ -506,7 +506,7 @@ $search = '';
 <div id="SecurityLogDeleteLogButton">
 <form name="DeleteLogForm" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/security-log/security-log.php' ); ?>" method="post">
 <?php wp_nonce_field('bps-delete-security-log'); ?>
-<input type="submit" name="Submit-Delete-Log" value="<?php esc_attr_e('Delete Log', 'bulletproof-security') ?>" class="button bps-button" style="width:120px" onclick="return confirm('<?php $text = __('Clicking OK will delete the contents of your Security Log file.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Delete the Log file contents or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
+<input type="submit" name="Submit-Delete-Log" value="<?php esc_attr_e('Delete Log', 'bulletproof-security') ?>" class="button bps-button" style="width:120px;height:auto;white-space:normal" onclick="return confirm('<?php $text = __('Clicking OK will delete the contents of your Security Log file.', 'bulletproof-security').'\n\n'.$bpsSpacePop.'\n\n'.__('Click OK to Delete the Log file contents or click Cancel.', 'bulletproof-security'); echo $text; ?>')" />
 </form>
 </div>
 </td>

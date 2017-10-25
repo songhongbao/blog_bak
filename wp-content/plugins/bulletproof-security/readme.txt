@@ -4,7 +4,7 @@ Donate link: https://wordpress.org/support/view/plugin-reviews/bulletproof-secur
 Tags: security, secure, scanner, login security, firewall, security plugin, wordpress security, login, malware, malware scanner, bruteforce, backup, exploit, infection, protection, virus, anti-virus, logout, spam, anti-spam
 Requires at least: 3.8 
 Tested up to: 4.8
-Stable tag: 2.7
+Stable tag: 2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

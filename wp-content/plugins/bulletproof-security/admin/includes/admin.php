@@ -204,6 +204,7 @@ register_setting('bulletproof_security_options_GDMW', 'bulletproof_security_opti
 	}
 
 	// Copy and rename the blank.txt file to /master-backups - used for MScan Stop Scan
+	$BPSblank = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/blank.txt';
 	$MScanStop = WP_CONTENT_DIR . '/bps-backup/master-backups/mscan-stop.txt';
 	
 	if ( ! file_exists($MScanStop) ) {
@@ -829,7 +830,8 @@ require_once( ABSPATH . 'wp-admin/includes/plugin.php');
 		delete_user_meta($user_id, 'bps_ignore_autoupdate_notice');
 		delete_user_meta($user_id, 'bpsPro_ignore_EPC_plugin_notice');
 		delete_user_meta($user_id, 'bps_ignore_mscan_notice');
-
+		delete_user_meta($user_id, 'bps_ignore_jtc_lite_notice');
+		
 		@unlink($wpadminHtaccess);	
 	
 		if ( @unlink($RootHtaccess) || ! file_exists($RootHtaccess) ) {

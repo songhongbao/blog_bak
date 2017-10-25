@@ -882,6 +882,28 @@ function bpsPro_count_network_activated_plugins($count) {
 		echo $text.'<br>';
 	}
 	
+	$disable_functions = ini_get('disable_functions');
+	$suhosin_functions = ini_get('suhosin.executor.func.blacklist');	
+	
+	if ( ! extension_loaded( 'suhosin' ) ) {
+		echo '<strong><span class="sysinfo-label-text">'.__('PHP Disable Functions', 'bulletproof-security').':</span></strong> ';
+		if ( ini_get('disable_functions') != '' && ini_get('disable_functions') != false ) {
+			echo $disable_functions.'<br>';
+		} else {
+			$text = __('No PHP functions are disabled.', 'bulletproof-security');
+			echo $text.'<br>';
+		}
+	
+	} elseif ( extension_loaded( 'suhosin' ) ) {
+		echo '<strong><span class="sysinfo-label-text">'.__('PHP Suhosin Function Blacklist', 'bulletproof-security').':</span></strong> ';
+		if ( ini_get('suhosin.executor.func.blacklist') != '' && ini_get('suhosin.executor.func.blacklist') != false ) {
+			echo $suhosin_functions.'<br>';
+		} else {
+			$text = __('No PHP functions are blacklisted.', 'bulletproof-security');
+			echo $text.'<br>';
+		}
+	}
+
 	echo '</span>';
 	?>
 	

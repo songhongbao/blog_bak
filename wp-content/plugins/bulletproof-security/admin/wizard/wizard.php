@@ -1106,7 +1106,7 @@ bpsSetupWizardPrechecks();
 <option value="On" <?php selected('On', $AutoFix_Options['bps_wizard_autofix']); ?>><?php _e('AutoFix On', 'bulletproof-security'); ?></option>
 <option value="Off" <?php selected('Off', $AutoFix_Options['bps_wizard_autofix']); ?>><?php _e('AutoFix Off', 'bulletproof-security'); ?></option>
 </select><br />
-<input type="submit" name="Submit-AutoFix" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px" value="<?php esc_attr_e('Save AutoFix Option', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-AutoFix" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px;height:auto;white-space:normal" value="<?php esc_attr_e('Save AutoFix Option', 'bulletproof-security') ?>" />
 </form>
 
 <form name="SetupWizardGDMW" action="options.php#bps-tabs-2" method="post">
@@ -1118,7 +1118,7 @@ bpsSetupWizardPrechecks();
 <option value="no" <?php selected('no', $GDMWoptions['bps_gdmw_hosting']); ?>><?php _e('No (default setting)', 'bulletproof-security'); ?></option>
 <option value="yes" <?php selected('yes', $GDMWoptions['bps_gdmw_hosting']); ?>><?php _e('Yes (ONLY if you have Managed WordPress Hosting)', 'bulletproof-security'); ?></option>
 </select><br />
-<input type="submit" name="Submit-Wizard-GDMW" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px" value="<?php esc_attr_e('Save GDMW Option', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-Wizard-GDMW" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px;height:auto;white-space:normal" value="<?php esc_attr_e('Save GDMW Option', 'bulletproof-security') ?>" />
 </form>    
 
  <form name="SetupWizardHFiles" action="options.php#bps-tabs-2" method="post">
@@ -1131,7 +1131,7 @@ bpsSetupWizardPrechecks();
 <option value="enabled" <?php selected('enabled', $HFiles_options['bps_htaccess_files']); ?>><?php _e('htaccess Files Enabled', 'bulletproof-security'); ?></option>
 <option value="disabled" <?php selected('disabled', $HFiles_options['bps_htaccess_files']); ?>><?php _e('htaccess Files Disabled', 'bulletproof-security'); ?></option>
 </select><br />
-<input type="submit" name="Submit-Wizard-HFiles" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px" value="<?php esc_attr_e('Enable|Disable', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-Wizard-HFiles" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px;height:auto;white-space:normal" value="<?php esc_attr_e('Enable|Disable', 'bulletproof-security') ?>" />
 </form>  
 
 <form name="wpadminEnableDisable" action="options.php#bps-tabs-2" method="post">
@@ -1142,7 +1142,7 @@ bpsSetupWizardPrechecks();
 <option value="enabled" <?php selected('enabled', $BPS_wpadmin_Options['bps_wpadmin_restriction']); ?>><?php _e('wp-admin BulletProof Mode Enabled', 'bulletproof-security'); ?></option>
 <option value="disabled" <?php selected('disabled', $BPS_wpadmin_Options['bps_wpadmin_restriction']); ?>><?php _e('wp-admin BulletProof Mode Disabled', 'bulletproof-security'); ?></option>
 </select><br />
-<input type="submit" name="Submit-Enable-Disable-wpadmin" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px" value="<?php esc_attr_e('Enable|Disable', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-Enable-Disable-wpadmin" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px;height:auto;white-space:normal" value="<?php esc_attr_e('Enable|Disable', 'bulletproof-security') ?>" />
 </form>
 
 <form name="ZipDownloadFix" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/wizard/wizard.php#bps-tabs-2' ); ?>" method="post">
@@ -1154,14 +1154,14 @@ bpsSetupWizardPrechecks();
 <option value="Off" <?php selected('Off', $Zip_download_Options['bps_zip_download_fix']); ?>><?php _e('Zip File Download Fix Off', 'bulletproof-security'); ?></option>
 <option value="On" <?php selected('On', $Zip_download_Options['bps_zip_download_fix']); ?>><?php _e('Zip File Download Fix On', 'bulletproof-security'); ?></option>
 </select><br />
-<input type="submit" name="Submit-Zip-Download-Fix" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px" value="<?php esc_attr_e('Save Zip File Download Fix Option', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-Zip-Download-Fix" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px;height:auto;white-space:normal" value="<?php esc_attr_e('Save Zip File Download Fix Option', 'bulletproof-security') ?>" />
 </form>
 
 <form name="bpsNetLSM" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/wizard/wizard.php#bps-tabs-2' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_net_lsm'); ?>
 <div>
 <strong><label for="NetLSM"><?php _e('Network|Multisite Sitewide Login Security Settings', 'bulletproof-security'); ?></label></strong><br />  
-<input type="submit" name="Submit-Net-LSM" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px" value="<?php esc_attr_e('Save Network LSM Options Sitewide', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-Net-LSM" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px;height:auto;white-space:normal" value="<?php esc_attr_e('Save Network LSM Options Sitewide', 'bulletproof-security') ?>" />
 </div>
 </form>
 
@@ -1169,7 +1169,7 @@ bpsSetupWizardPrechecks();
 <?php wp_nonce_field('bulletproof_security_net_jtc'); ?>
 <div>
 <strong><label for="NetLSM"><?php _e('Network|Multisite Sitewide JTC-Lite Settings', 'bulletproof-security'); ?></label></strong><br />  
-<input type="submit" name="Submit-Net-JTC" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px" value="<?php esc_attr_e('Save Network JTC Options Sitewide', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-Net-JTC" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px;height:auto;white-space:normal" value="<?php esc_attr_e('Save Network JTC Options Sitewide', 'bulletproof-security') ?>" />
 </div>
 </form>
 

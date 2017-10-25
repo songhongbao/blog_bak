@@ -693,7 +693,7 @@ if ( isset( $_POST['maintenance-mode-preview-submit'] ) && current_user_can('man
 <form name="MaintenanceModePreview" method="post" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" target="" onSubmit="window.open('<?php echo plugins_url('/bulletproof-security/admin/htaccess/bps-maintenance-'.$subsite_remove_slashes.'.php'); ?>','','scrollbars=yes,menubar=yes,width=800,height=600,resizable=yes,status=yes,toolbar=yes')">
 <?php wp_nonce_field('bulletproof_security_maintenance_preview'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
+<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" style="width:72px;height:auto;white-space:normal" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
 </p>
 </form>
 
@@ -702,7 +702,7 @@ if ( isset( $_POST['maintenance-mode-preview-submit'] ) && current_user_can('man
 <form name="MaintenanceModePreview" method="post" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" target="" onSubmit="window.open('<?php echo plugins_url('/bulletproof-security/admin/htaccess/bps-maintenance.php'); ?>','','scrollbars=yes,menubar=yes,width=800,height=600,resizable=yes,status=yes,toolbar=yes')">
 <?php wp_nonce_field('bulletproof_security_maintenance_preview'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
+<input type="submit" name="maintenance-mode-preview-submit" class="button bps-button" style="width:72px;height:auto;white-space:normal" value="<?php esc_attr_e('Preview', 'bulletproof-security') ?>" />
 </p>
 </form>
 
@@ -711,14 +711,14 @@ if ( isset( $_POST['maintenance-mode-preview-submit'] ) && current_user_can('man
 <form name="bpsMaintenanceModeOn" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_mmode_on'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="Submit-maintenance-mode-on" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Turn On', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-maintenance-mode-on" class="button bps-button" style="width:72px;height:auto;white-space:normal" value="<?php esc_attr_e('Turn On', 'bulletproof-security') ?>" />
 </p>
 </form>
 
 <form name="bpsMaintenanceModeOff" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/maintenance/maintenance.php' ); ?>" method="post">
 <?php wp_nonce_field('bulletproof_security_mmode_off'); ?>
 <p class="submit" style="float:left;margin:15px 10px 0px 0px;">
-<input type="submit" name="Submit-maintenance-mode-off" class="button bps-button" style="width:72px" value="<?php esc_attr_e('Turn Off', 'bulletproof-security') ?>" />
+<input type="submit" name="Submit-maintenance-mode-off" class="button bps-button" style="width:72px;height:auto;white-space:normal" value="<?php esc_attr_e('Turn Off', 'bulletproof-security') ?>" />
 </p>
 </form>
 

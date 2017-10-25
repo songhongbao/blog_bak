@@ -1029,17 +1029,17 @@ bpsPro_save_mscan_options();
 
 	echo '<form name="MScanTimeEstimate" action="'.admin_url( 'admin.php?page=bulletproof-security/admin/mscan/mscan.php' ).'" method="post">';
 	wp_nonce_field('bulletproof_security_mscan_time_estimate');
-	echo "<input type=\"submit\" id=\"bps-mscan-time-estimate-button\" name=\"Submit-MScan-Time-Estimate\" value=\"".esc_attr__('Scan Time Estimate Tool', 'bulletproof-security')."\" class=\"button bps-button\" style=\"width:175px\" onclick=\"return confirm('".__('IMPORTANT: You can stop the scan time estimate if it hangs or is taking too long by clicking the Stop Scan button.\n\n-------------------------------------------------------------\n\nThis tool allows you to check the estimated total scan time of a scan based on your MScan option settings without actually performing/running a scan. Note: This tool does not affect or change any previous scan results except for the Total Scan Time, which will be changed to the estimated scan time.\n\n-------------------------------------------------------------\n\nExample Usage: You can check or uncheck Hosting Account Root Folders checkboxes and change any other MScan option settings, save your MScan option settings and then run the Scan Time Estimate Tool to get the total estimated time that the actual scan will take. For additional help information click the MScan Read Me help button.\n\n-------------------------------------------------------------\n\nClick OK to get a scan time estimate or click Cancel', 'bulletproof-security')."')\" />";	
+	echo "<input type=\"submit\" id=\"bps-mscan-time-estimate-button\" name=\"Submit-MScan-Time-Estimate\" value=\"".esc_attr__('Scan Time Estimate Tool', 'bulletproof-security')."\" class=\"button bps-button\" style=\"width:175px;height:auto;white-space:normal\" onclick=\"return confirm('".__('IMPORTANT: You can stop the scan time estimate if it hangs or is taking too long by clicking the Stop Scan button.\n\n-------------------------------------------------------------\n\nThis tool allows you to check the estimated total scan time of a scan based on your MScan option settings without actually performing/running a scan. Note: This tool does not affect or change any previous scan results except for the Total Scan Time, which will be changed to the estimated scan time.\n\n-------------------------------------------------------------\n\nExample Usage: You can check or uncheck Hosting Account Root Folders checkboxes and change any other MScan option settings, save your MScan option settings and then run the Scan Time Estimate Tool to get the total estimated time that the actual scan will take. For additional help information click the MScan Read Me help button.\n\n-------------------------------------------------------------\n\nClick OK to get a scan time estimate or click Cancel', 'bulletproof-security')."')\" />";	
 	echo '</form><br>';	
 
 	echo '<form name="MScanDeleteStatus" action="'.admin_url( 'admin.php?page=bulletproof-security/admin/mscan/mscan.php' ).'" method="post">';
 	wp_nonce_field('bulletproof_security_mscan_delete_status');
-	echo "<input type=\"submit\" name=\"Submit-MScan-Delete-Status\" value=\"".esc_attr__('Delete Scan Status Tool', 'bulletproof-security')."\" class=\"button bps-button\" style=\"width:175px\" onclick=\"return confirm('".__('This tool allows you to delete all of the MScan Status option values.\n\n-------------------------------------------------------------\n\nThe Scan Completed timestamp, Total Scan Time, Total Files Scanned, Skipped Files, Suspicious Files and Suspicious DB Entries status values will be deleted and will either display blank or 0. For additional help information click the MScan Read Me help button.\n\n-------------------------------------------------------------\n\nClick OK to delete scan status option values or click Cancel', 'bulletproof-security')."')\" />";	
+	echo "<input type=\"submit\" name=\"Submit-MScan-Delete-Status\" value=\"".esc_attr__('Delete Scan Status Tool', 'bulletproof-security')."\" class=\"button bps-button\" style=\"width:175px;height:auto;white-space:normal\" onclick=\"return confirm('".__('This tool allows you to delete all of the MScan Status option values.\n\n-------------------------------------------------------------\n\nThe Scan Completed timestamp, Total Scan Time, Total Files Scanned, Skipped Files, Suspicious Files and Suspicious DB Entries status values will be deleted and will either display blank or 0. For additional help information click the MScan Read Me help button.\n\n-------------------------------------------------------------\n\nClick OK to delete scan status option values or click Cancel', 'bulletproof-security')."')\" />";	
 	echo '</form><br>';	
 
 	echo '<form name="MScanDeleteAllScanData" action="'.admin_url( 'admin.php?page=bulletproof-security/admin/mscan/mscan.php' ).'" method="post">';
 	wp_nonce_field('bulletproof_security_mscan_delete_all_scan_data');
-	echo "<input type=\"submit\" name=\"Submit-MScan-Delete-All-Scan-Data\" value=\"".esc_attr__('Delete DB Scan Data Tool', 'bulletproof-security')."\" class=\"button bps-button\" style=\"width:175px\" onclick=\"return confirm('".__('Deleting all database scan data is a reset that deletes any/all changes you have made and saved using the View|Ignore|Delete Suspicious Files and View|Ignore Suspicious DB Entries Forms.\n\n-------------------------------------------------------------\n\nClick OK to delete all database Scan Data or click Cancel', 'bulletproof-security')."')\" />";	
+	echo "<input type=\"submit\" name=\"Submit-MScan-Delete-All-Scan-Data\" value=\"".esc_attr__('Delete DB Scan Data Tool', 'bulletproof-security')."\" class=\"button bps-button\" style=\"width:175px;height:auto;white-space:normal\" onclick=\"return confirm('".__('Deleting all database scan data is a reset that deletes any/all changes you have made and saved using the View|Ignore|Delete Suspicious Files and View|Ignore Suspicious DB Entries Forms.\n\n-------------------------------------------------------------\n\nClick OK to delete all database Scan Data or click Cancel', 'bulletproof-security')."')\" />";	
 	echo '</form>';
 
 	echo '</div>';
@@ -1775,10 +1775,10 @@ $DBBLogMaster = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/db_backup_
 	if ( copy($DBBLogMaster, $DBBLog) ) {
 		touch($DBBLog, $time);	
 	
-			echo $bps_topDiv;
-			$text = '<font color="green"><strong>'.__('Success! Your DB Backup Log has been deleted and replaced with a new blank DB Backup Log file.', 'bulletproof-security').'</strong></font>';
-			echo $text;	
-			echo $bps_bottomDiv;	
+		echo $bps_topDiv;
+		$text = '<font color="green"><strong>'.__('Success! Your MScan Log has been deleted and replaced with a new blank MScan Log file.', 'bulletproof-security').'</strong></font>';
+		echo $text;	
+		echo $bps_bottomDiv;	
 	}
 }
 ?>

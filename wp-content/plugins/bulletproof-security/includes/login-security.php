@@ -136,7 +136,7 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 		if ( $user && $wpdb->num_rows == 0 && $user->ID != 0 && wp_check_password($password, $user->user_pass, $user->ID) ) {
 			$status = 'Not Locked';
 			$lockout_time = '0';		
-			$failed_logins ='0';
+			$failed_logins = '0';
 		
 			if ( $insert_rows = $wpdb->insert( $bpspro_login_table, array( 'status' => $status, 'user_id' => $user->ID, 'username' => $user->user_login, 'public_name' => $user->display_name, 'email' => $user->user_email, 'role' => $user->roles[0], 'human_time' => current_time('mysql'), 'login_time' => $login_time, 'lockout_time' => $lockout_time, 'failed_logins' => $failed_logins, 'ip_address' => $ip_address, 'hostname' => $hostname, 'request_uri' => $request_uri ) ) ) {
 			
@@ -183,7 +183,7 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && $BPSoptions['bps_login_s
 		if ( $wpdb->num_rows != 0 && $user->ID != 0 && wp_check_password($password, $user->user_pass, $user->ID) && $row->status != 'Locked') {
 			$status = 'Not Locked';
 			$lockout_time = '0';		
-			$failed_logins ='0';		
+			$failed_logins = '0';		
 			
 			if ( $insert_rows = $wpdb->insert( $bpspro_login_table, array( 'status' => $status, 'user_id' => $user->ID, 'username' => $user->user_login, 'public_name' => $user->display_name, 'email' => $user->user_email, 'role' => $user->roles[0], 'human_time' => current_time('mysql'), 'login_time' => $login_time, 'lockout_time' => $lockout_time, 'failed_logins' => $failed_logins, 'ip_address' => $ip_address, 'hostname' => $hostname, 'request_uri' => $request_uri ) ) ) {
 			
@@ -741,13 +741,19 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && isset( $_POST['wp-submit
 	if ( ! wp_check_password($password, $user->user_pass, $user->ID) && $BPSoptions['bps_login_security_errors'] == 'wpErrors' ) {
 		
 		if ( $BPSoptions['bps_login_security_remaining'] == 'On' ) {
-		
+			
+			if ( $failed_logins == 1 ) {
+				$attempts_remaining = $BPSoptions['bps_max_logins'] - 1;
+			} else {
+				$attempts_remaining = $remaining;
+			}
+			
 			if ( strpos( $username, '@' ) ) {
-				return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' The password you entered for the email address ', 'bulletproof-security').'<strong>%1$s</strong>'.__(' is incorrect. ', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $remaining ) );
+				return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' The password you entered for the email address ', 'bulletproof-security').'<strong>%1$s</strong>'.__(' is incorrect. ', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $attempts_remaining ) );
 
 			} else {
 			
-				return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' The password you entered for the username ', 'bulletproof-security').'<strong>%1$s</strong>'.__(' is incorrect. ', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $remaining ) );
+				return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' The password you entered for the username ', 'bulletproof-security').'<strong>%1$s</strong>'.__(' is incorrect. ', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $attempts_remaining ) );
 			}
 		
 		} else {
@@ -768,7 +774,13 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && isset( $_POST['wp-submit
 
 		if ( $BPSoptions['bps_login_security_remaining'] == 'On' ) {
 
-			return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' Invalid Entry.', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $remaining ) );
+			if ( $failed_logins == 1 ) {
+				$attempts_remaining = $BPSoptions['bps_max_logins'] - 1;
+			} else {
+				$attempts_remaining = $remaining;
+			}			
+			
+			return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' Invalid Entry.', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $attempts_remaining ) );
 
 		} else {	
 		
@@ -781,7 +793,13 @@ if ( $BPSoptions['bps_login_security_OnOff'] == 'On' && isset( $_POST['wp-submit
 
 		if ( $BPSoptions['bps_login_security_remaining'] == 'On' ) {
 
-			return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' Invalid Entry.', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $remaining ) );
+			if ( $failed_logins == 1 ) {
+				$attempts_remaining = $BPSoptions['bps_max_logins'] - 1;
+			} else {
+				$attempts_remaining = $remaining;
+			}
+
+			return new WP_Error('incorrect_password', sprintf('<strong>'.__('ERROR:', 'bulletproof-security').'</strong>'.__(' Invalid Entry.', 'bulletproof-security').' <a href="%2$s">'.__('Lost your password?', 'bulletproof-security').'</a>'.__(' Login Attempts Remaining ', 'bulletproof-security').'<strong>%3$d</strong>', $username, wp_lostpassword_url(), $attempts_remaining ) );
 
 		} else {
 
