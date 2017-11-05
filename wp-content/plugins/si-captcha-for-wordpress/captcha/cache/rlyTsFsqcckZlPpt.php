@@ -1,1 +1,0 @@
-<?php $captcha_word = 'ns4d'; ?>
