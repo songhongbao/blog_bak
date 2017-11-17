@@ -59,9 +59,13 @@ function wch_stripslashes($code){
 }
 function wp_code_highlight_filter($content) {
         #shy add
-	$content = str_replace('love.ranshy.com/wp-content/uploads', '7xi8tc.com1.z0.glb.clouddn.com', $content);
-	if($_SERVER['HTTPS']){
-		$content = str_replace('static.ranshy.com', 'static-ranshy-com.alikunlun.com', $content);
+	if($_SERVER['HTTPS'] == 'on')
+	{
+		$content = str_replace('http://love.ranshy.com/wp-content/uploads', 'https://static.ranshy.com', $content);
+	}
+	else
+	{
+		$content = str_replace('love.ranshy.com/wp-content/uploads', '7xi8tc.com1.z0.glb.clouddn.com', $content);
 	}
 
 	preg_match_all('/(?<!a)[^<]+<img[^>]+src=[\'"]([^\'"]+)[\'"][^>]+>/', $content, $matches);
