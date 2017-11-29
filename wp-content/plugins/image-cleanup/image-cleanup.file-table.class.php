@@ -120,6 +120,7 @@ class Image_Cleanup_File_Table extends WP_List_Table
 	{
 		if ( $this->slug != "nonref-script-images" && $this->slug != "attachment-images")
 		{	
+                    $disabled = '';
 			//avoid delete full meta on other than invalid meta			
 			//if ($item['ms']=='full')
 			//	if ($this->slug != 'invalid-meta')
@@ -128,7 +129,7 @@ class Image_Cleanup_File_Table extends WP_List_Table
 			//	$disabled = "";
 
 			// to disable deletion of full size images
-			if ($item['ms']!='full' || $this->slug != 'attachment-images')
+			if (@$item['ms'] != 'full' || $this->slug != 'attachment-images')
 			return sprintf(
         		'<input type="checkbox" '.$disabled.' name="att[]" value="%s" />', $item['ID']
         	);  
@@ -138,15 +139,18 @@ class Image_Cleanup_File_Table extends WP_List_Table
     /*
     End bulk
      */
-
-	function prepare_items(&$file_array, $file = null) {
+	function prepare_items() {
 		add_thickbox();
 
 		$columns = $this->get_columns();
 		$hidden = array();
 		$sortable = $this->get_sortable_columns();
 		$this->_column_headers = array($columns, $hidden, $sortable);
-		$this->pathinfo = wp_upload_dir();
+		$this->pathinfo = wp_upload_dir();            
+        }
+
+	function prepare_items_ex($file = null) {
+                $this->prepare_items();
 
 		$per_page = 100;
 	  	$current_page = $this->get_pagenum();
@@ -194,7 +198,7 @@ class Image_Cleanup_File_Table extends WP_List_Table
 	    	return $item[$column_name];  	
 	    	break;
 		case 'fn':
-			if ($item['file_moved']!=true && $item['file_deleted']!=true && $item['xist']==true) 
+			if (@$item['file_moved']!=true && @$item['file_deleted']!=true && $item['xist']==true) 
 				return "<a class='thickbox' title='' href='".$this->concat_overlap($this->pathinfo['baseurl'],$item['bd'].'/'.$item['fn'])."'>".$item['fn']."</a>";
 			else
 				return $item['fn'];
@@ -230,9 +234,9 @@ class Image_Cleanup_File_Table extends WP_List_Table
 					$dimensions = '<small>corrupt!</small>';	
 
 			// show action instead of dimenion
-			if ($item['meta_deleted'] == true)
+			if (@$item['meta_deleted'] == true)
 				$dimensions .= ' [<span style="color:red">Deleted</span>]';				
-			elseif ($item['meta_updated'] == true)
+			elseif (@$item['meta_updated'] == true)
 				$dimensions .= ' [<span style="color:green">Fixed</span>]';				
 			// or show the dimension			
 			else
@@ -248,7 +252,7 @@ class Image_Cleanup_File_Table extends WP_List_Table
 
 	function column_att_id($item)
 	{
-		if ($item['meta_deleted'] != true)
+		if (@$item['meta_deleted'] != true)
 		{			
 			if (!isset($item['att_id']))
 				return sprintf('<center><i>-</i></center>');
@@ -272,13 +276,13 @@ class Image_Cleanup_File_Table extends WP_List_Table
 			$html .= '<span style="color:red">No</span>';
 
 		// file status (move / delete / restored)
-		if ($item['file_moved'] == true)
+		if (@$item['file_moved'] == true)
 			$html = '<center>[<span style="color:green">Moved</span>]';
 
-		if ($item['file_restored'] == true)
+		if (@$item['file_restored'] == true)
 			$html .= '&nbsp;[<span style="color:green">Restored</span>]';
 
-		if ($item['file_deleted'] == true)
+		if (@$item['file_deleted'] == true)
 			$html = '<center>[<span style="color:red">Deleted</span>]';
 
 		$html .= "</center>";
@@ -289,23 +293,24 @@ class Image_Cleanup_File_Table extends WP_List_Table
 	function column_actions($item)
 	{
 		$actions = array();
-		if ( $_GET['view']!="attachment-images" && $_GET['view'] != "nonref-script-images" && $_GET['view'] != "nonref-unused-images")
+                $view = sanitize_text_field($_GET['view']);
+		if ( $view!="attachment-images" && $view != "nonref-script-images" && $view != "nonref-unused-images")
 		
 		{
-			if ($item['att_id'])
+			if (isset($item['att_id']))
 			{
-				if ( $_GET['view'] == "invalid-meta") 
-					if ($item['meta_updated'] == false)
+				if ( $view == "invalid-meta") 
+					if (@$item['meta_updated'] == false)
 						// can not repair if the file doest not exists
 						if ($item['xist'] != false)
-		  					$actions['repair'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Repair Meta</a>',$_GET['view'],'updatemeta',$item['ID']);
+		  					$actions['repair'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Repair Meta</a>',$view,'updatemeta',$item['ID']);
 	  			
-	  			if ($item['meta_deleted'] == false)
+	  			if (@$item['meta_deleted'] == false)
 	  			{
 	  				// can not delete meta from full size except if the file does not exist
 	  				if ($item['ms'] != 'full' || !$item['xist'] )
 	  				{	
-	  					$actions['delete'] = sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Delete Meta</a>',$_GET['view'],'deletemeta',$item['ID']);
+	  					$actions['delete'] = sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Delete Meta</a>',$view,'deletemeta',$item['ID']);
 	  				}
 	  			}
 	  		}
@@ -318,20 +323,20 @@ class Image_Cleanup_File_Table extends WP_List_Table
 	  			- add other file meta check
 	  		*/
 			//if ($item['xist'])
-	  			//$actions['delete-file'] = sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&backup=%s">Delete File</a>',$_GET['view'],'deletefile',$item['ID']);
+	  			//$actions['delete-file'] = sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&backup=%s">Delete File</a>',$view,'deletefile',$item['ID']);
   		}
-  		elseif ($_GET['view'] == "nonref-unused-images")
+  		elseif ($view == "nonref-unused-images")
   		{
   			//reset fields
-  			//$actions['reset'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Reset</a>',$_GET['view'],'reset',$item['ID']);
+  			//$actions['reset'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Reset</a>',$view,'reset',$item['ID']);
 
-  			if ($item['file_moved'] == false && $item['file_deleted'] == false)
-					$actions['movefile'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Move File</a>',$_GET['view'],'movefile',$item['ID']);					
-				elseif ($item['file_moved'] == true)
-				$actions['restorefile'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Restore</a>',$_GET['view'],'restorefile',$item['ID']);
+  			if (@$item['file_moved'] == false && @$item['file_deleted'] == false)
+                            $actions['movefile'] = @$actions['movefile'] . sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Move File</a>',$view,'movefile',$item['ID']);					
+                        elseif (@$item['file_moved'] == true)
+                            $actions['restorefile'] = @$actions['restorefile'] . sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Restore</a>',$view,'restorefile',$item['ID']);
 			
-			if ($item['file_deleted'] == false)
-				$actions['delete'] .= sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Delete</a>',$_GET['view'],'deletefile',$item['ID']);  				
+			if (@$item['file_deleted'] == false)
+				$actions['delete'] = @$actions['delete'] . sprintf('<a href="?page=ImageCleanup&view=%s&action=%s&logkey=%s">Delete</a>',$view,'deletefile',$item['ID']);  				
   		}
 	
 		return $this->row_actions($actions);

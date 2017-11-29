@@ -5,9 +5,9 @@
 Plugin Name: Image Cleanup
 Plugin URI: http://none
 Description: Checks all attachment images against the current image sizes (default and custom sizes) and removes files which no are no longer represented
-Author: Robbert Langezaal
+Author: Robbert Langezaal, Simon Duduica
 Author URI: http://none
-Version: 1.9.1
+Version: 1.9.2
 Tags: image, clean, scan, index
 License: GPL200
 */
@@ -103,11 +103,6 @@ class ImageCleanup
 				'short' => 'Invalid Meta')
 		);
 
-	function ImageCleanup()
-	{
-		$this->__construct();		
-	} 
-
 	function __construct()
 	{
 		$step_size = get_option('image_cleanup_step_size', 100);
@@ -135,6 +130,11 @@ class ImageCleanup
 		add_action( 'admin_menu', array( &$this, 'admin_menu') );						
 		add_action( 'admin_init', array( &$this, 'column_css') );
 	}	
+
+	function ImageCleanup()
+	{
+		$this->__construct();		
+	} 
 
 	function ifsetor(&$variable, $default = null) {
 	    if (isset($variable)) {
@@ -901,7 +901,7 @@ class ImageCleanup
 
 	function restore_file($logid, &$logmeta)
 	{
-		if ($logmeta[$logid]['file_moved'] == true && $logmeta[$logid]['file_deleted'] != true)
+		if (@$logmeta[$logid]['file_moved'] == true && @$logmeta[$logid]['file_deleted'] != true)
 		{
 			$file = $logmeta[$logid]['bd'].'/'.$logmeta[$logid]['fn'];
 
@@ -998,9 +998,13 @@ class ImageCleanup
 		// 
 		if ( isset($_POST['action']) && $_POST['action'] == "saveoptions")
 		{
-			update_option('image_cleanup_skip_paths', $_POST['paths']);
-			update_option('image_cleanup_step_size', $_POST['steps']);
-			update_option('image_cleanup_post_step_size', $_POST['posts']);
+                    update_option('image_cleanup_skip_paths', sanitize_textarea_field($_POST['paths']));
+                    $stepSize = intval($_POST['steps']);
+                    $stepSize = $stepSize ? $stepSize : 100;
+                    update_option('image_cleanup_step_size', $stepSize);
+                    $stepSizeP = intval($_POST['posts']);
+                    $stepSizeP = $stepSizeP ? $stepSizeP : 100;
+		    update_option('image_cleanup_post_step_size', $stepSizeP);
 		}
 
 
@@ -1017,7 +1021,7 @@ class ImageCleanup
 			$this->default_initialization($start, $backups, $id, $folder, $debug);
 			
 			// get meta based on current view
-			$file = $folder.$_GET['view'].'.json';
+			$file = $folder . sanitize_file_name($_GET['view']) . '.json';
 			$this->load_json_array($log_meta, $file);				
 		}
 
@@ -1028,7 +1032,7 @@ class ImageCleanup
 		if ( isset($_POST['action']) )
 		{
 			// check if there are bulk entries
-			if ( is_array($_POST['att']) ) 
+			if ( is_array(@$_POST['att']) ) 
 			{
 				// for each selected log item
 				foreach ($_POST['att'] as $logkey)
@@ -1068,31 +1072,32 @@ class ImageCleanup
 		elseif ( isset($_GET['action']) )
 		{				
 			if ( isset($_GET['logkey']) )
-			{						
-				switch($_GET['action'])
+			{
+                            $logKey = intval($_GET['logkey']);
+			    switch($_GET['action'])
 				{
 					case 'updatemeta':	
-						self::update_meta($_GET['logkey'], $log_meta);	
+						self::update_meta($logKey, $log_meta);	
 						break;
 
 					case 'deletemeta':
-						self::delete_meta($_GET['logkey'], $log_meta);
+						self::delete_meta($logKey, $log_meta);
 						break;	
 
 					case 'movefile':
-						self::move_file($_GET['logkey'], $log_meta);
+						self::move_file($logKey, $log_meta);
 						break;
 
 					case 'restorefile':
-						self::restore_file($_GET['logkey'], $log_meta);
+						self::restore_file($logKey, $log_meta);
 						break;
 
 					case 'deletefile':
-						self::delete_file($_GET['logkey'], $log_meta);						
+						self::delete_file($logKey, $log_meta);						
 						break;	
 
 					case 'reset':
-						self::reset_file($_GET['logkey'], $log_meta);						
+						self::reset_file($logKey, $log_meta);						
 						break;	
 
 
@@ -1160,7 +1165,8 @@ class ImageCleanup
 	}
 
 	function create_subsubsub_li($link_text, $tag, $postlink_text, $post_text=null, $pre_text=null)
-	{		
+	{	
+                $current = false;
 		if ($_GET['view'] == $tag)
 			$current = "current";
 
@@ -1219,7 +1225,7 @@ class ImageCleanup
 		echo '<div class="icon32" id="icon-tools"><br></div>';
 
 		$version = explode('.', PHP_VERSION);
-		if ($version[0] >= 5 && $version[1] >= 1)
+		if ($version[0] > 5 || ($version[0] == 5 && $version[1] >= 1))
 			echo '<h2>Image Cleanup <a href="#" id="imagecleanuprun" class="add-new-h2">Index Images</a></h2>';
 		else
 		{
@@ -1377,7 +1383,7 @@ class ImageCleanup
 			echo '<input type="hidden" name="paged" value="'.$paged.'" />';
 			echo '<input type="hidden" name="view" value="'.$view.'" />';
 
-			$FileTable->prepare_items($file_array, $file); 
+			$FileTable->prepare_items_ex($file); 
 			$FileTable->display(); 
 			echo '</form>';
 
@@ -1426,7 +1432,7 @@ class ImageCleanup
 		}
 			
 		$BackupTable = new Image_Cleanup_Backup_Table();
-		$BackupTable->prepare_items($table_data); 
+		$BackupTable->prepare_items_ex($table_data); 
 		$BackupTable->display(); 
 		
 	}
@@ -1448,10 +1454,29 @@ class ImageCleanup
 		}
 	}
 	
-
-	function image_array_compare($a, $b)
+        /**
+         * 
+         * @param type $a - disc file name usually
+         * @param type $b - meta file name usually
+         * @param type $aShaddowSuffixes - suffixes that the disc image can have - for example retina corresponding images: @2x.jpg
+         * @return true if match, false otherwise
+         */
+	function image_array_compare($a, $b )
 	{
-	    return strcasecmp ($a['bd'].'/'.$a['fn'], $b['bd'].'/'.$b['fn']);
+            $aShaddowSuffixes = array('@2x.' => '.'/*, '.webp' => '.jpg', '.webp' => '.png', '.webp' => '.jpeg'*/);
+            
+	    $ret = strcasecmp ($a['bd'].'/'.$a['fn'], $b['bd'].'/'.$b['fn']);
+            
+            //if not found, check with the shaddow prefixes
+            if($ret) {
+                foreach($aShaddowSuffixes as $ssKey => $ssVal) {
+                    if (   strcasecmp ($a['bd'].'/'.str_replace($ssKey, $ssVal, $a['fn']), $b['bd'].'/'.$b['fn']) == 0
+                        || strcasecmp ($a['bd'].'/'.$a['fn'], $b['bd'].'/'.str_replace($ssKey, $ssVal, $b['fn'])) == 0) {
+                        return 0;
+                    }
+                }
+            }
+            return $ret;
 	}
 
 	function deleteDirectory($dir, $DeleteMe) {
@@ -1528,18 +1553,19 @@ class ImageCleanup
 		$error = null;
 		$halt = false;
 		$this->default_initialization($start, $backups, $id, $folder, $debug);
+                $pos = intval($_POST['position']);
 
 		// get part of the qp query results
-		$wp_images = $this->get_wp_attachment_images($_POST['position']);
+		$wp_images = $this->get_wp_attachment_images($pos);
 
 		//because this function is called upon many times we need to reset if position = 0		
-		if ($_POST['position'] == 0)
+		if ($pos == 0)
 			$invalid_meta = array();
 		else
 			$this->load_json_array($invalid_meta, $folder.self::INVALID_META.'.json');
 
 		// get the attachment meta from file and database
-		$attachment_images = $this->get_attachment_image_array($wp_images, $invalid_meta, $_POST['position']);
+		$attachment_images = $this->get_attachment_image_array($wp_images, $invalid_meta, $pos);
 		$this->save_json_array($invalid_meta, $folder.self::INVALID_META.'.json');
 
     	/**/
@@ -1548,13 +1574,13 @@ class ImageCleanup
 		/**/
 
 		
-		if ($_POST['position'] != 0)
+		if ($pos != 0)
 			$this->save_json_array($attachment_images, $folder.self::ATT_SLUG.'.json', true); //append  	
 		else
 			$this->save_json_array($attachment_images, $folder.self::ATT_SLUG.'.json'); //truncate
 
 		$continue = true;
-		if ($_POST['position']+self::$STEPSIZE >= $_POST['total'])
+		if ($pos+self::$STEPSIZE >= intval($_POST['total']))
 		{
 			file_put_contents($debug."debug.json", "[".number_format(microtime(true) - $start, 4)."] Info: Valid and Invalid meta results written to log\r\n", FILE_APPEND);
 			$continue = false;
@@ -1599,7 +1625,7 @@ class ImageCleanup
 
 		/** FIRST COMPARISON **/
 	    // subtract valid images with all found images   	    
-		$invalid_images = array_udiff($image_files, $attachments, array( &$this, "image_array_compare") );		
+		$invalid_images = array_udiff($image_files, $attachments, array( &$this, "image_array_compare") );	
     	file_put_contents($debug."debug.json", "[".number_format(microtime(true) - $start, 4)."] Info: ".count($invalid_images)." Invalid images found [".$this->convert_mem(memory_get_usage(true))."]\r\n", FILE_APPEND);		
 
 /** SAVE MEMORY HERE **/
@@ -1691,17 +1717,19 @@ class ImageCleanup
 		$error = null;
 		$halt = false;
 		$this->default_initialization($start, $backups, $id, $folder, $debug);		
+                $pos = intval($_POST['position']);
+                $total = intval($_POST['total']);
 
 		// get data from previous function
 		$this->load_json_array($invalid_images, $folder.self::ALL_NOREF_IMG_SLUG.'.json');
 		//file_put_contents($debug."debug.json", "[".number_format(microtime(true) - $start, 4)."] Read invalid image file data\r\n", FILE_APPEND);	
-		file_put_contents($debug."debug.json", "[".number_format(microtime(true) - $start, 4)."] Posts checked for used images ".($_POST['position']+1)."/".($_POST['total'])."\r\n", FILE_APPEND);
+		file_put_contents($debug."debug.json", "[".number_format(microtime(true) - $start, 4)."] Posts checked for used images ".($pos+1)."/". $total ."\r\n", FILE_APPEND);
 
 		// find images used in posts and subtract from invalid image array		
-		$used_post_invalid_images = $this->get_post_used_invalid_images($invalid_images,$_POST['position']);			
+		$used_post_invalid_images = $this->get_post_used_invalid_images($invalid_images,$pos);			
 	
 		// combine old and new post image array
-		if ($_POST['position'] != 0)
+		if ($pos != 0)
 		{
 			//add previous invalid images to $used_post_invalid_images
 			$this->load_json_array($old_array, $folder.self::POST_IMG_SLUG.'.json');
@@ -1713,7 +1741,7 @@ class ImageCleanup
 		$this->save_json_array($invalid_images, $folder.self::ALL_NOREF_IMG_SLUG.'.json');	
 
 		$continue = true;
-		if ($_POST['position']+self::$POSTSTEPSIZE >= $_POST['total'])
+		if ($pos+self::$POSTSTEPSIZE >= $total)
 		{
 			file_put_contents($debug."debug.json", "[".number_format(microtime(true) - $start, 4)."] Info: Invalid post image meta results written to log\r\n", FILE_APPEND);
 			$continue = false;
@@ -1914,7 +1942,27 @@ class ImageCleanup
 		die();
 	}	
 
-
+    /**
+     * a basename alternative that deals OK with multibyte charsets (e.g. Arabic)
+     * @param string $Path
+     * @return string
+     */
+    static public function MB_basename($Path, $suffix = false){
+        $Separator = " qq ";
+        $qqPath = preg_replace("/[^ ]/u", $Separator."\$0".$Separator, $Path);
+        if(!$qqPath) { //this is not an UTF8 string!! Don't rely on basename either, since if filename starts with a non-ASCII character it strips it off
+            $fileName = end(explode(DIRECTORY_SEPARATOR, $Path));
+            $pos = strpos($fileName, $suffix);
+            if($pos !== false) {
+                return substr($fileName, 0, $pos);
+            }
+            return $fileName;
+        }
+        $suffix = preg_replace("/[^ ]/u", $Separator."\$0".$Separator, $suffix);
+        $Base = basename($qqPath, $suffix);
+        $Base = str_replace($Separator, "", $Base);
+        return $Base;
+    }
 }
     	
 ?>

@@ -19,14 +19,18 @@ class Image_Cleanup_Backup_Table extends WP_List_Table
 	  return $columns;
 	}
 
-	function prepare_items($backup_array) {
+	function prepare_items() {
 		$columns = $this->get_columns();
 		$hidden = array();
 		$sortable = $this->get_sortable_columns();
 		$this->_column_headers = array($columns, $hidden, $sortable);
-		$this->items = $backup_array;
 	}
 
+	function prepare_items_ex($backup_array) {
+            $this->prepare_items;
+            $this->items = $backup_array;
+        }
+        
 	function no_items() {
 	  _e( 'No saved index found in database' );
 	}

@@ -7,8 +7,8 @@ Plugin Name: Image Cleanup
 Plugin URI: http://www.opicron.eu/wp/
 Tags: image, clean, cleanup
 Requires at least: 3.0.1
-Tested up to: 3.8
-Stable tag: 1.9.1
+Tested up to: 4.8
+Stable tag: 1.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,13 @@ Yes, I would like to say thank you to: Kelly Rosal and Tali Walt for letting me 
 3. File Admin Table (screenshot-03.png)
 
 == Changelog ==
+
+= 1.9.2 =
+- Fixed error minimum version on PHP 7.0
+- Fixed Strict Standards warnings
+- Compatibility with 4.7
+- Fixed many notices of undefined variable
+- Validate and sanitize user data
 
 = 1.9.1 =
 - Fixed error where meta data could not be removed, thanks Squill1959
