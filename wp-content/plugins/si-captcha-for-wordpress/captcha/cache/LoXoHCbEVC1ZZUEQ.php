@@ -1,0 +1,1 @@
+<?php $captcha_word = 'GRP5'; ?>
