@@ -1,6 +1,11 @@
 <?php if ( post_password_required() ) return; ?>
 
 <?php if ( have_comments() ) : ?>
+<script type="text/javascript">
+    /*960*90 创建于 2017/12/19*/
+    var cpro_id = "u3165021";
+</script>
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js"></script>
 
 	<div class="comments-container">
 	
