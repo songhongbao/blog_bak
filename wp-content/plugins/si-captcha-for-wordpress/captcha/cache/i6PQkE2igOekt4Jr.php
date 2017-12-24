@@ -1,0 +1,1 @@
+<?php $captcha_word = 'RFP5'; ?>
