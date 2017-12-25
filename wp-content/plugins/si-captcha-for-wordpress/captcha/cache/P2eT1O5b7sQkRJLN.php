@@ -1,1 +1,0 @@
-<?php $captcha_word = 'hN5L'; ?>
