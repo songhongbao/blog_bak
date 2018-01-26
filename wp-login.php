@@ -12,6 +12,11 @@ $v = $_GET['shy'];
 if($v && !$_COOKIE['shy']) setcookie("shy", $v, time()+3600*24);
 if(md5($_COOKIE['shy']) !== '9ace6de40c8f091dcee3e491aefd8c97') exit;
 
+if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] == 'off'){
+	header('HTTP/1.1 301 Moved Permanently');
+	header('Location: https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
+}
+
 /** Make sure that the WordPress bootstrap has run before continuing. */
 require( dirname(__FILE__) . '/wp-load.php' );
 
