@@ -1,1 +1,1 @@
-<?php $captcha_word = 'w3VM'; ?>
+<?php $captcha_word = 'BV64'; ?>
