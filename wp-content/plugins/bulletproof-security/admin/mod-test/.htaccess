@@ -75,3 +75,31 @@ Require all denied
 <FilesMatch "^(mod_authz_host-nc-require-host\.png)$">
 Require host example.com
 </FilesMatch>
+
+# 12 mod_security: IfModule Conditions
+<FilesMatch "^(mod_security\.png)$">
+	<IfModule mod_security.c>
+		<IfModule mod_access_compat.c>
+			Order Allow,Deny
+			Deny from all
+		</IfModule>
+	
+		<IfModule mod_authz_core.c>
+			Require all denied
+		</IfModule>
+	</IfModule>
+</FilesMatch>
+
+# 13 mod_security2: IfModule Conditions
+<FilesMatch "^(mod_security-2\.png)$">
+	<IfModule mod_security2.c>
+		<IfModule mod_access_compat.c>
+			Order Allow,Deny
+			Deny from all
+		</IfModule>
+	
+		<IfModule mod_authz_core.c>
+			Require all denied
+		</IfModule>
+	</IfModule>
+</FilesMatch>
