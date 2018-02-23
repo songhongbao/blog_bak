@@ -1,1 +1,1 @@
-<?php $captcha_word = 'Wwc8'; ?>
+<?php $captcha_word = '6V28'; ?>
