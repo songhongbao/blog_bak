@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>mod_rewrite, mod_authz_core, mod_authz_host &amp; mod_access_compat Module Testing</title>
+<title>Apache Modules Testing: mod_rewrite, mod_authz_core, mod_authz_host, mod_security, mod_security2 &amp; mod_access_compat</title>
 <meta name="robots" content="noindex, nofollow" />
 </head>
 
@@ -18,7 +18,7 @@ pre {background:#fff url(pre_bg.png) top left repeat;color:#000;display:block;fo
 -->
 </style>
 
-<h2 style="color:#fff;">Apache Modules: mod_rewrite, mod_authz_core, mod_authz_host &amp; mod_access_compat (directives: Order, Allow and Deny) testing</h2>
+<h3 style="color:#fff;">Apache Modules Testing: mod_rewrite, mod_authz_core, mod_authz_host, mod_security, mod_security2 &amp; mod_access_compat (directives: Order, Allow and Deny)</h3>
 
 <table class="Mod-Directive-Testing" width="100%" border="1">
 <thead>
@@ -153,7 +153,7 @@ pre {background:#fff url(pre_bg.png) top left repeat;color:#000;display:block;fo
 </tbody>
 </table>
 
-<h3 style="color:#fff;">Additional Testing for Web Hosts that ignore/do not allow/do not process IfModule conditions:</h3>
+<h3 style="color:#fff;">Additional Testing for Web Hosts that ignore/do not allow/do not process IfModule conditions and Mod Security testing:</h3>
 
 <table class="Mod-Directive-Testing-no-ifmodule" width="100%" border="1">
 <thead>
@@ -279,7 +279,7 @@ Require host example.com
 </tbody>
 </table>
 
-<h3 style="color:#fff;">Apache No IfModule Condition & Directive Test Results Explanation:</h3>
+<h3 style="color:#fff;">Apache No IfModule Condition, Directive & Mod Security Test Result Explanations:</h3>
 <p style="color:#fff;">Some Web Hosts ignore/do not allow/do not process all IfModule conditions and the test results for tests 1-6 above will NOT be accurate. Tests 7-11 check mod_access_compat, mod_rewrite, mod_authz_core and mod_authz_host directives without any IfModule conditions. The mod_access_compat directives <strong>"Order, Deny, Allow"</strong> should work on every single Web Host at this present time. The Apache transition from mod_access_compat to the new mod_authz_core and mod_authz_host Modules will probably result in various issues/problems on some Web Hosts during that transitional period. BPS checks your current loaded Modules and directive htaccess code compatiblity and creates htaccess code that works specifically on your particular server/website/host. If things change in the future with your Web Host or you move to another host or server, BPS will check that you htaccess code is correct for your particular server/website/host and display a message to run the Setup Wizard again if necessary, which will create new htaccess code that works specifically for your particular server/website/host.</p>
 
 <table class="Mod-Directive-Testing-Description" width="100%" border="1">

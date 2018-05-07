@@ -59,15 +59,7 @@ function get_post_thumbnail_id( $post = null ) {
  * @param string|array $attr Optional. Query string or array of attributes. Default empty.
  */
 function the_post_thumbnail( $size = 'post-thumbnail', $attr = '' ) {
-        $url = get_the_post_thumbnail( null, $size, $attr );
-        if(!$_SERVER['HTTPS']) {
-                $url = str_replace('love.ranshy.com/wp-content/uploads', '7xi8tc.com1.z0.glb.clouddn.com', $url);
-        }
-	else
-	{
-		$url = str_replace('love.ranshy.com/wp-content/uploads', 'static.ranshy.com', $url);
-	}
-        echo $url;
+	echo get_the_post_thumbnail( null, $size, $attr );
 }
 
 /**
@@ -130,11 +122,13 @@ function get_the_post_thumbnail( $post = null, $size = 'post-thumbnail', $attr =
 	 * Filters the post thumbnail size.
 	 *
 	 * @since 2.9.0
+	 * @since 4.9.0 Added the `$post_id` parameter.
 	 *
-	 * @param string|array $size The post thumbnail size. Image size or array of width and height
-	 *                           values (in that order). Default 'post-thumbnail'.
+	 * @param string|array $size    The post thumbnail size. Image size or array of width and height
+	 *                              values (in that order). Default 'post-thumbnail'.
+	 * @param int          $post_id The post ID.
 	 */
-	$size = apply_filters( 'post_thumbnail_size', $size );
+	$size = apply_filters( 'post_thumbnail_size', $size, $post->ID );
 
 	if ( $post_thumbnail_id ) {
 

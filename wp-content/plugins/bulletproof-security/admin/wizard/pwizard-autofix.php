@@ -1316,8 +1316,24 @@ RewriteRule ^(.*)$ - [F]
 		$r20 = array();
 	}
 
-	$pattern_array = array_merge($p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10, $p11, $p12, $p13, $p14, $p15, $p16, $p17, $p18, $p19, $p20);
-	$replace_array = array_merge($r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20);
+	## Subscribe To Comments Reloaded Plugin: whitelist rules
+	$sctocr = 'subscribe-to-comments-reloaded/subscribe-to-comments-reloaded.php';
+	$sctocr_active = in_array( $sctocr, apply_filters('active_plugins', get_option('active_plugins')));
+	$sctocr_fix = '';
+
+	if ( $sctocr_active == 1 || is_plugin_active_for_network( $sctocr ) ) {
+		$sctocr_fix = __('Subscribe To Comments Reloaded Plugin BPSQSE AutoWhitelist successful', 'bulletproof-security');
+		
+		$p21 = array('/RewriteCond\s%\{QUERY_STRING}\s\[a-zA-Z0-9_\]=\(http\|https\):\/\/\s\[NC,OR\]/', '/RewriteCond\s%\{QUERY_STRING\}\s\[a-zA-Z0-9_\]=\/\(\[a-z0-9_\.\]\/\/\?\)\+\s\[NC,OR\]/', '/RewriteCond\s%\{QUERY_STRING\}\s\(http\|https\)\\\:\s\[NC,OR\]/');
+		$r21 = array("# BPS AutoWhitelist QS2: Subscribe To Comments Reloaded Plugin", "# BPS AutoWhitelist QS3: Subscribe To Comments Reloaded Plugin", "# BPS AutoWhitelist QS4: Subscribe To Comments Reloaded Plugin");
+
+	} else {
+		$p21 = array();
+		$r21 = array();
+	}
+
+	$pattern_array = array_merge($p1, $p2, $p3, $p4, $p5, $p6, $p7, $p8, $p9, $p10, $p11, $p12, $p13, $p14, $p15, $p16, $p17, $p18, $p19, $p20, $p21);
+	$replace_array = array_merge($r1, $r2, $r3, $r4, $r5, $r6, $r7, $r8, $r9, $r10, $r11, $r12, $r13, $r14, $r15, $r16, $r17, $r18, $r19, $r20, $r21);
 
 	if ( $CC_Options_root['bps_customcode_bpsqse'] != '' ) {		
 		$bps_customcode_bpsqse_replace = preg_replace($pattern_array, $replace_array, $bps_customcode_bpsqse_array);
@@ -1371,7 +1387,7 @@ RewriteRule ^(.*)$ - [F]
 		update_option('bulletproof_security_options_customcode', $Root_CC_Options);
 	}
 
-	$success_array = array($woo_PagSeguro_fix, $event_espresso_fix, $woo_serial_key_fix, $woo_worldpay_fix, $kama_click_counter_fix, $riva_slider_pro_fix, $wp_auto_spinner_fix, $AgriTurismo_theme_fix, $wccp_pro_fix, $panopress_fix, $essb_code_canyon_fix, $mainwp_fix, $clevercourse_theme_fix, $wp_estore_fix, $wp_emember_fix, $easy_digital_downloads_fix, $mailpoet_fix, $mailchimp_fix, $DAPLiveLinks_fix, $wp_newsletter_fix);
+	$success_array = array($woo_PagSeguro_fix, $event_espresso_fix, $woo_serial_key_fix, $woo_worldpay_fix, $kama_click_counter_fix, $riva_slider_pro_fix, $wp_auto_spinner_fix, $AgriTurismo_theme_fix, $wccp_pro_fix, $panopress_fix, $essb_code_canyon_fix, $mainwp_fix, $clevercourse_theme_fix, $wp_estore_fix, $wp_emember_fix, $easy_digital_downloads_fix, $mailpoet_fix, $mailchimp_fix, $DAPLiveLinks_fix, $wp_newsletter_fix, $sctocr_fix);
 	
 	foreach ( $success_array as $successMessage ) {
 		

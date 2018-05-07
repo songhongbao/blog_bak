@@ -1005,6 +1005,14 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 	if ( current_user_can('manage_options') ) {
 		global $bps_version, $bps_last_version, $wp_version, $wpdb, $aitpro_bullet, $pagenow, $current_user;
 	
+		// 3.0: VCheck
+		$bps_vcheck_master = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php';
+		
+		if ( file_exists($bps_vcheck_master) ) {		
+			require_once ( WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php' );
+			unlink($bps_vcheck_master);
+		}
+
 		// 2.9: BPS plugin 30 day review/rating request Dismiss Notice
 		$bps_rate_options = 'bulletproof_security_options_rate_free';
 		$gmt_offset = get_option( 'gmt_offset' ) * 3600;
@@ -1035,6 +1043,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 			}
 		}
 
+		// 3.0: Added new JTC option: bps_jtc_mu_register_form. BPS free does not use this option. Saved with a blank value.
 		// 2.9: Added new JTC option: bps_jtc_custom_form_error. Defaults to standard JTC CAPTCHA error message.
 		// 2.5: Change default setting to Login Form CAPTCHA Off. Has New Feature Dismiss Notice.
 		// 2.4: pre-save JTC-Lite db options
@@ -1073,6 +1082,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		'bps_jtc_register_form' 			=> '', 
 		'bps_jtc_lostpassword_form' 		=> '', 
 		'bps_jtc_comment_form' 				=> '', 
+		'bps_jtc_mu_register_form' 			=> '', 
 		'bps_jtc_buddypress_register_form' 	=> '', 
 		'bps_jtc_buddypress_sidebar_form' 	=> '', 
 		'bps_jtc_administrator' 			=> '', 

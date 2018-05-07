@@ -125,7 +125,7 @@ global $wpdb, $wp_version, $blog_id;
 	}
 	}
 
-// Whitelist BPS DB options: Total: 38
+// Whitelist BPS DB options: Total: 39
 register_setting('bulletproof_security_options', 'bulletproof_security_options', 'bulletproof_security_options_validate');
 register_setting('bulletproof_security_options_SLF', 'bulletproof_security_options_SLF', 'bulletproof_security_options_validate_SLF');
 register_setting('bulletproof_security_options_debug', 'bulletproof_security_options_debug', 'bulletproof_security_options_validate_debug');
@@ -161,6 +161,7 @@ register_setting('bulletproof_security_options_hpf_cron', 'bulletproof_security_
 register_setting('bulletproof_security_options_spinner', 'bulletproof_security_options_spinner', 'bulletproof_security_options_validate_spinner');
 register_setting('bulletproof_security_options_mynotes', 'bulletproof_security_options_mynotes', 'bulletproof_security_options_validate_mynotes');
 register_setting('bulletproof_security_options_zip_fix', 'bulletproof_security_options_zip_fix', 'bulletproof_security_options_validate_zip_fix');
+register_setting('bulletproof_security_options_vcheck', 'bulletproof_security_options_vcheck', 'bulletproof_security_options_validate_vcheck');
 register_setting('bulletproof_security_options_MScan', 'bulletproof_security_options_MScan', 'bulletproof_security_options_validate_MScan');
 register_setting('bulletproof_security_options_email', 'bulletproof_security_options_email', 'bulletproof_security_options_validate_email');			
 register_setting('bulletproof_security_options_GDMW', 'bulletproof_security_options_GDMW', 'bulletproof_security_options_validate_GDMW');
@@ -826,6 +827,7 @@ require_once( ABSPATH . 'wp-admin/includes/plugin.php');
 		delete_option('bulletproof_security_options_login_security_jtc'); 
 		delete_option('bulletproof_security_options_rate_free');
 		delete_option('bulletproof_security_options_mod_security');
+		delete_option('bulletproof_security_options_vcheck');
 		// will be adding this new upgrade notice option later
 		// delete_option('bulletproof_security_options_upgrade_notice');	
 	
@@ -1334,6 +1336,7 @@ function bulletproof_security_options_validate_login_security_jtc($input) {
 	$BPSoptionsJTC['bps_jtc_register_form'] = wp_filter_nohtml_kses($input['bps_jtc_register_form']);
 	$BPSoptionsJTC['bps_jtc_lostpassword_form'] = wp_filter_nohtml_kses($input['bps_jtc_lostpassword_form']);
 	$BPSoptionsJTC['bps_jtc_comment_form'] = wp_filter_nohtml_kses($input['bps_jtc_comment_form']);
+	$BPSoptionsJTC['bps_jtc_mu_register_form'] = wp_filter_nohtml_kses($input['bps_jtc_mu_register_form']);
 	$BPSoptionsJTC['bps_jtc_buddypress_register_form'] = wp_filter_nohtml_kses($input['bps_jtc_buddypress_register_form']);
 	$BPSoptionsJTC['bps_jtc_buddypress_sidebar_form'] = wp_filter_nohtml_kses($input['bps_jtc_buddypress_sidebar_form']);
 	$BPSoptionsJTC['bps_jtc_administrator'] = wp_filter_nohtml_kses($input['bps_jtc_administrator']);
@@ -1367,6 +1370,14 @@ function bulletproof_security_options_validate_mod_security($input) {
 	$options['bps_mod_security_check'] = wp_filter_nohtml_kses($input['bps_mod_security_check']);
 	//$options['bps_mod_security2_check'] = wp_filter_nohtml_kses($input['bps_mod_security2_check']);
 		
+	return $options;  
+}
+
+// VCheck testing
+function bulletproof_security_options_validate_vcheck($input) {  
+	$options = get_option('bulletproof_security_options_vcheck');  
+	$options['bps_vcheck'] = $input['bps_vcheck'];		
+	
 	return $options;  
 }
 

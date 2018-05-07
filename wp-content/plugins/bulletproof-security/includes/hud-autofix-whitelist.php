@@ -367,6 +367,8 @@ function bpsPro_HUD_autofix_whitelist_check() {
 	$DAPLiveLinks_active = in_array( $DAPLiveLinks, apply_filters('active_plugins', get_option('active_plugins')));
 	$wp_newsletter = 'wp-mailinglist/wp-mailinglist.php';
 	$wp_newsletter_active = in_array( $wp_newsletter, apply_filters('active_plugins', get_option('active_plugins')));
+	$sctocr = 'subscribe-to-comments-reloaded/subscribe-to-comments-reloaded.php';
+	$sctocr_active = in_array( $sctocr, apply_filters('active_plugins', get_option('active_plugins')));
 
 	## BPSQSE RegEx Patterns
 	// 3 variations for both UA rules below: only java, java and curl, java, curl and wget
@@ -507,6 +509,12 @@ function bpsPro_HUD_autofix_whitelist_check() {
 		if ( ! preg_match( $useragent1_jcw, $bps_customcode_bpsqse ) || ! preg_match( $useragent2_jcw, $bps_customcode_bpsqse ) ) {
 			$autofix_message = 1;
 			$debug_BPSQSE .= __('CC Root Text Box 12: WordPress Newsletter (tribulant) Plugin', 'bulletproof-security').'<br>';
+		}		
+	}
+	if ( $sctocr_active == 1 || is_plugin_active_for_network( $sctocr ) ) {
+		if ( ! preg_match( $marker2, $bps_customcode_bpsqse ) || ! preg_match( $marker3, $bps_customcode_bpsqse ) || ! preg_match( $marker4, $bps_customcode_bpsqse ) ) {
+			$autofix_message = bpsPro_autofix_message($autofix_message);
+			$debug_BPSQSE .= __('CC Root Text Box 12: Subscribe To Comments Reloaded Plugin', 'bulletproof-security').'<br>';
 		}		
 	}
 

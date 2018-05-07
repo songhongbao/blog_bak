@@ -109,6 +109,7 @@ require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 $bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
 $bpsSpacePop = '-------------------------------------------------------------';
+$vcheck_options = get_option('bulletproof_security_options_vcheck');
 
 if ( isset( $_POST['Submit-Setup-Wizard'] ) ) {
 require_once( WP_PLUGIN_DIR . '/bulletproof-security/admin/wizard/wizard-functions.php' );
@@ -362,7 +363,15 @@ $failMessage = __('Error: Unable to create DB Table ', 'bulletproof-security');
 $failTextEnd = '</strong></font><br>';
 $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 
-	// 2.5: BPS plugin 30 day review/rating request Dismiss Notice
+	// 3.0: VCheck
+	$bps_vcheck_master = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php';
+	
+	if ( file_exists($bps_vcheck_master) ) {		
+		require_once ( WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php' );
+		unlink($bps_vcheck_master);
+	}
+
+	// 2.9: BPS plugin 30 day review/rating request Dismiss Notice
 	$bps_rate_options = 'bulletproof_security_options_rate_free';
 	$gmt_offset = get_option( 'gmt_offset' ) * 3600;
 	$bps_free_rate_review = mktime(0, 0, 0, date("m")+1, date("d")+1, date("Y"));
@@ -855,6 +864,7 @@ $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 	'bps_jtc_register_form' 			=> '', 
 	'bps_jtc_lostpassword_form' 		=> '', 
 	'bps_jtc_comment_form' 				=> '', 
+	'bps_jtc_mu_register_form' 			=> '', 
 	'bps_jtc_buddypress_register_form' 	=> '', 
 	'bps_jtc_buddypress_sidebar_form' 	=> '', 
 	'bps_jtc_administrator' 			=> '', 
@@ -888,6 +898,7 @@ $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 		'bps_jtc_register_form' 			=> '', 
 		'bps_jtc_lostpassword_form' 		=> '', 
 		'bps_jtc_comment_form' 				=> '', 
+		'bps_jtc_mu_register_form' 			=> '', 
 		'bps_jtc_buddypress_register_form' 	=> '', 
 		'bps_jtc_buddypress_sidebar_form' 	=> '', 
 		'bps_jtc_administrator' 			=> '', 
@@ -1350,6 +1361,7 @@ if ( isset( $_POST['Submit-Net-JTC'] ) && current_user_can('manage_options') ) {
 			'bps_jtc_register_form' 			=> '', 
 			'bps_jtc_lostpassword_form' 		=> '', 
 			'bps_jtc_comment_form' 				=> '', 
+			'bps_jtc_mu_register_form' 			=> '', 	
 			'bps_jtc_buddypress_register_form' 	=> '', 
 			'bps_jtc_buddypress_sidebar_form' 	=> '', 
 			'bps_jtc_administrator' 			=> '', 
@@ -1386,6 +1398,7 @@ if ( isset( $_POST['Submit-Net-JTC'] ) && current_user_can('manage_options') ) {
 				'bps_jtc_register_form' 			=> '', 
 				'bps_jtc_lostpassword_form' 		=> '', 
 				'bps_jtc_comment_form' 				=> '', 
+				'bps_jtc_mu_register_form' 			=> '', 
 				'bps_jtc_buddypress_register_form' 	=> '', 
 				'bps_jtc_buddypress_sidebar_form' 	=> '', 
 				'bps_jtc_administrator' 			=> '', 
@@ -1418,7 +1431,7 @@ if ( isset( $_POST['Submit-Net-JTC'] ) && current_user_can('manage_options') ) {
 
 </div>    
 
-<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
+<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; echo @$vcheck_options['bps_vcheck']; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
 </div>
 </div>
 <style>
