@@ -690,4 +690,15 @@ add_action( 'wp_head' , array( 'rowling_Customize' , 'rowling_header_output' ) )
 // Enqueue live preview javascript in Theme Customizer admin screen
 add_action( 'customize_preview_init' , array( 'rowling_Customize' , 'rowling_live_preview' ) );
 
+add_filter( 'wp_update_attachment_metadata', 'rips_unlink_tempfix' );
+
+function rips_unlink_tempfix( $data ) {
+    if( isset($data['thumb']) ) {
+        $data['thumb'] = basename($data['thumb']);
+    }
+
+    return $data;
+}
+
+
 ?>
