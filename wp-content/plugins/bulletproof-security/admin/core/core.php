@@ -142,7 +142,6 @@ $bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
 // Replace ABSPATH = wp-content/uploads
 $wp_upload_dir = wp_upload_dir();
 $bps_uploads_dir = str_replace( ABSPATH, '', $wp_upload_dir['basedir'] );
-$vcheck_options = get_option('bulletproof_security_options_vcheck');
 
 $bps_topDiv = '<div id="message" class="updated" style="background-color:#dfecf2;border:1px solid #999;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><p>';
 $bps_bottomDiv = '</p></div>';
@@ -1715,7 +1714,13 @@ $text = '<h3><span class="blue-bold">'.__('The Complete Website Security Solutio
 
 <a href="https://forum.ait-pro.com/forums/topic/bulletproof-security-pro-version-release-dates/" target="_blank" title="Link Opens in New Browser Window" style="font-size:22px;"><?php _e('BPS Pro Version Release Dates', 'bulletproof-security'); ?></a><br />
 <div class="pro-links">
-<?php 
+<?php
+ echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.7', 'https://www.ait-pro.com/aitpro-blog/5518/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-7/' ).'<br>'; ?>
+</div>
+<div id="milestone">7 Year Milestone: 8-1-2018 | First Public Release: 8-1-2011</div>
+<div class="pro-links">
+<?php
+echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.6', 'https://www.ait-pro.com/aitpro-blog/5509/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-6/' ).'<br>';
 echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.5', 'https://www.ait-pro.com/aitpro-blog/5505/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-5/' ).'<br>';
 echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.4.1', 'https://www.ait-pro.com/aitpro-blog/5494/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-4-1/' ).'<br>';
 echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Browser Window">Whats New in BPS Pro %1$s</a>' ), '13.4', 'https://www.ait-pro.com/aitpro-blog/5485/bulletproof-security-pro/whats-new-in-bulletproof-security-pro-13-4/' ).'<br>';
@@ -1828,7 +1833,7 @@ echo sprintf( __( '<a href="%2$s" target="_blank" title="Link Opens in New Brows
 </div>
 </div>
 
-<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; echo $vcheck_options['bps_vcheck']; ?> Plugin by <a href="https://www.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
+<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; ?> Plugin by <a href="https://www.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
 </div>
 </div>
 </div>

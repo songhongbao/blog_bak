@@ -2,7 +2,7 @@
 /*
 Plugin Name: BPS MU Tools
 Description: <strong>Enable|Disable BPS Plugin AutoUpdates:</strong> Clicking this link enables or disables BPS Plugin automatic updates for the BPS plugin only. <strong>Enable|Disable BPS Folder|Deactivation Checks:</strong> Clicking this link enables or disables checks for whether the /bulletproof-security/ plugin folder has been renamed or deleted. Checks for whether the BPS plugin has been deactivated. Email alerts are sent every 5 minutes when the BPS plugin folder has been renamed or deleted or the BPS plugin has been deactivated. To disable these checks and the email alerts click the Disable BPS Folder|Deactivation Checks link. <strong>Note:</strong> When you click disable links you will then see enable links and vice versa.
-Version: 3.0
+Version: 4.0
 Author: AITpro
 Author URI: https://forum.ait-pro.com/forums/forum/bulletproof-security-free/
 License: GPLv2 or later
@@ -17,6 +17,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 ## 1.0: Added Toggle Action Links and DB options so that BPS MU Tools can be enabled or disabled.
 ## 2.0: Added CSRF Nonce verification to Toggle GET links.
 ## 2.7: BugFix for SSL sites nonce verification failing.
+## 3.2: Disabling all functions except for the BPS Plugin automatic update function.
 
 ## Uncommenting these filters below and commenting out this BPS filter: add_filter( 'auto_update_plugin', 'bpsPro_autoupdate_bps_plugin', 10, 2 );
 ## will allow ALL plugin and theme automatic updates on your website. At a later time|version this BPS MU plugin file will include options to enable|disable these things.
@@ -56,6 +57,10 @@ function bpsPro_plugin_folder_check() {
 	$MUTools_Options = get_option('bulletproof_security_options_MU_tools_free');
 	
 	if ( @$MUTools_Options['bps_mu_tools_enable_disable_deactivation'] == 'disable' ) {
+		return;
+	}
+
+	if ( defined('DISABLE_WP_CRON') && DISABLE_WP_CRON === true ) {
 		return;
 	}
 
@@ -123,7 +128,7 @@ function bpsPro_plugin_folder_check() {
 	}
 }
 
-bpsPro_plugin_folder_check();
+//bpsPro_plugin_folder_check();
 
 // Check if the BPS plugin has been deactivated.
 // Writes a log entry and sends an email alert once every 5 minutes. 
@@ -135,6 +140,10 @@ function bpsPro_plugin_deactivation_check() {
 		return;
 	}
 	
+	if ( defined('DISABLE_WP_CRON') && DISABLE_WP_CRON === true ) {
+		return;
+	}
+
 	global $blog_id;
 
 	if ( is_multisite() && $blog_id != 1 ) {
@@ -206,7 +215,7 @@ function bpsPro_plugin_deactivation_check() {
 	}
 }
 
-bpsPro_plugin_deactivation_check();
+//bpsPro_plugin_deactivation_check();
 
 // Note: you cannot use current_user_can('manage_options') in a must-use plugin.
 function bpsPro_toggle_links() {

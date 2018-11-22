@@ -5,7 +5,7 @@ Plugin URI: https://forum.ait-pro.com/read-me-first/
 Text Domain: bulletproof-security
 Domain Path: /languages/
 Description: <strong>Feature Highlights:</strong> Setup Wizard &bull; MScan Malware Scanner &bull; .htaccess Website Security Protection (Firewalls) &bull; Security Logging|HTTP Error Logging &bull; DB Backup &bull; DB Table Prefix Changer &bull; Login Security & Monitoring &bull; JTC-Lite Login Form Bot Lockout Protection &bull; Idle Session Logout (ISL) &bull; Auth Cookie Expiration (ACE) &bull; UI Theme Skin Changer &bull; System Info: Extensive System, Server and Security Status Information &bull; FrontEnd|BackEnd Maintenance Mode
-Version: 3.0
+Version: 3.2
 Author: AITpro Website Security
 Author URI: https://forum.ait-pro.com/read-me-first/
 */
@@ -28,13 +28,33 @@ Author URI: https://forum.ait-pro.com/read-me-first/
 */
 
 // BPS variables
-define( 'BULLETPROOF_VERSION', '3.0' );
-$bps_last_version = '2.9';
-$bps_version = '3.0';
+define( 'BULLETPROOF_VERSION', '3.2' );
+$bps_last_version = '3.1';
+$bps_version = '3.2';
 $aitpro_bullet = '<img src="'.plugins_url('/bulletproof-security/admin/images/aitpro-bullet.png').'" style="padding:0px 3px 0px 3px;" />';
 // Top div & bottom div
 $bps_topDiv = '<div id="message" class="updated" style="background-color:#dfecf2;border:1px solid #999;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><p>';
 $bps_bottomDiv = '</p></div>';
+
+// Setup Wizard Options: GDPR Compliance Global Variables
+$GDPR_Options = get_option('bulletproof_security_options_gdpr');
+
+if ( $GDPR_Options['bps_gdpr_on_off'] != 'On' ) {
+
+	$bpsPro_remote_addr = @$_SERVER['REMOTE_ADDR'];
+	$bpsPro_http_client_ip = @$_SERVER['HTTP_CLIENT_IP'];
+	$bpsPro_http_forwarded = @$_SERVER['HTTP_FORWARDED'];		
+	$bpsPro_http_x_forwarded_for = @$_SERVER['HTTP_X_FORWARDED_FOR'];	
+	$bpsPro_http_x_cluster_client_ip = @$_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];	
+
+} else {
+	
+	$bpsPro_remote_addr = 'GDPR Compliance On';
+	$bpsPro_http_client_ip = 'GDPR Compliance On';
+	$bpsPro_http_forwarded = 'GDPR Compliance On';		
+	$bpsPro_http_x_forwarded_for = 'GDPR Compliance On';	
+	$bpsPro_http_x_cluster_client_ip = 'GDPR Compliance On';		
+}
 
 // Load BPS Global class - not doing anything with this Class in BPS Free
 //require_once( WP_PLUGIN_DIR . '/bulletproof-security/includes/class.php' );
@@ -114,14 +134,14 @@ add_filter( 'network_admin_plugin_action_links', 'bps_plugin_actlinks', 10, 2 );
 // Add links on plugins page
 function bps_plugin_extra_links( $links, $file ) {
 static $this_plugin;
-$vcheck_options = get_option('bulletproof_security_options_vcheck');
+
 	if ( ! current_user_can('install_plugins') )
 		return $links;
 	if ( ! $this_plugin ) 
 		$this_plugin = plugin_basename(__FILE__);
 	if ( $file == $this_plugin ) {
 		$links[] = '<a href="https://forum.ait-pro.com/forums/topic/plugin-conflicts-actively-blocked-plugins-plugin-compatibility/" title="BulletProof Security Forum" target="_blank">'.__('Forum - Support', 'bulleproof-security').'</a>';
-		$links[] = '<a href="https://affiliates.ait-pro.com/po/" title="Upgrade to BPS Pro" target="_blank">'.__('Upgrade', 'bulleproof-security').'</a>'.$vcheck_options['bps_vcheck'];
+		$links[] = '<a href="https://affiliates.ait-pro.com/po/" title="Upgrade to BPS Pro" target="_blank">'.__('Upgrade', 'bulleproof-security').'</a>';
 		$links[] = '<a href="https://www.ait-pro.com/bps-features/" title="BPS Pro Features" target="_blank">'.__('BPS Pro Features', 'bulleproof-security').'</a>';
 	}
 	return $links;

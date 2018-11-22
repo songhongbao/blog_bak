@@ -4,7 +4,7 @@ Donate link: https://wordpress.org/support/view/plugin-reviews/bulletproof-secur
 Tags: security, secure, malware scanner, login security, firewall, security plugin, wordpress security, login, bruteforce, backup, exploit, infection, protection, virus, anti-virus, logout, spam, anti-spam
 Requires at least: 3.8 
 Tested up to: 4.9
-Stable tag: 3.0
+Stable tag: 3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -175,6 +175,10 @@ Security plugin features and frequently asked questions see the FAQ section belo
 
 * Language Packs: <a href="https://translate.wordpress.org/projects/wp-plugins/bulletproof-security" title="Translate BulletProof Security">Translate BulletProof Security</a>
 * Bonus Tip: If you use the Google Chrome Browser you can right mouse click in plugin pages and then click on Translate to... To translate plugin text into your Language.
+
+= GDPR Compliance =
+* BPS has a GDPR Compliance Setup Wizard Options setting, which allows someone to turn IP address logging On or Off throughout all BPS plugin features by choosing the GDPR Compliance On option setting on the Setup Wizard Options page: BPS Features affected: Security Logging, Login Security Logging, and Maintenance Mode Logging. Note: For simplicity and ease of use there is only one option setting that needs to be set instead of creating individual option settings in all BPS features that perform IP address logging.
+* <a href="https://forum.ait-pro.com/forums/topic/bps-gdpr-compliance/" title="BPS GDPR Compliance Forum Topic" rel="nofollow" target="_blank">BPS GDPR Compliance Forum Topic</a>
 
 = BulletProof Security Bonus Custom Code =
 

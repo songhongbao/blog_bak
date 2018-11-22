@@ -91,7 +91,6 @@ $bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
 // Replace ABSPATH = wp-content/uploads
 $wp_upload_dir = wp_upload_dir();
 $bps_uploads_dir = str_replace( ABSPATH, '', $wp_upload_dir['basedir'] );
-$vcheck_options = get_option('bulletproof_security_options_vcheck');
 
 function bpsPro_mscan_openbasedir_check() {
 	
@@ -1925,7 +1924,7 @@ jQuery(document).ready(function($){
 </table>
 </div>
             
-<div id="AITpro-link">BulletProof Security Pro <?php echo BULLETPROOF_VERSION; echo $vcheck_options['bps_vcheck']; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
+<div id="AITpro-link">BulletProof Security Pro <?php echo BULLETPROOF_VERSION; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
 </div>
 </div>
 </div>

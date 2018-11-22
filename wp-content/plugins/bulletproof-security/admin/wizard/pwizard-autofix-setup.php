@@ -1553,6 +1553,7 @@ function bpsPro_Pwizard_Autofix_WPFC() {
 // Unlock the Root htaccess file, get the WPR htaccess code and then remove any existing WPR htaccess code in the Root htaccess file.
 // Notes: WPR version tested: 2.10.3 released June 2017. Writes htaccess code to the top of the root htaccess file every time and does not replace/overwrite old code.
 // Note: htaccess code is created in the site root htaccess file for GWIOD site types.
+// 3.1: Delete the WP Rocket plugin skip/bypass rule code.
 function bpsPro_Pwizard_Autofix_WPR() {
 	
 	$AutoFix_Options = get_option('bulletproof_security_options_wizard_autofix');
@@ -1564,12 +1565,17 @@ function bpsPro_Pwizard_Autofix_WPR() {
 	$wpr_plugin = 'wp-rocket/wp-rocket.php';
 	$wpr_plugin_active = in_array( $wpr_plugin, apply_filters('active_plugins', get_option('active_plugins')));
 
-	// CUSTOM CODE TOP PHP/PHP.INI HANDLER/CACHE CODE
+	// 1. CUSTOM CODE TOP PHP/PHP.INI HANDLER/CACHE CODE
+	// 10. CUSTOM CODE PLUGIN/THEME SKIP/BYPASS RULES
 	$CC_Options_root = get_option('bulletproof_security_options_customcode');
 	$bps_customcode_cache = htmlspecialchars_decode( $CC_Options_root['bps_customcode_one'], ENT_QUOTES );
+	$bps_customcode_two = htmlspecialchars_decode( $CC_Options_root['bps_customcode_two'], ENT_QUOTES );
 	$bps_customcode_cache_array = array();
+	$bps_customcode_two_array = array();
 	$bps_customcode_cache_array[] = $bps_customcode_cache;
+	$bps_customcode_two_array[] = $bps_customcode_two;
 	$cc_cache_array = array();	
+	$cc_two_array = array();
 
 	if ( $wpr_plugin_active == 1 || is_plugin_active_for_network( $wpr_plugin ) ) {
 
@@ -1718,6 +1724,7 @@ function bpsPro_Pwizard_Autofix_WPR() {
 	} else {
 	
 		## WP Rocket Cleanup: Either not installed or activated. Removes any/all WP Rocket htaccess code from BPS Custom Code and Root htaccess file.
+		// 3.1: Remove the WP Rocket plugin skip/bypass code.
 		if ( $wpr_plugin_active != 1 && ! is_plugin_active_for_network( $wpr_plugin ) ) { 
 
 			## Remove any existing WP Rocket htaccess code in Custom Code from the $cc_cache_array.
@@ -1736,6 +1743,22 @@ function bpsPro_Pwizard_Autofix_WPR() {
 			
 			$bps_customcode_cache_implode = implode( "\n\n", $cc_cache_array );
 
+			## 13.6: Remove any existing WP Rocket htaccess code in Custom Code from the $cc_two_array.
+			foreach ( $bps_customcode_two_array as $key => $value ) {
+				
+				if ( preg_match( '/#\sWP\sRocket\splugin\sskip\/bypass\srule(\s*){1}RewriteCond(.*)wp-rocket\/\s\[NC\](\s*){1}RewriteRule\s\.\s\-\s\[S=\d{1,2}\]/s', $value, $matches ) ) {
+					$value = preg_replace( '/#\sWP\sRocket\splugin\sskip\/bypass\srule(\s*){1}RewriteCond(.*)wp-rocket\/\s\[NC\](\s*){1}RewriteRule\s\.\s\-\s\[S=\d{1,2}\]/s', "", $value);
+				}
+
+				if ( preg_match('/(\n\r){2,}/', $value, $matches) ) {	
+					$value = preg_replace("/(\n\r){2,}/", "\n", $value);
+				}				
+			
+				$cc_two_array[] = trim( $value, " \t\n\r");
+			}
+			
+			$bps_customcode_two_implode = implode( "\n\n", $cc_two_array );
+
 			if ( ! is_multisite() ) {
 
 				$Root_CC_Options = array(
@@ -1748,7 +1771,7 @@ function bpsPro_Pwizard_Autofix_WPR() {
 				'bps_customcode_admin_includes' 	=> $CC_Options_root['bps_customcode_admin_includes'], 
 				'bps_customcode_wp_rewrite_start' 	=> $CC_Options_root['bps_customcode_wp_rewrite_start'], 
 				'bps_customcode_request_methods' 	=> $CC_Options_root['bps_customcode_request_methods'], 
-				'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
+				'bps_customcode_two' 				=> $bps_customcode_two_implode, 
 				'bps_customcode_timthumb_misc' 		=> $CC_Options_root['bps_customcode_timthumb_misc'], 
 				'bps_customcode_bpsqse' 			=> $CC_Options_root['bps_customcode_bpsqse'], 
 				'bps_customcode_deny_files' 		=> $CC_Options_root['bps_customcode_deny_files'], 
@@ -1767,7 +1790,7 @@ function bpsPro_Pwizard_Autofix_WPR() {
 				'bps_customcode_admin_includes' 	=> $CC_Options_root['bps_customcode_admin_includes'], 
 				'bps_customcode_wp_rewrite_start' 	=> $CC_Options_root['bps_customcode_wp_rewrite_start'], 
 				'bps_customcode_request_methods' 	=> $CC_Options_root['bps_customcode_request_methods'], 
-				'bps_customcode_two' 				=> $CC_Options_root['bps_customcode_two'], 
+				'bps_customcode_two' 				=> $bps_customcode_two_implode, 
 				'bps_customcode_timthumb_misc' 		=> $CC_Options_root['bps_customcode_timthumb_misc'], 
 				'bps_customcode_bpsqse' 			=> $CC_Options_root['bps_customcode_bpsqse'], 
 				'bps_customcode_wp_rewrite_end' 	=> $CC_Options_root['bps_customcode_wp_rewrite_end'], 
@@ -1795,6 +1818,10 @@ function bpsPro_Pwizard_Autofix_WPR() {
 			
 				if ( preg_match( '/#\sBEGIN\sWP\sRocket(.*)#\sEND\sWP\sRocket/s', $root_htaccess_file_contents, $matches ) ) {
 					$root_htaccess_file_contents = preg_replace( '/#\sBEGIN\sWP\sRocket(.*)#\sEND\sWP\sRocket/s', "", $root_htaccess_file_contents);
+				}
+
+				if ( preg_match( '/#\sWP\sRocket\splugin\sskip\/bypass\srule(\s*){1}RewriteCond(.*)wp-rocket\/\s\[NC\](\s*){1}RewriteRule\s\.\s\-\s\[S=\d{1,2}\]/s', $root_htaccess_file_contents, $matches ) ) {
+					$root_htaccess_file_contents = preg_replace( '/#\sWP\sRocket\splugin\sskip\/bypass\srule(\s*){1}RewriteCond(.*)wp-rocket\/\s\[NC\](\s*){1}RewriteRule\s\.\s\-\s\[S=\d{1,2}\]/s', "", $root_htaccess_file_contents);
 				}
 
 				file_put_contents($rootHtaccess, $root_htaccess_file_contents);			

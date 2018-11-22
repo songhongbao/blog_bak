@@ -867,8 +867,9 @@ function bpsPro_mu_tools_plugin_copy() {
 		$check_string = @file_get_contents($BPS_MU_tools_copy);
 		$pos1 = strpos( $check_string, 'Version: 1.0' );
 		$pos2 = strpos( $check_string, 'Version: 2.0' );
+		$pos3 = strpos( $check_string, 'Version: 3.0' );
 
-		if ( $pos1 !== false || $pos2 !== false ) {
+		if ( $pos1 !== false || $pos2 !== false || $pos3 !== false ) {
 			@copy($BPS_MU_tools, $BPS_MU_tools_copy);			
 		}
 	}
@@ -977,7 +978,7 @@ function bpsPro_presave_mscan_options() {
 			update_option('bulletproof_security_options_MScan', $MS_Options);
 			
 			if ( esc_html($_SERVER['QUERY_STRING']) == 'page=bulletproof-security/admin/wizard/wizard.php' ) {
-				echo $successTextBegin.$key.$mscan_successMessage.$successTextEnd;
+				//echo $successTextBegin.$key.$mscan_successMessage.$successTextEnd;
 			}
 		}
 	
@@ -987,7 +988,7 @@ function bpsPro_presave_mscan_options() {
 			if ( $MScan_options['bps_mscan_dirs'] != '' ) {
 				
 				foreach ( $MScan_options['bps_mscan_dirs'] as $key => $value ) {			
-					echo $successTextBegin.$key.$mscan_dir_successMessage.$successTextEnd;
+					//echo $successTextBegin.$key.$mscan_dir_successMessage.$successTextEnd;
 				}
 			}
 		}
@@ -1005,14 +1006,6 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 	if ( current_user_can('manage_options') ) {
 		global $bps_version, $bps_last_version, $wp_version, $wpdb, $aitpro_bullet, $pagenow, $current_user;
 	
-		// 3.0: VCheck
-		$bps_vcheck_master = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php';
-		
-		if ( file_exists($bps_vcheck_master) ) {		
-			require_once ( WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php' );
-			unlink($bps_vcheck_master);
-		}
-
 		// 2.9: BPS plugin 30 day review/rating request Dismiss Notice
 		$bps_rate_options = 'bulletproof_security_options_rate_free';
 		$gmt_offset = get_option( 'gmt_offset' ) * 3600;
@@ -1113,6 +1106,7 @@ function bpsPro_new_version_db_options_files_autoupdate() {
 		// 2.0: New SBC Dismiss Notice check created: checks for redundant Browser caching code & the BPS NOCHECK Marker in BPS Custom Code
 		delete_user_meta($user_id, 'bpsPro_ignore_speed_boost_notice');
 		// 2.0: New Endurance Page Cache Dismiss Notice check created: A dismiss notice will only be displayed if: EPC is enabled and Cache level is 1,2,3,4
+		// 3.2: No longer offering Setup Wizard AutoFix for the EPC plugin.
 		delete_user_meta($user_id, 'bpsPro_ignore_EPC_plugin_notice');
 		// 2.0: Delete these old Dismiss Notices permanently that are no longer being used
 		delete_user_meta($user_id, 'bps_ignore_BLC_notice');

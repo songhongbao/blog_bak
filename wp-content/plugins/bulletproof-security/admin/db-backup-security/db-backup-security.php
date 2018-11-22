@@ -79,7 +79,6 @@ $bpsSpacePop = '-------------------------------------------------------------';
 $bps_plugin_dir = str_replace( ABSPATH, '', WP_PLUGIN_DIR );
 // Replace ABSPATH = wp-content
 $bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
-$vcheck_options = get_option('bulletproof_security_options_vcheck');
 // Top div echo & bottom div echo
 $bps_topDiv = '<div id="message" class="updated" style="background-color:#dfecf2;border:1px solid #999;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><p>';
 $bps_bottomDiv = '</p></div>';
@@ -945,9 +944,9 @@ if ( isset( $_POST['Submit-DBB-Reset'] ) && current_user_can('manage_options') )
 	echo '<form name="bpsDBBackupCreateJob" action="'.admin_url( 'admin.php?page=bulletproof-security/admin/db-backup-security/db-backup-security.php' ).'" method="post">';
 	wp_nonce_field('bulletproof_security_db_backup_create_job');
 
-	$DBTables = 0;
+	$DBTables = '';
 	$size = 0;
-	$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Rows >= %d", $DBTables ) );
+	$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Name != %s", $DBTables ) );
 	// Get new current DB option values.
 	$DBBoptions = get_option('bulletproof_security_options_db_backup');
 
@@ -1427,8 +1426,8 @@ if ( isset( $_POST['Submit-DB-Table-Prefix'] ) && current_user_can('manage_optio
 		$MetaKeys = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->usermeta WHERE meta_key LIKE %s", "$base_prefix%" ) );
 		$userRoles = '_user_roles';
 		$UserRolesRows = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->options WHERE option_name LIKE %s", "%$userRoles" ) );
-		$DBTables = 0;
-		$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Rows >= %d", $DBTables ) );
+		$DBTables = '';
+		$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Name != %s", $DBTables ) );
 		
 		foreach ( $getDBTables as $Table ) {
 			$new_table_name = preg_replace( "/^$wpdb->base_prefix/", $DBTablePrefix, $Table->Name );
@@ -1555,8 +1554,8 @@ global $wpdb, $bps_topDiv, $bps_bottomDiv;
 		check_admin_referer( 'bulletproof_security_db_prefix_refresh' );
 	
 		$base_prefix = $wpdb->base_prefix;
-		$DBTables = 0;
-		$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Rows >= %d", $DBTables ) );
+		$DBTables = '';
+		$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Name != %s", $DBTables ) );
 
 		echo '<div id="DBPrefixStatus1" style="margin:0px 0px 20px 0px;overflow:auto;width:100%;height:200px;border:1px solid black;">';
 		echo '<table style="text-align:left;border-right:1px solid black;padding:5px;">';
@@ -1709,7 +1708,7 @@ jQuery(document).ready(function($) {
 </table>
 </div>
             
-<div id="AITpro-link">BulletProof Security Pro <?php echo BULLETPROOF_VERSION; echo $vcheck_options['bps_vcheck']; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
+<div id="AITpro-link">BulletProof Security Pro <?php echo BULLETPROOF_VERSION; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
 </div>
 </div>
 <style>

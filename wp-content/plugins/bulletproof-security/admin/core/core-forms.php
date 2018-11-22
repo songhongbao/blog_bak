@@ -630,6 +630,7 @@ if ( isset( $_POST['bpsResetDismissSubmit'] ) && current_user_can('manage_option
 		echo $text;
 	}
 
+	/*
 	if ( ! delete_user_meta($user_id, 'bpsPro_ignore_EPC_plugin_notice') ) {
 		$text = __('The Endurance Page Cache (EPC) plugin Notice is NOT set. Nothing to reset.', 'bulletproof-security').'<br>';
 		echo $text;
@@ -637,6 +638,7 @@ if ( isset( $_POST['bpsResetDismissSubmit'] ) && current_user_can('manage_option
 		$text = '<span style="color:#008000;">'.__('Success! The Endurance Page Cache (EPC) plugin Notice is reset.', 'bulletproof-security').'</span><br>';
 		echo $text;
 	}
+	*/
 
 	if ( ! delete_user_meta($user_id, 'bps_ignore_mscan_notice') ) {
 		$text = __('The MScan First Run Notice is NOT set. Nothing to reset.', 'bulletproof-security').'<br>';
@@ -667,6 +669,14 @@ if ( isset( $_POST['bpsResetDismissSubmit'] ) && current_user_can('manage_option
 		echo $text;
 	} else {
 		$text = '<span style="color:#008000;">'.__('Success! The Mod Security Module is Loaded|Enabled Notice is reset.', 'bulletproof-security').'</span><br>';
+		echo $text;
+	}
+
+	if ( ! delete_user_meta($user_id, 'bpsPro_ignore_gdpr_compliance_notice') ) {
+		$text = __('The GDPR Compliance Notice is NOT set. Nothing to reset.', 'bulletproof-security').'<br>';
+		echo $text;
+	} else {
+		$text = '<span style="color:#008000;">'.__('Success! The GDPR Compliance Notice is reset.', 'bulletproof-security').'</span><br>';
 		echo $text;
 	}
 

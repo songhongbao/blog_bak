@@ -28,6 +28,7 @@ function bps_HUD_WP_Dashboard() {
 		bpsPro_hud_jtc_lite_notice();
 		bpsPro_hud_rate_notice();
 		bpsPro_hud_mod_security_check();
+		bpsPro_hud_gdpr_compliance();
 		//bps_hud_check_public_username();
 	}
 }
@@ -807,5 +808,36 @@ $user_id = $current_user->ID;
 	}
 }
 
+// Heads Up Display w/ Dismiss Notice - GDPR Compliance Dismiss Notice. Displays a link to a help forum topic.
+function bpsPro_hud_gdpr_compliance() {
+	
+	global $current_user;
+	$user_id = $current_user->ID;		
+	
+	if ( ! get_user_meta($user_id, 'bpsPro_ignore_gdpr_compliance_notice')) { 
+	
+		if ( esc_html($_SERVER['QUERY_STRING']) == '' && basename(esc_html($_SERVER['REQUEST_URI'])) != 'wp-admin' ) {
+			$bps_base = basename(esc_html($_SERVER['REQUEST_URI'])) . '?';
+		} elseif ( esc_html($_SERVER['QUERY_STRING']) == '' && basename(esc_html($_SERVER['REQUEST_URI'])) == 'wp-admin' ) {
+			$bps_base = basename( str_replace( 'wp-admin', 'index.php?', esc_html($_SERVER['REQUEST_URI'])));
+		} else {
+			$bps_base = str_replace( admin_url(), '', esc_html($_SERVER['REQUEST_URI']) ) . '&';
+		}
+		
+		$text = '<div class="update-nag" style="background-color:#dfecf2;border:1px solid #999;font-size:1em;font-weight:600;padding:2px 5px;margin-top:2px;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><font color="blue">'.__('BPS GDPR Compliance Notice', 'bulletproof-security').'</font><br>'.__('A new Setup Wizard Option has been created which allows you to turn off all IP address logging in BPS to make your website GDPR Compliant.', 'bulletproof-security').'<br>'.__('Click this ', 'bulletproof-security').'<a href="'.admin_url( 'admin.php?page=bulletproof-security/admin/wizard/wizard.php#bps-tabs-2' ).'">'.__('GDPR Compliance Setup Wizard Option link', 'bulletproof-security').'</a>. '.__('Choose the GDPR Compliance On setting.', 'bulletproof-security').'<br>'.__('For more information about GDPR Compliance click this ', 'bulletproof-security').'<a href="https://forum.ait-pro.com/forums/topic/bps-gdpr-compliance/" target="_blank" title="GDPR Compliance">'.__('GDPR Compliance Forum Topic link', 'bulletproof-security').'</a>.<br>'.__('To Dismiss this Notice click the Dismiss Notice button below. To Reset Dismiss Notices click the Reset|Recheck Dismiss Notices button on the BPS Custom Code page.', 'bulletproof-security').'<br><div style="float:left;margin:3px 0px 3px 0px;padding:2px 6px 2px 6px;background-color:#e8e8e8;border:1px solid gray;"><a href="'.$bps_base.'bpsPro_gdpr_compliance_nag_ignore=0'.'" style="text-decoration:none;font-weight:bold;">'.__('Dismiss Notice', 'bulletproof-security').'</a></div></div>';
+		echo $text;
+	}
+}
+
+add_action('admin_init', 'bpsPro_gdpr_compliance_nag_ignore');
+
+function bpsPro_gdpr_compliance_nag_ignore() {
+global $current_user;
+$user_id = $current_user->ID;
+        
+	if ( isset($_GET['bpsPro_gdpr_compliance_nag_ignore']) && '0' == $_GET['bpsPro_gdpr_compliance_nag_ignore'] ) {
+		add_user_meta($user_id, 'bpsPro_ignore_gdpr_compliance_notice', 'true', true);
+	}
+}
 
 ?>

@@ -134,7 +134,6 @@ $bpsSpacePop = '-------------------------------------------------------------';
 $bps_plugin_dir = str_replace( ABSPATH, '', WP_PLUGIN_DIR );
 // Replace ABSPATH = wp-content
 $bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
-$vcheck_options = get_option('bulletproof_security_options_vcheck');
 // Top div & bottom div echo
 $bps_topDiv = '<div id="message" class="updated" style="background-color:#dfecf2;border:1px solid #999;-moz-border-radius-topleft:3px;-webkit-border-top-left-radius:3px;-khtml-border-top-left-radius:3px;border-top-left-radius:3px;-moz-border-radius-topright:3px;-webkit-border-top-right-radius:3px;-khtml-border-top-right-radius:3px;border-top-right-radius:3px;-webkit-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);-moz-box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);box-shadow: 3px 3px 5px -1px rgba(153,153,153,0.7);"><p>';
 $bps_bottomDiv = '</p></div>';
@@ -1360,7 +1359,7 @@ if ( isset( $_POST['Submit-ACE-Options'] ) && current_user_can('manage_options')
 </table>
 </div>
          
-<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; echo $vcheck_options['bps_vcheck']; ?> Plugin by <a href="https://www.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
+<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; ?> Plugin by <a href="https://www.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
 </div>
 </div>
 </div>

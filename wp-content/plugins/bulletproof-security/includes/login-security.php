@@ -75,7 +75,6 @@ $BPSoptions = get_option('bulletproof_security_options_login_security');
 $BPSoptionsJTC = get_option('bulletproof_security_options_login_security_jtc');
 $options = get_option('bulletproof_security_options_email');
 $bpspro_login_table = $wpdb->prefix . "bpspro_login_security";
-$ip_address = esc_html( $_SERVER['REMOTE_ADDR'] );
 $hostname = esc_html( @gethostbyaddr($_SERVER['REMOTE_ADDR'] ) );
 $request_uri = esc_html( $_SERVER['REQUEST_URI'] );
 $login_time = time();
@@ -91,6 +90,15 @@ $justUrl = get_site_url();
 $timestamp = date_i18n(get_option('date_format'), strtotime("11/15-1976")) . ' - ' . date_i18n(get_option('time_format'), $timeNow + $gmt_offset);
 $headers = array( 'Content-Type: text/html; charset=UTF-8', 'From: ' . $bps_email_from, 'Cc: ' . $bps_email_cc, 'Bcc: ' . $bps_email_bcc );
 $subject = " BPS Login Security Alert - $timestamp ";
+
+// 3.1: New GDPR conditional code for IP addresses logged in the WP DB
+$GDPR_Options = get_option('bulletproof_security_options_gdpr');
+
+if ( $GDPR_Options['bps_gdpr_on_off'] != 'On' ) {
+	$ip_address = esc_html( $_SERVER['REMOTE_ADDR'] );
+} else {
+	$ip_address = 'GDPR Compliance On';
+}
 
 /*
 ***************************************************************

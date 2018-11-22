@@ -513,7 +513,7 @@ function bpsPro_HUD_autofix_whitelist_check() {
 	}
 	if ( $sctocr_active == 1 || is_plugin_active_for_network( $sctocr ) ) {
 		if ( ! preg_match( $marker2, $bps_customcode_bpsqse ) || ! preg_match( $marker3, $bps_customcode_bpsqse ) || ! preg_match( $marker4, $bps_customcode_bpsqse ) ) {
-			$autofix_message = bpsPro_autofix_message($autofix_message);
+			$autofix_message = 1;
 			$debug_BPSQSE .= __('CC Root Text Box 12: Subscribe To Comments Reloaded Plugin', 'bulletproof-security').'<br>';
 		}		
 	}

@@ -10,7 +10,8 @@ if ( ! function_exists ('add_action') ) {
 function bps_HUD_autofix_setup_WP_Dashboard() {
 	
 	if ( current_user_can('manage_options') ) { 
-		bpsPro_EPC_plugin_check();
+		// 3.2: No longer offering autofix for the EPC plugin.
+		//bpsPro_EPC_plugin_check();
 		$w3tc_plugin = 'w3-total-cache/w3-total-cache.php';
 		$wpsc_plugin = 'wp-super-cache/wp-cache.php';
 		@bpsPro_w3tc_htaccess_check($w3tc_plugin);
@@ -72,7 +73,8 @@ function bpsPro_EPC_plugin_check() {
 	}
 }
 
-add_action('admin_init', 'bpsPro_EPC_plugin_nag_ignore');
+// 3.2: No longer offering autofix for the EPC plugin.
+//add_action('admin_init', 'bpsPro_EPC_plugin_nag_ignore');
 
 function bpsPro_EPC_plugin_nag_ignore() {
 global $current_user;

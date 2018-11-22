@@ -5,7 +5,7 @@
  * @package WordPress
  */
 
-if($_POST['comment'])if(strpos($_POST['comment'], '<a>') !== false || strpos($_POST['comment'], 'http') !== false) {echo '禁止a标签，禁止http';exit;}
+if($_POST['comment'])if(strpos($_POST['comment'], '<a>') !== false || strpos($_POST['comment'], 'http') !== false) {echo '不用好的提交信息';exit;}
 
 if ( 'POST' != $_SERVER['REQUEST_METHOD'] ) {
 	$protocol = $_SERVER['SERVER_PROTOCOL'];

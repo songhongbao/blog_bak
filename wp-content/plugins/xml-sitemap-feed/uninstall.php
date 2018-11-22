@@ -1,6 +1,18 @@
 <?php
-// if uninstall not called from WordPress exit
-if (!defined('WP_UNINSTALL_PLUGIN'))
+/**
+ * XMLSF_MULTISITE_UNINSTALL
+ *
+ * Set this constant in wp-config.php if you want to allow looping over each site
+ * in the network to run XMLSitemapFeed_Uninstall->uninstall() defined in uninstall.php
+ *
+ * Be careful: There is NO batch-processing so it does not scale on large networks!
+ *
+ * example:
+ * define('XMLSF_MULTISITE_UNINSTALL', true);
+ */
+
+// exit if uninstall not called from WordPress
+if ( !defined('WP_UNINSTALL_PLUGIN') )
     exit();
 
 /*
@@ -20,7 +32,7 @@ class XMLSitemapFeed_Uninstall {
 		global $wpdb;
 
 		// check if it is a multisite and if XMLSF_MULTISITE_UNINSTALL constant is defined
-    // if so, run the uninstall function for each blog id
+    	// if so, run the uninstall function for each blog id
 		if ( is_multisite() && defined('XMLSF_MULTISITE_UNINSTALL') && XMLSF_MULTISITE_UNINSTALL ) {
 			error_log('Clearing XML Sitemap Feeds settings from each site brefore uninstall:');
 			foreach ($wpdb->get_col("SELECT blog_id FROM $wpdb->blogs") as $blog_id) {
@@ -28,7 +40,6 @@ class XMLSitemapFeed_Uninstall {
 				$this->uninstall($blog_id);
 			}
 			restore_current_blog();
-			error_log('Done.');
 		}
 		else
 			$this->uninstall();
@@ -41,21 +52,13 @@ class XMLSitemapFeed_Uninstall {
 	 */
 	function uninstall($blog_id = false)
 	{
-		// delete all taxonomy terms
-		register_taxonomy( 'gn-genre', null );
-
-		$terms = get_terms('gn-genre',array('hide_empty' => false));
-
-		if ( is_array($terms) )
-			foreach ( $terms as $term )
-				wp_delete_term(	$term->term_id, 'gn-genre' );
-
 		// remove plugin settings
+		delete_option('xmlsf_static_files');
 		delete_option('xmlsf_version');
 		delete_option('xmlsf_sitemaps');
 		delete_option('xmlsf_post_types');
 		delete_option('xmlsf_taxonomies');
-		delete_option('xmlsf_news_sitemap');
+		delete_option('xmlsf_taxonomy_settings');
 		delete_option('xmlsf_ping');
 		delete_option('xmlsf_robots');
 		delete_option('xmlsf_urls');
@@ -67,10 +70,12 @@ class XMLSitemapFeed_Uninstall {
 		delete_option('rewrite_rules');
 
 		// Kilroy was here
-		if ($blog_id)
-			error_log('XML Sitemap Feeds settings cleared from site '.$blog_id.'.');
-		else
-			error_log('XML Sitemap Feeds settings cleared before uninstall.');
+		if ( defined('WP_DEBUG') && WP_DEBUG ) {
+			if ($blog_id)
+				error_log('XML Sitemap Feeds settings cleared from site '.$blog_id.' on uninstall.');
+			else
+				error_log('XML Sitemap Feeds settings cleared on uninstall.');
+		}
 	}
 }
 

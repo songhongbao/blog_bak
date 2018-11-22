@@ -125,15 +125,17 @@ global $wpdb, $wp_version, $blog_id;
 	}
 	}
 
-// Whitelist BPS DB options: Total: 39
+// Whitelist BPS DB options: Total: 41
 register_setting('bulletproof_security_options', 'bulletproof_security_options', 'bulletproof_security_options_validate');
 register_setting('bulletproof_security_options_SLF', 'bulletproof_security_options_SLF', 'bulletproof_security_options_validate_SLF');
+register_setting('bulletproof_security_options_gdpr', 'bulletproof_security_options_gdpr', 'bulletproof_security_options_validate_gdpr');
 register_setting('bulletproof_security_options_debug', 'bulletproof_security_options_debug', 'bulletproof_security_options_validate_debug');
 register_setting('bulletproof_security_options_DBB_log', 'bulletproof_security_options_DBB_log', 'bulletproof_security_options_validate_DBB_log');
 register_setting('bulletproof_security_options_autolock', 'bulletproof_security_options_autolock', 'bulletproof_security_options_validate_autolock');
 register_setting('bulletproof_security_options_db_backup', 'bulletproof_security_options_db_backup', 'bulletproof_security_options_validate_db_backup');
 register_setting('bulletproof_security_options_wpt_nodes', 'bulletproof_security_options_wpt_nodes', 'bulletproof_security_options_validate_wpt_nodes');
 register_setting('bulletproof_security_options_customcode', 'bulletproof_security_options_customcode', 'bulletproof_security_options_validate_customcode');
+register_setting('bulletproof_security_options_mu_sysinfo', 'bulletproof_security_options_mu_sysinfo', 'bulletproof_security_options_validate_mu_sysinfo');
 register_setting('bulletproof_security_options_autoupdate', 'bulletproof_security_options_autoupdate', 'bulletproof_security_options_validate_autoupdate');
 register_setting('bulletproof_security_options_wizard_free', 'bulletproof_security_options_wizard_free', 'bulletproof_security_options_validate_wizard_free');
 register_setting('bulletproof_security_options_MScan_status', 'bulletproof_security_options_MScan_status', 'bulletproof_security_options_validate_MScan_status');
@@ -319,7 +321,12 @@ global $blog_id;
 	add_submenu_page('bulletproof-security/admin/login/login.php', __('Maintenance Mode', 'bulletproof-security'), __('Maintenance Mode', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/maintenance/maintenance.php' );
 	}
 	
+	// 3.2: Setup Wizard Option: Multisite Hide|Display System Info Page for Subsites
+	$Mu_Sysinfo_page_options = get_option('bulletproof_security_options_mu_sysinfo');
+	if ( $Mu_Sysinfo_page_options['bps_sysinfo_hide_display'] != 'hide' ) {		
 	add_submenu_page('bulletproof-security/admin/login/login.php', __('System Info', 'bulletproof-security'), __('System Info', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/system-info/system-info.php' );
+	}
+	
 	add_submenu_page('bulletproof-security/admin/login/login.php', __('UI|UX Settings', 'bulletproof-security'), __('UI|UX Settings', 'bulletproof-security'), 'manage_options', 'bulletproof-security/admin/theme-skin/theme-skin.php' );
 	
 	} else {
@@ -828,6 +835,8 @@ require_once( ABSPATH . 'wp-admin/includes/plugin.php');
 		delete_option('bulletproof_security_options_rate_free');
 		delete_option('bulletproof_security_options_mod_security');
 		delete_option('bulletproof_security_options_vcheck');
+		delete_option('bulletproof_security_options_gdpr');  
+		delete_option('bulletproof_security_options_mu_sysinfo');
 		// will be adding this new upgrade notice option later
 		// delete_option('bulletproof_security_options_upgrade_notice');	
 	
@@ -1377,6 +1386,22 @@ function bulletproof_security_options_validate_mod_security($input) {
 function bulletproof_security_options_validate_vcheck($input) {  
 	$options = get_option('bulletproof_security_options_vcheck');  
 	$options['bps_vcheck'] = $input['bps_vcheck'];		
+	
+	return $options;  
+}
+
+// Setup Wizard Options: GDPR On|Off Setup Wizard Option
+function bulletproof_security_options_validate_gdpr($input) {  
+	$options = get_option('bulletproof_security_options_gdpr');  
+	$options['bps_gdpr_on_off'] = $input['bps_gdpr_on_off'];		
+	
+	return $options;  
+}
+
+// Setup Wizard Options: Network|Multisite Hide|Display System Info page for Subsites
+function bulletproof_security_options_validate_mu_sysinfo($input) {  
+	$options = get_option('bulletproof_security_options_mu_sysinfo');  
+	$options['bps_sysinfo_hide_display'] = $input['bps_sysinfo_hide_display'];		
 	
 	return $options;  
 }

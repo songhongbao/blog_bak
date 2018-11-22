@@ -9,6 +9,26 @@ $hostname = @gethostbyaddr($_SERVER['REMOTE_ADDR']);
 $timeNow = time();
 $gmt_offset = get_option( 'gmt_offset' ) * 3600;
 	
+// Setup Wizard Options: GDPR Compliance Global Variables
+$GDPR_Options = get_option('bulletproof_security_options_gdpr');
+
+if ( $GDPR_Options['bps_gdpr_on_off'] != 'On' ) {
+
+	$bpsPro_remote_addr = $_SERVER['REMOTE_ADDR'];
+	$bpsPro_http_client_ip = $_SERVER['HTTP_CLIENT_IP'];
+	$bpsPro_http_forwarded = $_SERVER['HTTP_FORWARDED'];		
+	$bpsPro_http_x_forwarded_for = $_SERVER['HTTP_X_FORWARDED_FOR'];	
+	$bpsPro_http_x_cluster_client_ip = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];	
+
+} else {
+	
+	$bpsPro_remote_addr = 'GDPR Compliance On';
+	$bpsPro_http_client_ip = 'GDPR Compliance On';
+	$bpsPro_http_forwarded = 'GDPR Compliance On';		
+	$bpsPro_http_x_forwarded_for = 'GDPR Compliance On';	
+	$bpsPro_http_x_cluster_client_ip = 'GDPR Compliance On';		
+}
+
 	$post_limit = get_option('bulletproof_security_options_sec_log_post_limit'); 
 	$query_string = parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY);
 
@@ -44,7 +64,7 @@ $gmt_offset = get_option( 'gmt_offset' ) * 3600;
 			$request_body = 'BPS Security Log option set to: Do Not Log POST Request Body Data';
 		}
 
-$log_contents = "\r\n" . '[404 POST Not Found Request: ' . $timestamp . ']' . "\r\n" . 'BPS: ' . $bps_version . "\r\n" . 'WP: ' . $wp_version . "\r\n" . 'Event Code: ' . $event . "\r\n" . 'Solution: ' . $solution . "\r\n" . 'REMOTE_ADDR: '.$_SERVER['REMOTE_ADDR']."\r\n" . 'Host Name: ' . $hostname . "\r\n" . 'SERVER_PROTOCOL: '.$_SERVER['SERVER_PROTOCOL']."\r\n" . 'HTTP_CLIENT_IP: '.$_SERVER['HTTP_CLIENT_IP']."\r\n" . 'HTTP_FORWARDED: '.$_SERVER['HTTP_FORWARDED']."\r\n" . 'HTTP_X_FORWARDED_FOR: '.$_SERVER['HTTP_X_FORWARDED_FOR']."\r\n" . 'HTTP_X_CLUSTER_CLIENT_IP: '.$_SERVER['HTTP_X_CLUSTER_CLIENT_IP']."\r\n" . 'REQUEST_METHOD: '.$_SERVER['REQUEST_METHOD']."\r\n" . 'HTTP_REFERER: '.$_SERVER['HTTP_REFERER']."\r\n" . 'REQUEST_URI: '.$_SERVER['REQUEST_URI']."\r\n" . 'QUERY_STRING: '.$query_string."\r\n" . 'HTTP_USER_AGENT: '.$_SERVER['HTTP_USER_AGENT'] . "\r\n" . 'REQUEST BODY: ' . $request_body . "\r\n";
+$log_contents = "\r\n" . '[404 POST Not Found Request: ' . $timestamp . ']' . "\r\n" . 'BPS: ' . $bps_version . "\r\n" . 'WP: ' . $wp_version . "\r\n" . 'Event Code: ' . $event . "\r\n" . 'Solution: ' . $solution . "\r\n" . 'REMOTE_ADDR: '.$bpsPro_remote_addr . "\r\n" . 'Host Name: ' . $hostname . "\r\n" . 'SERVER_PROTOCOL: ' . $_SERVER['SERVER_PROTOCOL'] . "\r\n" . 'HTTP_CLIENT_IP: ' . $bpsPro_http_client_ip . "\r\n" . 'HTTP_FORWARDED: ' . $bpsPro_http_forwarded . "\r\n" . 'HTTP_X_FORWARDED_FOR: ' . $bpsPro_http_x_forwarded_for . "\r\n" . 'HTTP_X_CLUSTER_CLIENT_IP: ' . $bpsPro_http_x_cluster_client_ip."\r\n" . 'REQUEST_METHOD: '.$_SERVER['REQUEST_METHOD']."\r\n" . 'HTTP_REFERER: '.$_SERVER['HTTP_REFERER']."\r\n" . 'REQUEST_URI: '.$_SERVER['REQUEST_URI']."\r\n" . 'QUERY_STRING: '.$query_string."\r\n" . 'HTTP_USER_AGENT: '.$_SERVER['HTTP_USER_AGENT'] . "\r\n" . 'REQUEST BODY: ' . $request_body . "\r\n";
 
 	if ( is_writable( $bpsProLog ) ) {
 
@@ -62,7 +82,7 @@ $log_contents = "\r\n" . '[404 POST Not Found Request: ' . $timestamp . ']' . "\
 	
 	if ( empty($request_body) ) {
 
-$log_contents = "\r\n" . '[404 GET Not Found Request: ' . $timestamp . ']' . "\r\n" . 'BPS: ' . $bps_version . "\r\n" . 'WP: ' . $wp_version . "\r\n" . 'Event Code: ' . $event . "\r\n" . 'Solution: ' . $solution . "\r\n" . 'REMOTE_ADDR: '.$_SERVER['REMOTE_ADDR']."\r\n" . 'Host Name: ' . $hostname . "\r\n" . 'SERVER_PROTOCOL: '.$_SERVER['SERVER_PROTOCOL']."\r\n" . 'HTTP_CLIENT_IP: '.$_SERVER['HTTP_CLIENT_IP']."\r\n" . 'HTTP_FORWARDED: '.$_SERVER['HTTP_FORWARDED']."\r\n" . 'HTTP_X_FORWARDED_FOR: '.$_SERVER['HTTP_X_FORWARDED_FOR']."\r\n" . 'HTTP_X_CLUSTER_CLIENT_IP: '.$_SERVER['HTTP_X_CLUSTER_CLIENT_IP']."\r\n" . 'REQUEST_METHOD: '.$_SERVER['REQUEST_METHOD']."\r\n" . 'HTTP_REFERER: '.$_SERVER['HTTP_REFERER']."\r\n" . 'REQUEST_URI: '.$_SERVER['REQUEST_URI']."\r\n" . 'QUERY_STRING: '.$query_string."\r\n" . 'HTTP_USER_AGENT: '.$_SERVER['HTTP_USER_AGENT']."\r\n";
+$log_contents = "\r\n" . '[404 GET Not Found Request: ' . $timestamp . ']' . "\r\n" . 'BPS: ' . $bps_version . "\r\n" . 'WP: ' . $wp_version . "\r\n" . 'Event Code: ' . $event . "\r\n" . 'Solution: ' . $solution . "\r\n" . 'REMOTE_ADDR: '.$bpsPro_remote_addr . "\r\n" . 'Host Name: ' . $hostname . "\r\n" . 'SERVER_PROTOCOL: ' . $_SERVER['SERVER_PROTOCOL'] . "\r\n" . 'HTTP_CLIENT_IP: ' . $bpsPro_http_client_ip . "\r\n" . 'HTTP_FORWARDED: ' . $bpsPro_http_forwarded . "\r\n" . 'HTTP_X_FORWARDED_FOR: ' . $bpsPro_http_x_forwarded_for . "\r\n" . 'HTTP_X_CLUSTER_CLIENT_IP: ' . $bpsPro_http_x_cluster_client_ip."\r\n" . 'REQUEST_METHOD: '.$_SERVER['REQUEST_METHOD']."\r\n" . 'HTTP_REFERER: '.$_SERVER['HTTP_REFERER']."\r\n" . 'REQUEST_URI: '.$_SERVER['REQUEST_URI']."\r\n" . 'QUERY_STRING: '.$query_string."\r\n" . 'HTTP_USER_AGENT: '.$_SERVER['HTTP_USER_AGENT']."\r\n";
 
 	if ( is_writable( $bpsProLog ) ) {
 

@@ -109,7 +109,6 @@ require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
 
 $bps_wpcontent_dir = str_replace( ABSPATH, '', WP_CONTENT_DIR );
 $bpsSpacePop = '-------------------------------------------------------------';
-$vcheck_options = get_option('bulletproof_security_options_vcheck');
 
 if ( isset( $_POST['Submit-Setup-Wizard'] ) ) {
 require_once( WP_PLUGIN_DIR . '/bulletproof-security/admin/wizard/wizard-functions.php' );
@@ -363,14 +362,6 @@ $failMessage = __('Error: Unable to create DB Table ', 'bulletproof-security');
 $failTextEnd = '</strong></font><br>';
 $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 
-	// 3.0: VCheck
-	$bps_vcheck_master = WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php';
-	
-	if ( file_exists($bps_vcheck_master) ) {		
-		require_once ( WP_PLUGIN_DIR . '/bulletproof-security/admin/htaccess/bps-vcheck.php' );
-		unlink($bps_vcheck_master);
-	}
-
 	// 2.9: BPS plugin 30 day review/rating request Dismiss Notice
 	$bps_rate_options = 'bulletproof_security_options_rate_free';
 	$gmt_offset = get_option( 'gmt_offset' ) * 3600;
@@ -424,7 +415,8 @@ $HFiles_options = get_option('bulletproof_security_options_htaccess_files');
 	bpsPro_Pwizard_Autofix_WPSC();
 	bpsPro_Pwizard_Autofix_W3TC();
 	bpsPro_Pwizard_Autofix_Comet_Cache();
-	bpsPro_Pwizard_Autofix_Endurance();
+	// 3.2: No longer offering autofix for the EPC plugin.	
+	//bpsPro_Pwizard_Autofix_Endurance();
 	bpsPro_Pwizard_Autofix_WPFC();
 	bpsPro_Pwizard_Autofix_WPR();
 	
@@ -1114,10 +1106,11 @@ bpsSetupWizardPrechecks();
 	
     <strong><a href="https://forum.ait-pro.com/forums/topic/gdmw/" title="Go Daddy Managed WordPress Hosting (GDMW)" target="_blank"><?php _e('Go Daddy Managed WordPress Hosting (GDMW)', 'bulletproof-security'); ?></a></strong><br />
     <strong><a href="https://forum.ait-pro.com/forums/topic/htaccess-files-disabled-setup-wizard-enable-disable-htaccess-files/" title="Enable|Disable htaccess Files" target="_blank"><?php _e('Enable|Disable htaccess Files', 'bulletproof-security'); ?></a></strong><br />
- 	<strong><a href="https://forum.ait-pro.com/forums/topic/setup-wizard-autofix/" title="AutoFix" target="_blank"><?php _e('AutoFix Forum Topic', 'bulletproof-security'); ?></a></strong><br /><br />
+ 	<strong><a href="https://forum.ait-pro.com/forums/topic/setup-wizard-autofix/" title="AutoFix" target="_blank"><?php _e('AutoFix Forum Topic', 'bulletproof-security'); ?></a></strong><br />
+ 	<strong><a href="https://forum.ait-pro.com/forums/topic/bps-gdpr-compliance/" title="GDPR Compliance" target="_blank"><?php _e('GDPR Compliance Forum Topic', 'bulletproof-security'); ?></a></strong><br /><br />
 	
 	<?php
-    $dialog_text = '<strong>'.__('AutoFix (AutoWhitelist|AutoSetup|AutoCleanup)', 'bulletproof-security').'</strong><br>'.__('Setup Wizard AutoFix is turned On by default. When AutoFix is turned On the Setup Wizard will automatically create htaccess whitelist rules in BPS Custom Code and your Live htaccess files for other plugins and themes that you have installed that require htaccess code whitelist rules. Setup Wizard AutoFix will also automatically setup or cleanup htaccess code in BPS Custom Code for these caching plugins: WP Super Cache, W3 Total Cache, Comet Cache Plugin (free & Pro), WP Fastest Cache Plugin (free & Premium), Endurance Page Cache and WP Rocket. If a problem occurs with AutoFix you can turn On the AutoFix Debugger on the BPS UI|UX Settings page > BPS UI|UX|AutoFix Debug option to check the plugin or theme name and the BPS Custom Code text box where the problem is occurring. You can also turn Off AutoFix and AutoFix will not try to detect or create Custom Code whitelist rules or setup or cleanup caching plugins htaccess code. If a problem does occur with AutoFix turn On the BPS UI|UX|AutoFix Debug option, copy the AutoFix Debug information that is displayed to you and then click the AutoFix Forum Topic link at the top of this Read Me help window and post a forum Reply with your AutoFix Debug information so that we can figure out what the problem is.', 'bulletproof-security').'<br><br><strong>'.__('Go Daddy Managed WordPress Hosting (GDMW):', 'bulletproof-security').'</strong><br>'.__('This option is ONLY for a special type of Go Daddy Hosting account called "Managed WordPress Hosting" and is NOT for regular/standard Go Daddy Hosting account types. Leave the default setting set to No, unless you have a Go Daddy Managed WordPress Hosting account. See the Forum Help Links section above for more information.', 'bulletproof-security').'<br><br><strong>'.__('Enable|Disable htaccess Files:', 'bulletproof-security').'</strong><br>'.__('Before changing this option setting, click the ', 'bulletproof-security').'<strong><font color="blue">'.__('Enable|Disable htaccess Files', 'bulletproof-security').'</font></strong>'.__(' Forum Help Link at the top of this Read Me help window to find out exactly what this option setting does and when it should or should not be used. htaccess Files Disabled: Will disable all BPS htaccess features and files. htaccess Files Enabled: Will enable all BPS htaccess freatures and files.', 'bulletproof-security').'<br><br><strong>'.__('Enable|Disable wp-admin BulletProof Mode', 'bulletproof-security').'</strong><br>'.__('The default setting is already set to: wp-admin BulletProof Mode Enabled. If you would like to disable wp-admin BulletProof Mode select wp-admin BulletProof Mode Disabled.', 'bulletproof-security').'<br><br><strong>'.__('Zip File Download Fix (Incapsula, Proxy, Other Cause):', 'bulletproof-security').'</strong><br>'.__('This option should only be set to On if you are seeing a 403 error and/or unable to download these Zip files: Custom Code Export Zip file, Login Security Table Export Zip file or the Setup Wizard Root htaccess file backup Zip file. The Setup Wizard Root htaccess file backup Zip file link is only displayed if BPS detects that your current Root htaccess file is not a BPS Root htaccess file. If you are still unable to download zip files after setting this option to On then you will need to whitelist your Proxy IP address in the Plugin Firewall Whitelist by Hostname (domain name) and IP Address tool under the Plugin Firewall Additional Whitelist Tools accordion tab. If that does not work then you will need to deactivate the Plugin Firewall temporarily, download the zip file and then activate the Plugin Firewall again.', 'bulletproof-security').'<br><br><strong>'.__('Network|Multisite Sitewide Login Security Settings', 'bulletproof-security').'</strong><br>'.__('This option is for Network|Multisite sites only. This is an independent option Form that creates and saves Login Security DB option settings for all Network sites when you click the Save Network LSM Options Sitewide button. If Login Security option settings have already been setup and saved for any Network site then those Login Security option settings will NOT be changed. If Login Security options settings have NOT already been setup and saved for any Network site then those Login Security option settings will be created and saved with these default settings: Max Login Attempts: 3, Automatic Lockout Time: 60, Manual Lockout Time: 60, Max DB Rows To Show: blank show all rows, Turn On|Turn Off: Turn On Login Security, Logging Options: Log Only Account Lockouts, Error Messages: Standard WP Login Errors, Attempts Remaining: Show Login Attempts Remaining, Password Reset: Enable Password Reset, Sort DB Rows: Ascending - Show Oldest Login First.', 'bulletproof-security').'<br><br><strong>'.__('Network|Multisite Sitewide JTC-Lite Settings', 'bulletproof-security').'</strong><br>'.__('This option is for Network|Multisite sites only. This is an independent option Form that creates and saves JTC-Lite DB option settings for all Network sites when you click the Save Network JTC Options Sitewide button. If JTC option settings have already been setup and saved for any Network site then those JTC option settings will not be changed. If JTC options settings have not already been setup and saved for any Network site then those JTC option settings will be created and saved with these default settings: JTC CAPTCHA: jtc, JTC ToolTip: Type/Enter: jtc, JTC Title|Text: Hover or click the text box below, Enable|Disable JTC Anti-Spam For These Forms: Login Form checkbox is checked and will display the JTC CAPTCHA text box on the Login Form.', 'bulletproof-security'); 
+    $dialog_text = '<strong>'.__('AutoFix (AutoWhitelist|AutoSetup|AutoCleanup)', 'bulletproof-security').'</strong><br>'.__('Setup Wizard AutoFix is turned On by default. When AutoFix is turned On the Setup Wizard will automatically create htaccess whitelist rules in BPS Custom Code and your Live htaccess files for other plugins and themes that you have installed that require htaccess code whitelist rules. Setup Wizard AutoFix will also automatically setup or cleanup htaccess code in BPS Custom Code for these caching plugins: WP Super Cache, W3 Total Cache, Comet Cache Plugin (free & Pro), WP Fastest Cache Plugin (free & Premium), Endurance Page Cache and WP Rocket. If a problem occurs with AutoFix you can turn On the AutoFix Debugger on the BPS UI|UX Settings page > BPS UI|UX|AutoFix Debug option to check the plugin or theme name and the BPS Custom Code text box where the problem is occurring. You can also turn Off AutoFix and AutoFix will not try to detect or create Custom Code whitelist rules or setup or cleanup caching plugins htaccess code. If a problem does occur with AutoFix turn On the BPS UI|UX|AutoFix Debug option, copy the AutoFix Debug information that is displayed to you and then click the AutoFix Forum Topic link at the top of this Read Me help window and post a forum Reply with your AutoFix Debug information so that we can figure out what the problem is.', 'bulletproof-security').'<br><br><strong>'.__('GDPR Compliance (IP Address Logging On|Off)', 'bulletproof-security').'</strong><br>'.__('The GDPR Compliance option setting is set to Off by default. Choosing the GDPR Compliance On option setting will disable IP address logging in all BPS features that log IP addresses. This plain text will be logged instead of IP addresses: GDPR Compliance On. List of BPS features that log IP addresses: Security Log, Login Security and Maintenance Mode. Note: For simplicity and ease of use this GDPR Compliance Setup Wizard Options setting is the only option setting that needs to be set instead of creating individual option settings in all BPS features that perform IP address logging. For more information about GDPR Compliance click the GDPR Compliance Forum Topic link at the top of this Read Me help window.', 'bulletproof-security').'<br><br><strong>'.__('Go Daddy Managed WordPress Hosting (GDMW):', 'bulletproof-security').'</strong><br>'.__('This option is ONLY for a special type of Go Daddy Hosting account called "Managed WordPress Hosting" and is NOT for regular/standard Go Daddy Hosting account types. Leave the default setting set to No, unless you have a Go Daddy Managed WordPress Hosting account. See the Forum Help Links section above for more information.', 'bulletproof-security').'<br><br><strong>'.__('Enable|Disable htaccess Files:', 'bulletproof-security').'</strong><br>'.__('Before changing this option setting, click the ', 'bulletproof-security').'<strong><font color="blue">'.__('Enable|Disable htaccess Files', 'bulletproof-security').'</font></strong>'.__(' Forum Help Link at the top of this Read Me help window to find out exactly what this option setting does and when it should or should not be used. htaccess Files Disabled: Will disable all BPS htaccess features and files. htaccess Files Enabled: Will enable all BPS htaccess freatures and files.', 'bulletproof-security').'<br><br><strong>'.__('Enable|Disable wp-admin BulletProof Mode', 'bulletproof-security').'</strong><br>'.__('The default setting is already set to: wp-admin BulletProof Mode Enabled. If you would like to disable wp-admin BulletProof Mode select wp-admin BulletProof Mode Disabled.', 'bulletproof-security').'<br><br><strong>'.__('Zip File Download Fix (Incapsula, Proxy, Other Cause):', 'bulletproof-security').'</strong><br>'.__('This option should only be set to On if you are seeing a 403 error and/or unable to download these Zip files: Custom Code Export Zip file, Login Security Table Export Zip file or the Setup Wizard Root htaccess file backup Zip file. The Setup Wizard Root htaccess file backup Zip file link is only displayed if BPS detects that your current Root htaccess file is not a BPS Root htaccess file. If you are still unable to download zip files after setting this option to On then you will need to whitelist your Proxy IP address in the Plugin Firewall Whitelist by Hostname (domain name) and IP Address tool under the Plugin Firewall Additional Whitelist Tools accordion tab. If that does not work then you will need to deactivate the Plugin Firewall temporarily, download the zip file and then activate the Plugin Firewall again.', 'bulletproof-security').'<br><br><strong>'.__('Multisite Hide|Display System Info Page for Subsites:', 'bulletproof-security').'</strong><br>'.__('This option is for Network|Multisite sites only. Choosing Hide System Info Page will hide the System Info menu link under the BPS navigational menus. Choosing Display System Info page will display the System Info menu link under the BPS navigational mensus.', 'bulletproof-security').'<br><br><strong>'.__('Network|Multisite Sitewide Login Security Settings', 'bulletproof-security').'</strong><br>'.__('This option is for Network|Multisite sites only. This is an independent option Form that creates and saves Login Security DB option settings for all Network sites when you click the Save Network LSM Options Sitewide button. If Login Security option settings have already been setup and saved for any Network site then those Login Security option settings will NOT be changed. If Login Security options settings have NOT already been setup and saved for any Network site then those Login Security option settings will be created and saved with these default settings: Max Login Attempts: 3, Automatic Lockout Time: 60, Manual Lockout Time: 60, Max DB Rows To Show: blank show all rows, Turn On|Turn Off: Turn On Login Security, Logging Options: Log Only Account Lockouts, Error Messages: Standard WP Login Errors, Attempts Remaining: Show Login Attempts Remaining, Password Reset: Enable Password Reset, Sort DB Rows: Ascending - Show Oldest Login First.', 'bulletproof-security').'<br><br><strong>'.__('Network|Multisite Sitewide JTC-Lite Settings', 'bulletproof-security').'</strong><br>'.__('This option is for Network|Multisite sites only. This is an independent option Form that creates and saves JTC-Lite DB option settings for all Network sites when you click the Save Network JTC Options Sitewide button. If JTC option settings have already been setup and saved for any Network site then those JTC option settings will not be changed. If JTC options settings have not already been setup and saved for any Network site then those JTC option settings will be created and saved with these default settings: JTC CAPTCHA: jtc, JTC ToolTip: Type/Enter: jtc, JTC Title|Text: Hover or click the text box below, Enable|Disable JTC Anti-Spam For These Forms: Login Form checkbox is checked and will display the JTC CAPTCHA text box on the Login Form.', 'bulletproof-security'); 
 	echo $dialog_text; 
 	?>
 
@@ -1137,6 +1130,18 @@ bpsSetupWizardPrechecks();
 <option value="Off" <?php selected('Off', $AutoFix_Options['bps_wizard_autofix']); ?>><?php _e('AutoFix Off', 'bulletproof-security'); ?></option>
 </select><br />
 <input type="submit" name="Submit-AutoFix" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px;height:auto;white-space:normal" value="<?php esc_attr_e('Save AutoFix Option', 'bulletproof-security') ?>" />
+</form>
+
+<form name="GDPR" action="options.php#bps-tabs-2" method="post">
+	<?php settings_fields('bulletproof_security_options_gdpr'); ?>
+	<?php $GDPR_Options = get_option('bulletproof_security_options_gdpr'); ?>
+	
+    <strong><label for="gdpr"><?php _e('GDPR Compliance (IP Address Logging On|Off):', 'bulletproof-security'); ?></label></strong><br />
+<select name="bulletproof_security_options_gdpr[bps_gdpr_on_off]" class="form-300" style="margin-top:5px;">
+<option value="Off" <?php selected('Off', $GDPR_Options['bps_gdpr_on_off']); ?>><?php _e('GDPR Compliance Off', 'bulletproof-security'); ?></option>
+<option value="On" <?php selected('On', $GDPR_Options['bps_gdpr_on_off']); ?>><?php _e('GDPR Compliance On', 'bulletproof-security'); ?></option>
+</select><br />
+<input type="submit" name="Submit-GDPR" class="button bps-button" style="margin:10px 0px 20px 0px;width:202px;height:auto;white-space:normal" value="<?php esc_attr_e('Save GDPR Option', 'bulletproof-security') ?>" />
 </form>
 
 <form name="SetupWizardGDMW" action="options.php#bps-tabs-2" method="post">
@@ -1185,6 +1190,18 @@ bpsSetupWizardPrechecks();
 <option value="On" <?php selected('On', $Zip_download_Options['bps_zip_download_fix']); ?>><?php _e('Zip File Download Fix On', 'bulletproof-security'); ?></option>
 </select><br />
 <input type="submit" name="Submit-Zip-Download-Fix" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px;height:auto;white-space:normal" value="<?php esc_attr_e('Save Zip File Download Fix Option', 'bulletproof-security') ?>" />
+</form>
+
+<form name="muSysinfo" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/wizard/wizard.php#bps-tabs-2' ); ?>" method="post">
+	<?php wp_nonce_field('bulletproof_security_options_mu_sysinfo'); ?>
+	<?php $Mu_Sysinfo_page_options = get_option('bulletproof_security_options_mu_sysinfo'); ?>
+	
+    <strong><label for="mu-sysinfo"><?php _e('Multisite Hide|Display System Info Page for Subsites:', 'bulletproof-security'); ?></label></strong><br />
+<select name="bulletproof_security_options_mu_sysinfo_select" class="form-300" style="margin-top:5px;">
+<option value="display" <?php selected('display', $Mu_Sysinfo_page_options['bps_sysinfo_hide_display']); ?>><?php _e('Display System Info Page', 'bulletproof-security'); ?></option>
+<option value="hide" <?php selected('hide', $Mu_Sysinfo_page_options['bps_sysinfo_hide_display']); ?>><?php _e('Hide System Info Page', 'bulletproof-security'); ?></option>
+</select><br />
+<input type="submit" name="Submit-MU-Sysinfo-Display" class="button bps-button" style="margin:10px 0px 20px 0px;width:232px;height:auto;white-space:normal" value="<?php esc_attr_e('Save Multisite Hide|Display Option', 'bulletproof-security') ?>" />
 </form>
 
 <form name="bpsNetLSM" action="<?php echo admin_url( 'admin.php?page=bulletproof-security/admin/wizard/wizard.php#bps-tabs-2' ); ?>" method="post">
@@ -1246,6 +1263,29 @@ if ( isset( $_POST['Submit-Zip-Download-Fix'] ) && current_user_can('manage_opti
 		echo $text;
 		echo $bps_bottomDiv;
 	}
+}
+
+// Network|Multisite: Multisite Hide|Display System Info Page for Subsites
+if ( isset( $_POST['Submit-MU-Sysinfo-Display'] ) && current_user_can('manage_options') ) {
+		check_admin_referer( 'bulletproof_security_options_mu_sysinfo' );
+		
+	$network_ids = wp_get_sites();
+
+	foreach ( $network_ids as $key => $value ) {
+			
+		$net_id = $value['blog_id'];
+
+		$MU_Sysinfo_Options = array( 'bps_sysinfo_hide_display' => esc_html($_POST['bulletproof_security_options_mu_sysinfo_select']) );	
+	
+		foreach( $MU_Sysinfo_Options as $key => $value ) {
+			update_blog_option( $net_id, 'bulletproof_security_options_mu_sysinfo', $MU_Sysinfo_Options);
+		}		
+	}
+
+	echo $bps_topDiv;
+	$text = '<font color="green"><strong>'.__('Multisite Hide|Display System Info Page for Subsites option saved.', 'bulletproof-security').'</strong></font>';
+	echo $text;
+	echo $bps_bottomDiv;
 }
 
 // Network|Multisite: update/save Login Security DB option settings for all sites
@@ -1431,7 +1471,7 @@ if ( isset( $_POST['Submit-Net-JTC'] ) && current_user_can('manage_options') ) {
 
 </div>    
 
-<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; echo @$vcheck_options['bps_vcheck']; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
+<div id="AITpro-link">BulletProof Security <?php echo BULLETPROOF_VERSION; ?> Plugin by <a href="https://forum.ait-pro.com/" target="_blank" title="AITpro Website Security">AITpro Website Security</a>
 </div>
 </div>
 <style>

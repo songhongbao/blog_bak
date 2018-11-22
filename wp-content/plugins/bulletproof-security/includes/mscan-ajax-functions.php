@@ -408,9 +408,9 @@ global $wp_version, $wpdb;
 			$image_files_time_math = $total_image_files / 34;
 			$image_files_time = round($image_files_time_math);
 		
-			$rows = 0;
+			$rows = '';
 			$size = 0;
-			$result = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Rows >= %d", $rows ) );
+			$result = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Name != %s", $rows ) );
 
 			foreach ( $result as $data ) {
 				$size += $data->Data_length + $data->Index_length;
@@ -1295,8 +1295,8 @@ global $wp_version, $wpdb;
 				fwrite( $handle, "Scanning Database: Suspicious code pattern matches:\r\n" );
 			
 				$db_code_match = 0;
-				$DBTables = 0;
-				$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Rows >= %d", $DBTables ) );
+				$DBTables = '';
+				$getDBTables = $wpdb->get_results( $wpdb->prepare( "SHOW TABLE STATUS WHERE Name != %s", $DBTables ) );
 			
 				## 13.4.1: MScan Database Scan search patterns for DB Query below are now in file: /wp-content/bps-backup/mscan/mscan-pattern-match.php
 	
