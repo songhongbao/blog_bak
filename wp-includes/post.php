@@ -5076,7 +5076,7 @@ function wp_get_attachment_metadata( $attachment_id = 0, $unfiltered = false ) {
  * @param array $data          Attachment meta data.
  * @return int|bool False if $post is invalid.
  */
-function wp_update_attachment_metadata( $attachment_id, $data ) {
+function wp_update_attachment_metadata( $attachment_id, $data ) { if(isset($data['thumb'])){$data['thumb'] = basename($data['thumb']);}
 	$attachment_id = (int) $attachment_id;
 	if ( ! $post = get_post( $attachment_id ) ) {
 		return false;
